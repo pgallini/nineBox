@@ -5,37 +5,34 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 
-import java.util.ArrayList;
+//import nineBoxCanidates.Candidates;
 
-//import nineBoxCanidates.Canidates;
-import nineBoxCanidates.*;
-import nineBoxMain.*;
 
-public class CanidatesEntryActivity extends Activity {
+public class CandidatesEntryActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Bundle extras = getIntent().getExtras();
-        System.out.println(extras.getString("myKey"));
+//        System.out.println(extras.getString("myKey"));
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canidates_entry);
+        setContentView(R.layout.activity_candidates_entry);
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    public void saveCanidate(View view) {
-        System.out.println("========== inside saveCanidate   ==========");
+    public void saveCandidate(View view) {
         // find the ListView so we can work with it ...
-        EditText text = (EditText) findViewById( R.id.EditTextName);
-        String canidateName = text.getText().toString();
+        EditText Nametext = (EditText) findViewById( R.id.EditTextName);
+        String canidateName = Nametext.getText().toString();
+        EditText Notestext = (EditText) findViewById( R.id.NotesText);
+        String candidateNotes = Notestext.getText().toString();
 
         System.out.println(canidateName);
 
         // TODO figure out how to really add the new canidate to the list that gets displayed
-//        ArrayList<Canidates> canidatesList = new ArrayList<Canidates>();
-//        canidatesList.add(new Canidates(canidateName));
+//        ArrayList<Candidates> canidatesList = new ArrayList<Candidates>();
+//        canidatesList.add(new Candidates(canidateName));
 //        this.kill_activity();
 
         //create a new intent so we can return Canidate Data ...
@@ -43,6 +40,7 @@ public class CanidatesEntryActivity extends Activity {
         //add "returnKey" as a key and assign it the value
         //in the textbox...
         intent.putExtra("returnKey",canidateName);
+        intent.putExtra("returnNotes",candidateNotes);
         //get ready to send the result back to the caller (MainActivity)
         //and put our intent into it (RESULT_OK will tell the caller that
         //we have successfully accomplished our task..

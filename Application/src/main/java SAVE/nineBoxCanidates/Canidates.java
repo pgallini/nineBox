@@ -1,4 +1,4 @@
-package nineBoxCanidates;
+package nineBoxCandidates;
 
 import java.util.ArrayList;
 import java.util.Scanner;

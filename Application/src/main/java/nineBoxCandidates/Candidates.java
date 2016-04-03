@@ -1,18 +1,18 @@
-package nineBoxCanidates;
+package nineBoxCandidates;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import android.os.Bundle;
-import com.ninebox.nineboxapp.R;
+
 import nineBoxQuestions.Questions;
 /**
  * Created by Paul Gallini on 2/22/16.
  */
-public class Canidates {
-    private String canidateName = " ";
+public class Candidates {
+    private String candidateName = " ";
+    private String candidateNotes = " ";
     private int xCoordinate = 0;
     private int yCoordinate = 0;
-    private long canidateID = 0;
+    private long candidateID = 0;
     private Responses responseSet = new Responses();
 
     private int pomptForResponse(String qText, Scanner scanner) {
@@ -39,20 +39,20 @@ public class Canidates {
     }
 
 
-    public Canidates() {
+    public Candidates() {
         super();
         int tempResponse = 1;
     }
 
-    public Canidates(String canidateName) {
+    public Candidates(String candidateName) {
         super();
-        this.canidateName = canidateName;
+        this.candidateName = candidateName;
         int tempResponse = 1;
     }
 
-    public Canidates(String canidateName, Questions questionSet_X_Axis, Questions questionSet_Y_Axis, Scanner scanner) {
+    public Candidates(String candidateName, Questions questionSet_X_Axis, Questions questionSet_Y_Axis, Scanner scanner) {
         super();
-        this.canidateName = canidateName;
+        this.candidateName = candidateName;
         int tempResponse = 1;
 
         ArrayList<String> tmpQuestionText_X_Axis = questionSet_X_Axis.getQuestionText();
@@ -70,7 +70,7 @@ public class Canidates {
         }
     }
 
-    public int calcCanidate_Coordinate(Questions questionSet) {
+    public int calcCandidate_Coordinate(Questions questionSet) {
         ArrayList<Integer> tmpQuestionWeight;
         tmpQuestionWeight = questionSet.getQuestionWeight();
         int coordinate = 0;
@@ -103,15 +103,19 @@ public class Canidates {
         this.yCoordinate = yCoordinate;
     }
 
-    public void setCanidateName( String name ) { canidateName = name; }
+    public void setCandidateName( String name ) { candidateName = name; }
 
-    public String getCanidateName() {
-        return canidateName;
+    public String getCandidateName() {
+        return candidateName;
     }
 
-    public void setCanidateID( long id ) { canidateID = id; }
+    public void setCandidateNotes( String notes ) { candidateNotes = notes; };
 
-    public long getCanidateID() { return canidateID; }
+    public String getCandidateNotes() { return candidateNotes; }
+
+    public void setCandidateID( long id ) { candidateID = id; }
+
+    public long getCandidateID() { return candidateID; }
 
 
 

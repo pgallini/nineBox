@@ -30,54 +30,55 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.ninebox.nineboxapp.CanidatesEntryActivity;
+import com.ninebox.nineboxapp.CandidatesEntryActivity;
 import com.ninebox.nineboxapp.R;
 
-import nineBoxCanidates.CanidateOperations;
+import nineBoxCandidates.Candidates;
+import nineBoxCandidates.CandidateOperations;
 import nineBoxQuestions.Questions;
-import nineBoxCanidates.Canidates;
 
 /**
  * This activity demonstrates the <b>borderless button</b> styling from the Holo visual language.
  * The most interesting bits in this sample are in the layout files (res/layout/).
- * <p>
+ * <p/>
  * See <a href="http://developer.android.com/design/building-blocks/buttons.html#borderless">
  * borderless buttons</a> at the Android Design guide for a discussion of this visual style.
  */
-//public class MainActivity extends Activity {
 public class MainActivity extends Activity {
-//    TODO  get rid of this or change it to something useful
+    //    TODO  get rid of this or change it to something useful
     private static final Uri DOCS_URI = Uri.parse(
             "http://developer.android.com/design/building-blocks/buttons.html#borderless");
-    private final int CANIDATESENTRY_ACTIVITY_REQUEST_CODE=0;
-    public ArrayList<Canidates> canidatesList = new ArrayList<Canidates>();
+    private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
+    public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
     public ArrayAdapter<String> arrayAdapter = null;
-    private CanidateOperations canidateOperations;
+    private CandidateOperations candidateOperations;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_main);
 
+//        setAdapter(mAdapter);  this is wrong!!
+
         // Create initial listAdapter - populate with initial entry
         // TODO get rid of this ... display informative graphic when list is empty
-        String[] itemList = new String[] { "Empty List" };
+//        String[] itemList = new String[]{"Empty List"};
         ArrayList<String> displayList = new ArrayList<String>();
-        displayList.addAll(Arrays.asList(itemList));
+//        displayList.addAll(Arrays.asList(itemList));
 
-        // set-up the operations class for Canidates ...
-        canidateOperations = new CanidateOperations(this);
-        canidateOperations.open();
+        // set-up the operations class for Candidates ...
+        candidateOperations = new CandidateOperations(this);
+        candidateOperations.open();
 
-        // create a list of canidates from what's in the database ...
-        displayList = canidateOperations.getAllCanidates();
-
+        // create a list of candidates from what's in the database ...
+        displayList = candidateOperations.getAllCandidates();
 
         // find the ListView so we can work with it ...
-        ListView mainListView = (ListView) findViewById( R.id.list);
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.canidate, displayList);
+        ListView mainListView = (ListView) findViewById(R.id.list);
+        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.candidate, displayList);
         mainListView.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
 
@@ -92,12 +93,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(view.getContext(), CanidatesEntryActivity.class);
-//                View canidateEntry = (View) findViewById(R.id.addCanidate);
-                // TODO look into sending a bundle (android.os.bundle) to get the new canidate object back maybe?
-                intent.putExtra("myKey","sampleText");
-                startActivityForResult(intent, CANIDATESENTRY_ACTIVITY_REQUEST_CODE);
-
+                Intent intent = new Intent(view.getContext(), CandidatesEntryActivity.class);
+                intent.putExtra("myKey", "sampleText");
+                startActivityForResult(intent, CANDIDATESENTRY_ACTIVITY_REQUEST_CODE);
             }
         });
     }
@@ -105,31 +103,32 @@ public class MainActivity extends Activity {
     //we need a handler for when the secondary activity finishes it's work
     //and returns control to this activity...
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        Bundle extras = intent.getExtras();
-        String returnCanidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
-        System.out.println("returned name = " + returnCanidateName);
-        arrayAdapter.add(returnCanidateName);
-        // save to database
-        Canidates canidate = canidateOperations.addCanidate(returnCanidateName);
+        if (intent != null ) {
+            Bundle extras = intent.getExtras();
+            String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
+            String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
+            System.out.println("returned name = " + returnCandidateName);
+            arrayAdapter.add(returnCandidateName);
+            // save to database
+            Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes);
 
-        new Canidates(returnCanidateName);
-        arrayAdapter.notifyDataSetChanged();
+            // TODO is this needed? should we add Notes?
+            new Candidates(returnCandidateName);
+            arrayAdapter.notifyDataSetChanged();
+        }
     }
-
-    // TODO add a onResume() method where we refresh the list of canidates
-
-
-    private BaseAdapter mListAdapter = new BaseAdapter() {
+    // TODO add a onResume() method where we refresh the list of candidates
+    private BaseAdapter mAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
-            return canidatesList.size();
+            return candidatesList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return canidatesList.get(position).getCanidateName();
+            return candidatesList.get(position).getCandidateName();
         }
 
         @Override
@@ -139,27 +138,39 @@ public class MainActivity extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup container) {
+            // TODO remove this
+            System.out.println("inside getView ");
+
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.list_item, container, false);
             }
             // Because the list item contains multiple touch targets, you should not override
             // onListItemClick. Instead, set a click listener for each target individually.
             convertView.findViewById(R.id.primary_target).setOnClickListener(
+                    // TODO figure out why these listeners aren't working!!
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            // TODO remove this
+                            System.out.println("name clicked");
                             Toast.makeText(MainActivity.this,
                                     R.string.touched_primary_message,
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
-            convertView.findViewById(R.id.secondary_action).setOnClickListener(
+            convertView.findViewById(R.id.delete_action).setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(MainActivity.this,
-                                    R.string.touched_secondary_message,
-                                    Toast.LENGTH_SHORT).show();
+
+                            // TODO remove this
+                            System.out.println("Delete clicked");
+
+                            // Delete icon selected - delete the current Candidate
+                            candidateOperations.deleteCandidate(candidatesList.get(R.id.candidate));
+//                            Toast.makeText(MainActivity.this,
+//                                    R.string.touched_secondary_message,
+//                                    Toast.LENGTH_SHORT).show();
                         }
                     });
             convertView.findViewById(R.id.config_action).setOnClickListener(
@@ -175,14 +186,14 @@ public class MainActivity extends Activity {
         }
     };
 
-//    TODO - this is temporary set-up code ... get rid of it
+    //    TODO - this is temporary set-up code ... get rid of it
     private void setUpQuestions() {
         Questions questionSet_X_Axis = new Questions();
         Questions questionSet_Y_Axis = new Questions();
         ArrayList<String> tmpQuestionText;
         ArrayList<String> tmpQuestionResp;
         ArrayList<Integer> tmpQuestionWeight;
-        String newCanidateName = " ";
+        String newCandidateName = " ";
 
         // Set up X Axis questions ...
         questionSet_X_Axis.addQuestionText("X Question 1");
@@ -197,13 +208,13 @@ public class MainActivity extends Activity {
 
         System.out.println("========== Question Text ==========");
         tmpQuestionText = questionSet_X_Axis.getQuestionText();
-        for( String qText : tmpQuestionText) {
+        for (String qText : tmpQuestionText) {
             System.out.println(qText.toString());
         }
 
         System.out.println("========== Question Weight ==========");
         tmpQuestionWeight = questionSet_X_Axis.getQuestionWeight();
-        for( int qText : tmpQuestionWeight) {
+        for (int qText : tmpQuestionWeight) {
             System.out.println(qText);
         }
 
@@ -220,26 +231,27 @@ public class MainActivity extends Activity {
 
         System.out.println("========== Question Text ==========");
         tmpQuestionText = questionSet_Y_Axis.getQuestionText();
-        for( String qText : tmpQuestionText) {
+        for (String qText : tmpQuestionText) {
             System.out.println(qText.toString());
         }
 
         System.out.println("========== Question Weight ==========");
         tmpQuestionWeight = questionSet_Y_Axis.getQuestionWeight();
-        for( int qText : tmpQuestionWeight) {
+        for (int qText : tmpQuestionWeight) {
             System.out.println(qText);
         }
     }
 
     //    TODO - this is temporary set-up code ... get rid of it
-    private ArrayList<Canidates> setUpCanidates() {
-        ArrayList<Canidates> canidatesList = new ArrayList<Canidates>();
-        canidatesList.add(new Canidates( "Bob" ));
-        canidatesList.add(new Canidates( "Suresh" ));
-        canidatesList.add(new Canidates( "Kathy" ));
+    private ArrayList<Candidates> setUpCandidates() {
+        ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
+        candidatesList.add(new Candidates("Bob"));
+        candidatesList.add(new Candidates("Suresh"));
+        candidatesList.add(new Candidates("Kathy"));
 
-        return canidatesList;
+        return candidatesList;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -254,15 +266,15 @@ public class MainActivity extends Activity {
                 try {
 //                    startActivity(new Intent(Intent.ACTION_VIEW, DOCS_URI));
 //                    TODO replace this with something real...
-                    canidatesList = setUpCanidates();
+                    candidatesList = setUpCandidates();
 
-                    System.out.println("=== Canidate Info ===");
-                    for (int i = 0; i < canidatesList.size(); i++) {
+                    System.out.println("=== Candidate Info ===");
+                    for (int i = 0; i < candidatesList.size(); i++) {
 
-                        // add each Canidates name to our listAdapter ...
-                        arrayAdapter.add(canidatesList.get(i).getCanidateName());
+                        // add each Candidates name to our listAdapter ...
+                        arrayAdapter.add(candidatesList.get(i).getCandidateName());
                         arrayAdapter.notifyDataSetChanged();
-                        System.out.println("name = " + canidatesList.get(i).getCanidateName());
+                        System.out.println("name = " + candidatesList.get(i).getCandidateName());
                     }
 
                     //    TODO remove this ...

@@ -41,7 +41,7 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:42:17
 	android:name
 		ADDED from AndroidManifest.xml:42:27
-activity#com.ninebox.nineboxapp.CanidatesEntryActivity
+activity#com.ninebox.nineboxapp.CandidatesEntryActivity
 ADDED from AndroidManifest.xml:45:9
 	android:label
 		ADDED from AndroidManifest.xml:47:13
