@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/addCanidate"
+    android:id="@+id/addCandidate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CanidatesEntryActivity">
+    tools:context=".CandidatesEntryActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -19,28 +19,28 @@
             android:id="@+id/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/edit_canidate_intro"
+            android:text="@string/edit_candidate_intro"
             android:textSize="10pt"></TextView>
 
         <EditText
             android:id="@+id/EditTextName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/edit_canidate_hint"
+            android:hint="@string/edit_candidate_hint"
             android:inputType="textPersonName"></EditText>
 
         <TextView
             android:id="@+id/NotesTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/edit_canidate_notes_title"
+            android:text="@string/edit_candidate_notes_title"
             android:textSize="10pt"></TextView>
 
         <EditText
             android:id="@+id/NotesText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/edit_canidate_notes_hint"
+            android:hint="@string/edit_candidate_notes_hint"
             android:inputType="textPersonName"></EditText>
 
         <LinearLayout
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/EditTextName"
                 android:layout_centerHorizontal="true"
-                android:onClick="saveCanidate"
+                android:onClick="saveCandidate"
                 android:text="@string/button_save" />
 
             <Button
@@ -73,4 +73,3 @@
 
 
 </RelativeLayout>
-<!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/layout/activity_canidates_entry.xml -->

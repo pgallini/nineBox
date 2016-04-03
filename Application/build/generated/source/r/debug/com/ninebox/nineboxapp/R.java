@@ -150,18 +150,19 @@ containing a value of this type.
         public static final int NotesText=0x7f090004;
         public static final int NotesTitle=0x7f090003;
         public static final int TextViewTitle=0x7f090001;
-        public static final int addCanidate=0x7f090000;
+        public static final int addCandidate=0x7f090000;
         public static final int cancel_button=0x7f090006;
-        public static final int canidate=0x7f090008;
-        public static final int config_action=0x7f09000a;
-        public static final int docs_link=0x7f09000d;
-        public static final int list=0x7f09000b;
-        public static final int ok_button=0x7f09000c;
-        public static final int primary_target=0x7f090007;
-        public static final int secondary_action=0x7f090009;
+        public static final int candidate=0x7f090009;
+        public static final int config_action=0x7f09000b;
+        public static final int delete_action=0x7f09000a;
+        public static final int docs_link=0x7f09000e;
+        public static final int list=0x7f09000c;
+        public static final int ok_button=0x7f09000d;
+        public static final int primary_target=0x7f090008;
+        public static final int scrollView1=0x7f090007;
     }
     public static final class layout {
-        public static final int activity_canidates_entry=0x7f030000;
+        public static final int activity_candidates_entry=0x7f030000;
         public static final int list_item=0x7f030001;
         public static final int sample_main=0x7f030002;
     }
@@ -177,15 +178,15 @@ containing a value of this type.
         public static final int docs_link_title=0x7f070005;
         public static final int dummy_subtitle=0x7f070006;
         public static final int dummy_title=0x7f070007;
-        public static final int edit_canidate_hint=0x7f070008;
-        public static final int edit_canidate_intro=0x7f070009;
-        public static final int edit_canidate_notes_hint=0x7f07000a;
-        public static final int edit_canidate_notes_title=0x7f07000b;
+        public static final int edit_candidate_hint=0x7f070008;
+        public static final int edit_candidate_intro=0x7f070009;
+        public static final int edit_candidate_notes_hint=0x7f07000a;
+        public static final int edit_candidate_notes_title=0x7f07000b;
         public static final int intro_message=0x7f07000c;
         public static final int newbtn=0x7f07000d;
         public static final int ok=0x7f07000e;
-        public static final int title_activity_canidates_entry=0x7f07000f;
-        public static final int title_activity_canidates_entry2=0x7f070010;
+        public static final int title_activity_candidates_entry=0x7f07000f;
+        public static final int title_activity_candidates_entry2=0x7f070010;
         public static final int touched_config_message=0x7f070011;
         public static final int touched_primary_message=0x7f070012;
         public static final int touched_secondary_message=0x7f070013;

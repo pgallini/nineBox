@@ -18,9 +18,7 @@
 package nineBoxMain;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,14 +27,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.ninebox.nineboxapp.R;
+
+import nineBoxCandidates.Candidates;
 import nineBoxQuestions.Questions;
-import nineBoxCanidates.Canidates;
 
 /**
  * This activity demonstrates the <b>borderless button</b> styling from the Holo visual language.
@@ -50,7 +48,7 @@ public class MainActivity extends Activity {
 //    TODO  get rid of this or change it to something useful
     private static final Uri DOCS_URI = Uri.parse(
             "http://developer.android.com/design/building-blocks/buttons.html#borderless");
-    public ArrayList<Canidates> canidatesList = new ArrayList<Canidates>();
+    public ArrayList<Candidates> canidatesList = new ArrayList<Candidates>();
     public ArrayAdapter<String> arrayAdapter = null;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,11 +198,11 @@ public class MainActivity extends Activity {
     }
 
     //    TODO - this is temporary set-up code ... get rid of it
-    private ArrayList<Canidates> setUpCanidates() {
-        ArrayList<Canidates> canidatesList = new ArrayList<Canidates>();
-        canidatesList.add(new Canidates( "Bob" ));
-        canidatesList.add(new Canidates( "Suresh" ));
-        canidatesList.add(new Canidates( "Kathy" ));
+    private ArrayList<Candidates> setUpCanidates() {
+        ArrayList<Candidates> canidatesList = new ArrayList<Candidates>();
+        canidatesList.add(new Candidates( "Bob" ));
+        canidatesList.add(new Candidates( "Suresh" ));
+        canidatesList.add(new Candidates( "Kathy" ));
 
         return canidatesList;
     }
@@ -227,7 +225,7 @@ public class MainActivity extends Activity {
                     System.out.println("=== Canidate Info ===");
                     for (int i = 0; i < canidatesList.size(); i++) {
 
-                        // add each Canidates name to our listAdapter ...
+                        // add each Candidates name to our listAdapter ...
                         arrayAdapter.add(canidatesList.get(i).getCanidateName());
                         arrayAdapter.notifyDataSetChanged();
                         System.out.println("name = " + canidatesList.get(i).getCanidateName());
