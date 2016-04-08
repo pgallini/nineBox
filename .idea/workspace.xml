@@ -13,72 +13,27 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="159e350f-770d-4fa5-a902-527c0bfc1e53" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/CandidateOperations.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/CanidatesEntryActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxCanidates/CanidateOperations.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxCanidates/Canidates.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxCanidates/Responses.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/activity_canidates_entry.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/src/main/java/nineBoxCanidates/CanidateOperations.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Application/src/main/java/com/ninebox/nineboxapp/CanidatesEntryActivity.java" afterPath="$PROJECT_DIR$/Application/src/main/java/com/ninebox/nineboxapp/CandidatesEntryActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Application/src/main/java/nineBoxCanidates/Canidates.java" afterPath="$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/Candidates.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Application/src/main/java/nineBoxCanidates/Responses.java" afterPath="$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/Responses.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Application/src/main/res/layout/activity_canidates_entry.xml" afterPath="$PROJECT_DIR$/Application/src/main/res/layout/activity_candidates_entry.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$3.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug-unaligned.apk" afterPath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug.apk" afterPath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/DatabaseOpenHelper.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/DatabaseOpenHelper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$1.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$2.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$1.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$2.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$3.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/nineBoxMain/MainActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$id.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$layout.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$menu.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$menu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$string.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$style.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$styleable.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/ninebox/nineboxapp/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/classes-1e9f369f45301548662e9dd9c93e3b62eb38bb21.jar" afterPath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/classes-1e9f369f45301548662e9dd9c93e3b62eb38bb21.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/classes-60b0ba64b136c7cfcfa3a854d7be258893ef17fa.jar" afterPath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/classes-60b0ba64b136c7cfcfa3a854d7be258893ef17fa.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/classes-ff3f4d7f971ccc67ae8f4da50ed422ab90e173f1.jar" afterPath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/classes-ff3f4d7f971ccc67ae8f4da50ed422ab90e173f1.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/Application/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-3512e4f4dcf0a00335059d4d6c7b2f1ba24fe149.jar" afterPath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-3512e4f4dcf0a00335059d4d6c7b2f1ba24fe149.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-edc01dab4fab4331d88754cf28406de6e49762f4.jar" afterPath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-edc01dab4fab4331d88754cf28406de6e49762f4.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug-androidTest.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-ba2c0cb7ff4ceaaa822485efdd36996538f15a07.jar" afterPath="$PROJECT_DIR$/Application/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-ba2c0cb7ff4ceaaa822485efdd36996538f15a07.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Application/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Application.iml" afterPath="$PROJECT_DIR$/Application/Application.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java SAVE/nineBoxCanidates/Canidates.java" afterPath="$PROJECT_DIR$/Application/src/main/java SAVE/nineBoxCanidates/Canidates.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/DatabaseOpenHelper.java" afterPath="$PROJECT_DIR$/Application/src/main/java/DatabaseOpenHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java SAVE/nineBoxMain/MainActivity.java" afterPath="$PROJECT_DIR$/Application/src/main/java SAVE/nineBoxMain/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/CandidateOperations.java" afterPath="$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/CandidateOperations.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/nineBoxMain/MainActivity.java" afterPath="$PROJECT_DIR$/Application/src/main/java/nineBoxMain/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/generated/source/r/debug/com/ninebox/nineboxapp/R.java" afterPath="$PROJECT_DIR$/Application/build/generated/source/r/debug/com/ninebox/nineboxapp/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/Application/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java SAVE/nineBoxCanidates/Responses.java" afterPath="$PROJECT_DIR$/Application/src/main/java SAVE/nineBoxCanidates/Responses.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/list_item.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/res/layout/list_item.xml" afterPath="$PROJECT_DIR$/Application/src/main/res/layout/list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/Application/build/outputs/logs/manifest-merger-debug-report.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/sample_main.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/sample_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/res/layout/sample_main.xml" afterPath="$PROJECT_DIR$/Application/src/main/res/layout/sample_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/Application/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NineBoxMobile.iws" />
@@ -107,85 +62,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxMain/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.296296">
-              <caret line="114" column="60" selection-start-line="114" selection-start-column="60" selection-end-line="114" selection-end-column="60" />
-              <folding>
-                <element signature="e#0#11916#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#3427#3572#0" expanded="true" />
-                <element signature="e#3571#3572#0" expanded="true" />
-                <element signature="e#5196#5197#0" expanded="true" />
-                <element signature="e#5248#5249#0" expanded="true" />
-                <element signature="e#5456#5457#0" expanded="true" />
-                <element signature="e#5499#5500#0" expanded="true" />
-                <element signature="e#6197#6672#0" expanded="true" />
-                <element signature="e#6527#6559#0" expanded="true" />
-                <element signature="e#6671#6672#0" expanded="true" />
-                <element signature="e#6772#7443#0" expanded="true" />
-                <element signature="e#7442#7443#0" expanded="true" />
-                <element signature="e#7543#7905#0" expanded="true" />
-                <element signature="e#7761#7792#0" expanded="true" />
-                <element signature="e#7904#7905#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CandidateOperations.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/CandidateOperations.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5445344">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state vertical-scroll-proportion="1.1510792">
+              <caret line="40" column="15" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="112" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/build/intermediates/manifests/full/debug/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-              <folding>
-                <element signature="e#1937#1979#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CandidatesEntryActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/ninebox/nineboxapp/CandidatesEntryActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Candidates.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/Candidates.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-56.666668">
-              <caret line="113" column="46" selection-start-line="113" selection-start-column="46" selection-end-line="113" selection-end-column="46" />
-              <folding>
-                <element signature="e#2962#2963#0" expanded="true" />
-                <element signature="e#2996#2997#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1589,8 +1472,9 @@
         <option value="$PROJECT_DIR$/Application/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/Application/src/main/res/layout/list_item.xml" />
         <option value="$PROJECT_DIR$/Application/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/Application/src/main/java/nineBoxMain/MainActivity.java" />
         <option value="$PROJECT_DIR$/Application/src/main/java/com/ninebox/nineboxapp/CandidatesEntryActivity.java" />
+        <option value="$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/CandidateOperations.java" />
+        <option value="$PROJECT_DIR$/Application/src/main/java/nineBoxMain/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -1606,8 +1490,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1391" />
-    <option name="height" value="805" />
+    <option name="width" value="1440" />
+    <option name="height" value="817" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1632,9 +1516,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
@@ -1796,6 +1678,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1803,10 +1687,12 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="show.do.not.copy.http.proxy.settings.to.gradle" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_6_API_23" />
     <property name="FullScreen" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -1999,24 +1885,23 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1391" height="805" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="817" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29429206" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12374821" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946298" sideWeight="0.4974055" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36429608" sideWeight="0.6627131" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24238026" sideWeight="0.81541884" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3651926" sideWeight="0.80758226" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39797395" sideWeight="0.49427754" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61538464" sideWeight="0.3498888" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24238026" sideWeight="0.18458118" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3651926" sideWeight="0.19241774" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32656023" sideWeight="0.44255003" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2024,12 +1909,13 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31430689" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3555878" sideWeight="0.4810971" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23748212" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35476956" sideWeight="0.47134146" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36429608" sideWeight="0.6627131" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2068,7 +1954,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="43" column="42" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
           <folding>
-            <element signature="e#3302#3318#0" expanded="false" />
+            <element signature="e#1921#1941#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2080,7 +1966,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2088,12 +1973,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#3047#3048#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-            <element signature="e#3128#3129#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2109,22 +1989,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#11916#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3427#3572#0" expanded="true" />
-            <element signature="e#3571#3572#0" expanded="true" />
-            <element signature="e#5196#5197#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5456#5457#0" expanded="true" />
-            <element signature="e#5499#5500#0" expanded="true" />
-            <element signature="e#6197#6672#0" expanded="true" />
-            <element signature="e#6527#6559#0" expanded="true" />
-            <element signature="e#6671#6672#0" expanded="true" />
-            <element signature="e#6772#7443#0" expanded="true" />
-            <element signature="e#7442#7443#0" expanded="true" />
-            <element signature="e#7543#7905#0" expanded="true" />
-            <element signature="e#7761#7792#0" expanded="true" />
-            <element signature="e#7904#7905#0" expanded="true" />
+            <element signature="e#4209#4241#0" expanded="true" />
+            <element signature="e#5574#5605#0" expanded="true" />
+            <element signature="e#5957#6102#0" expanded="true" />
+            <element signature="e#6101#6102#0" expanded="true" />
+            <element signature="e#6162#6519#0" expanded="true" />
+            <element signature="e#6518#6519#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2145,7 +2015,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="43" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="43" />
           <folding>
-            <element signature="e#3302#3318#0" expanded="false" />
+            <element signature="e#1921#1941#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2157,12 +2027,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#3047#3048#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-            <element signature="e#3128#3129#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2178,22 +2043,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#11916#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3427#3572#0" expanded="true" />
-            <element signature="e#3571#3572#0" expanded="true" />
-            <element signature="e#5196#5197#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5456#5457#0" expanded="true" />
-            <element signature="e#5499#5500#0" expanded="true" />
-            <element signature="e#6197#6672#0" expanded="true" />
-            <element signature="e#6527#6559#0" expanded="true" />
-            <element signature="e#6671#6672#0" expanded="true" />
-            <element signature="e#6772#7443#0" expanded="true" />
-            <element signature="e#7442#7443#0" expanded="true" />
-            <element signature="e#7543#7905#0" expanded="true" />
-            <element signature="e#7761#7792#0" expanded="true" />
-            <element signature="e#7904#7905#0" expanded="true" />
+            <element signature="e#4209#4241#0" expanded="true" />
+            <element signature="e#5574#5605#0" expanded="true" />
+            <element signature="e#5957#6102#0" expanded="true" />
+            <element signature="e#6101#6102#0" expanded="true" />
+            <element signature="e#6162#6519#0" expanded="true" />
+            <element signature="e#6518#6519#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2214,7 +2069,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="43" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="43" />
           <folding>
-            <element signature="e#3302#3318#0" expanded="false" />
+            <element signature="e#1921#1941#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2226,12 +2081,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#3047#3048#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-            <element signature="e#3128#3129#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2247,22 +2097,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="71" column="78" selection-start-line="71" selection-start-column="78" selection-end-line="71" selection-end-column="78" />
           <folding>
-            <element signature="e#0#11916#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3427#3572#0" expanded="true" />
-            <element signature="e#3571#3572#0" expanded="true" />
-            <element signature="e#5196#5197#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5456#5457#0" expanded="true" />
-            <element signature="e#5499#5500#0" expanded="true" />
-            <element signature="e#6197#6672#0" expanded="true" />
-            <element signature="e#6527#6559#0" expanded="true" />
-            <element signature="e#6671#6672#0" expanded="true" />
-            <element signature="e#6772#7443#0" expanded="true" />
-            <element signature="e#7442#7443#0" expanded="true" />
-            <element signature="e#7543#7905#0" expanded="true" />
-            <element signature="e#7761#7792#0" expanded="true" />
-            <element signature="e#7904#7905#0" expanded="true" />
+            <element signature="e#4209#4241#0" expanded="true" />
+            <element signature="e#5574#5605#0" expanded="true" />
+            <element signature="e#5957#6102#0" expanded="true" />
+            <element signature="e#6101#6102#0" expanded="true" />
+            <element signature="e#6162#6519#0" expanded="true" />
+            <element signature="e#6518#6519#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2283,7 +2123,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="43" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="43" />
           <folding>
-            <element signature="e#3302#3318#0" expanded="false" />
+            <element signature="e#1921#1941#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2295,12 +2135,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#3047#3048#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-            <element signature="e#3128#3129#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2316,22 +2151,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="64" column="36" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
           <folding>
-            <element signature="e#0#11916#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3427#3572#0" expanded="true" />
-            <element signature="e#3571#3572#0" expanded="true" />
-            <element signature="e#5196#5197#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5456#5457#0" expanded="true" />
-            <element signature="e#5499#5500#0" expanded="true" />
-            <element signature="e#6197#6672#0" expanded="true" />
-            <element signature="e#6527#6559#0" expanded="true" />
-            <element signature="e#6671#6672#0" expanded="true" />
-            <element signature="e#6772#7443#0" expanded="true" />
-            <element signature="e#7442#7443#0" expanded="true" />
-            <element signature="e#7543#7905#0" expanded="true" />
-            <element signature="e#7761#7792#0" expanded="true" />
-            <element signature="e#7904#7905#0" expanded="true" />
+            <element signature="e#4209#4241#0" expanded="true" />
+            <element signature="e#5574#5605#0" expanded="true" />
+            <element signature="e#5957#6102#0" expanded="true" />
+            <element signature="e#6101#6102#0" expanded="true" />
+            <element signature="e#6162#6519#0" expanded="true" />
+            <element signature="e#6518#6519#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2352,7 +2177,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="43" column="38" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="42" />
           <folding>
-            <element signature="e#3302#3318#0" expanded="false" />
+            <element signature="e#1921#1941#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2364,12 +2189,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
-          <folding>
-            <element signature="e#3047#3048#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-            <element signature="e#3128#3129#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2385,22 +2205,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
           <folding>
-            <element signature="e#0#11916#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3427#3572#0" expanded="true" />
-            <element signature="e#3571#3572#0" expanded="true" />
-            <element signature="e#5196#5197#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5456#5457#0" expanded="true" />
-            <element signature="e#5499#5500#0" expanded="true" />
-            <element signature="e#6197#6672#0" expanded="true" />
-            <element signature="e#6527#6559#0" expanded="true" />
-            <element signature="e#6671#6672#0" expanded="true" />
-            <element signature="e#6772#7443#0" expanded="true" />
-            <element signature="e#7442#7443#0" expanded="true" />
-            <element signature="e#7543#7905#0" expanded="true" />
-            <element signature="e#7761#7792#0" expanded="true" />
-            <element signature="e#7904#7905#0" expanded="true" />
+            <element signature="e#4209#4241#0" expanded="true" />
+            <element signature="e#5574#5605#0" expanded="true" />
+            <element signature="e#5957#6102#0" expanded="true" />
+            <element signature="e#6101#6102#0" expanded="true" />
+            <element signature="e#6162#6519#0" expanded="true" />
+            <element signature="e#6518#6519#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2505,29 +2315,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
-          <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/res/layout/sample_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.631068">
-          <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
-          <folding>
-            <element signature="e#1921#1941#0" expanded="true" />
-            <element signature="e#3036#3052#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/Responses.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19301471">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2550,46 +2344,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/Candidates.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-56.666668">
-          <caret line="113" column="46" selection-start-line="113" selection-start-column="46" selection-end-line="113" selection-end-column="46" />
-          <folding>
-            <element signature="e#2962#2963#0" expanded="true" />
-            <element signature="e#2996#2997#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/res/layout/list_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2704918">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/build/intermediates/manifests/full/debug/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-          <folding>
-            <element signature="e#1937#1979#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/DatabaseOpenHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6376518">
@@ -2600,9 +2354,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.026266417">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+          <folding>
+            <element signature="e#1937#1979#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/build/intermediates/manifests/full/debug/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6622889">
+          <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/ninebox/nineboxapp/CandidatesEntryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.5102041">
           <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
           <folding />
         </state>
@@ -2610,33 +2381,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxMain/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.296296">
-          <caret line="114" column="60" selection-start-line="114" selection-start-column="60" selection-end-line="114" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.21103117">
+          <caret line="46" column="66" selection-start-line="46" selection-start-column="66" selection-end-line="46" selection-end-column="66" />
           <folding>
-            <element signature="e#0#11916#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3427#3572#0" expanded="true" />
-            <element signature="e#3571#3572#0" expanded="true" />
-            <element signature="e#5196#5197#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5456#5457#0" expanded="true" />
-            <element signature="e#5499#5500#0" expanded="true" />
-            <element signature="e#6197#6672#0" expanded="true" />
-            <element signature="e#6527#6559#0" expanded="true" />
-            <element signature="e#6671#6672#0" expanded="true" />
-            <element signature="e#6772#7443#0" expanded="true" />
-            <element signature="e#7442#7443#0" expanded="true" />
-            <element signature="e#7543#7905#0" expanded="true" />
-            <element signature="e#7761#7792#0" expanded="true" />
-            <element signature="e#7904#7905#0" expanded="true" />
+            <element signature="e#4209#4241#0" expanded="true" />
+            <element signature="e#5574#5605#0" expanded="true" />
+            <element signature="e#5957#6102#0" expanded="true" />
+            <element signature="e#6101#6102#0" expanded="true" />
+            <element signature="e#6162#6519#0" expanded="true" />
+            <element signature="e#6518#6519#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/res/layout/list_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.96649486">
+          <caret line="68" column="39" selection-start-line="68" selection-start-column="39" selection-end-line="68" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/Candidates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.5971222">
+          <caret line="113" column="46" selection-start-line="113" selection-start-column="46" selection-end-line="113" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/res/layout/sample_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5025773">
+          <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+          <folding>
+            <element signature="e#1921#1941#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/nineBoxCandidates/CandidateOperations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5445344">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        <state vertical-scroll-proportion="1.1510792">
+          <caret line="40" column="15" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="112" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
