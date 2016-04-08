@@ -20,20 +20,22 @@ package nineBoxMain;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
+import android.widget.Toast;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
+import java.util.List;
 import com.ninebox.nineboxapp.CandidatesEntryActivity;
 import com.ninebox.nineboxapp.R;
 
@@ -42,11 +44,7 @@ import nineBoxCandidates.CandidateOperations;
 import nineBoxQuestions.Questions;
 
 /**
- * This activity demonstrates the <b>borderless button</b> styling from the Holo visual language.
- * The most interesting bits in this sample are in the layout files (res/layout/).
- * <p/>
- * See <a href="http://developer.android.com/design/building-blocks/buttons.html#borderless">
- * borderless buttons</a> at the Android Design guide for a discussion of this visual style.
+ * This activity is the main activity for the NineBoxMobile app.
  */
 public class MainActivity extends Activity {
     //    TODO  get rid of this or change it to something useful
@@ -54,33 +52,89 @@ public class MainActivity extends Activity {
             "http://developer.android.com/design/building-blocks/buttons.html#borderless");
     private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
     public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
-    public ArrayAdapter<String> arrayAdapter = null;
-    private CandidateOperations candidateOperations;
 
+    private CandidateOperations candidateOperations;
+    private ListView mainListView;
+    private ArrayAdapter<String> mainArrayAdapter;
+    Context context = MainActivity.this;
+    private ArrayList<String> displayList;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_main);
 
-//        setAdapter(mAdapter);  this is wrong!!
-
-        // Create initial listAdapter - populate with initial entry
-        // TODO get rid of this ... display informative graphic when list is empty
-//        String[] itemList = new String[]{"Empty List"};
-        ArrayList<String> displayList = new ArrayList<String>();
-//        displayList.addAll(Arrays.asList(itemList));
+        // TODO add display informative graphic when list is empty
 
         // set-up the operations class for Candidates ...
         candidateOperations = new CandidateOperations(this);
         candidateOperations.open();
 
         // create a list of candidates from what's in the database ...
-        displayList = candidateOperations.getAllCandidates();
+        candidatesList = candidateOperations.getAllCandidates();
+        // make an array of just the Names for the purpose of displaying ...
+        displayList = buildDisplayList( candidatesList );
 
         // find the ListView so we can work with it ...
-        ListView mainListView = (ListView) findViewById(R.id.list);
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.candidate, displayList);
-        mainListView.setAdapter(arrayAdapter);
-        arrayAdapter.notifyDataSetChanged();
+        mainListView = (ListView) findViewById(R.id.list);
+
+        mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.candidate, displayList) {
+            @Override
+            public View getView(final int position, View convertView, ViewGroup parent) {
+                // TODO remove this
+                System.out.println("inside getView ");
+
+                Context context = parent.getContext();
+
+                if (convertView == null) {
+                    convertView = getLayoutInflater().inflate(R.layout.list_item, parent, false);
+                }
+
+                View view = super.getView(position, convertView, parent);
+
+                TextView candidateText = (TextView) view.findViewById(R.id.candidate);
+                candidateText.setText(displayList.get(position).toString());
+
+                // Because the list item contains multiple touch targets, you should not override
+                // onListItemClick. Instead, set a click listener for each target individually.
+                convertView.findViewById(R.id.primary_target).setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(MainActivity.this,
+                                        R.string.touched_primary_message,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                convertView.findViewById(R.id.delete_action).setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // TODO add confirmation
+                                // Delete icon selected - delete the current Candidate
+                                candidateOperations.deleteCandidate(candidatesList.get(position));
+                                candidatesList.remove(candidatesList.get(position));
+                                displayList.remove(position);
+                                // notify mainArrayAdapter that things have changed and a refresh is needed ...
+                                mainArrayAdapter.notifyDataSetChanged();
+                            }
+                        });
+                convertView.findViewById(R.id.config_action).setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(MainActivity.this,
+                                        R.string.touched_config_message,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                return convertView;
+
+            }
+        };
+
+        mainListView.setAdapter(mainArrayAdapter);
+        mainArrayAdapter.notifyDataSetChanged();
 
         findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +154,21 @@ public class MainActivity extends Activity {
         });
     }
 
-    //we need a handler for when the secondary activity finishes it's work
+    @Override
+    public void onResume(){
+        super.onResume();
+        mainArrayAdapter.notifyDataSetChanged();
+    }
+
+    private ArrayList<String> buildDisplayList( ArrayList<Candidates> candidatesList ) {
+        ArrayList<String> returnList = new ArrayList();
+        for(int i = 0; i <  candidatesList.size(); i++ ) {
+            returnList.add( candidatesList.get(i).getCandidateName() );
+        }
+        return returnList;
+    }
+
+    //we need a handler for when the secondary activity (add new candidate) finishes it's work
     //and returns control to this activity...
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -110,81 +178,17 @@ public class MainActivity extends Activity {
             String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
             String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
             System.out.println("returned name = " + returnCandidateName);
-            arrayAdapter.add(returnCandidateName);
+//            mainArrayAdapter.add(returnCandidateName);
             // save to database
             Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes);
 
-            // TODO is this needed? should we add Notes?
-            new Candidates(returnCandidateName);
-            arrayAdapter.notifyDataSetChanged();
+            // TODO  should we add Notes?
+            candidatesList.add(candidate);
+            displayList.add(candidate.getCandidateName());
+            // notify mainArrayAdapter that things have changed and a refresh is needed ...
+            mainArrayAdapter.notifyDataSetChanged();
         }
     }
-    // TODO add a onResume() method where we refresh the list of candidates
-    private BaseAdapter mAdapter = new BaseAdapter() {
-        @Override
-        public int getCount() {
-            return candidatesList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return candidatesList.get(position).getCandidateName();
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position + 1;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup container) {
-            // TODO remove this
-            System.out.println("inside getView ");
-
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.list_item, container, false);
-            }
-            // Because the list item contains multiple touch targets, you should not override
-            // onListItemClick. Instead, set a click listener for each target individually.
-            convertView.findViewById(R.id.primary_target).setOnClickListener(
-                    // TODO figure out why these listeners aren't working!!
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // TODO remove this
-                            System.out.println("name clicked");
-                            Toast.makeText(MainActivity.this,
-                                    R.string.touched_primary_message,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            convertView.findViewById(R.id.delete_action).setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            // TODO remove this
-                            System.out.println("Delete clicked");
-
-                            // Delete icon selected - delete the current Candidate
-                            candidateOperations.deleteCandidate(candidatesList.get(R.id.candidate));
-//                            Toast.makeText(MainActivity.this,
-//                                    R.string.touched_secondary_message,
-//                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            convertView.findViewById(R.id.config_action).setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(MainActivity.this,
-                                    R.string.touched_config_message,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            return convertView;
-        }
-    };
 
     //    TODO - this is temporary set-up code ... get rid of it
     private void setUpQuestions() {
@@ -266,16 +270,16 @@ public class MainActivity extends Activity {
                 try {
 //                    startActivity(new Intent(Intent.ACTION_VIEW, DOCS_URI));
 //                    TODO replace this with something real...
-                    candidatesList = setUpCandidates();
-
-                    System.out.println("=== Candidate Info ===");
-                    for (int i = 0; i < candidatesList.size(); i++) {
-
-                        // add each Candidates name to our listAdapter ...
-                        arrayAdapter.add(candidatesList.get(i).getCandidateName());
-                        arrayAdapter.notifyDataSetChanged();
-                        System.out.println("name = " + candidatesList.get(i).getCandidateName());
-                    }
+//                    candidatesList = setUpCandidates();
+//
+//                    System.out.println("=== Candidate Info ===");
+//                    for (int i = 0; i < candidatesList.size(); i++) {
+//
+//                        // add each Candidates name to our listAdapter ...
+//                        arrayAdapter.add(candidatesList.get(i).getCandidateName());
+//                        arrayAdapter.notifyDataSetChanged();
+//                        System.out.println("name = " + candidatesList.get(i).getCandidateName());
+//                    }
 
                     //    TODO remove this ...
                     setUpQuestions();

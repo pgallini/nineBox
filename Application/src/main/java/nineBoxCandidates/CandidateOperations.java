@@ -60,16 +60,19 @@ public class CandidateOperations {
                     + " = " + id, null);
         }
 
-        public ArrayList<String> getAllCandidates() {
-            ArrayList<String> candidates = new ArrayList();
-
+        public ArrayList<Candidates> getAllCandidates() {
+            ArrayList<Candidates> candidates = new ArrayList();
             Cursor cursor = database.query(DatabaseOpenHelper.CANDIDATES,
                     CANDIDATE_TABLE_COLUMNS, null, null, null, null, null);
 
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
+
+                // TODO remove this ...
+                System.out.println("inside getAllCandidates - looping " );
+
                 Candidates candidate = parseCandidate(cursor);
-                candidates.add(candidate.getCandidateName());
+                candidates.add(candidate);
                 cursor.moveToNext();
             }
             cursor.close();
