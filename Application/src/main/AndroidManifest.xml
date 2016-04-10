@@ -43,8 +43,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CandidatesEntryActivity"
+            android:name="nineBoxCandidates.CandidatesEntryActivity"
             android:label="@string/title_activity_candidates_entry2"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxQuestions.QuestionsEntryActivity"
+            android:label="@string/title_activity_questions_entry"
             android:parentActivityName="nineBoxMain.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -50,42 +50,42 @@ public class Candidates {
         int tempResponse = 1;
     }
 
-    public Candidates(String candidateName, Questions questionSet_X_Axis, Questions questionSet_Y_Axis, Scanner scanner) {
-        super();
-        this.candidateName = candidateName;
-        int tempResponse = 1;
+//    public Candidates(String candidateName, Questions questionSet_X_Axis, Questions questionSet_Y_Axis, Scanner scanner) {
+//        super();
+//        this.candidateName = candidateName;
+//        int tempResponse = 1;
+//
+//        ArrayList<String> tmpQuestionText_X_Axis = questionSet_X_Axis.getQuestionText();
+//
+//        for( String qText : tmpQuestionText_X_Axis) {
+//            tempResponse = pomptForResponse(qText, scanner);
+//            responseSet.addQuestionResponse(tempResponse);
+//        }
+//
+//        ArrayList<String> tmpQuestionText_Y_Axis = questionSet_Y_Axis.getQuestionText();
+//
+//        for( String qText : tmpQuestionText_Y_Axis) {
+//            tempResponse = pomptForResponse(qText, scanner);
+//            responseSet.addQuestionResponse(tempResponse);
+//        }
+//    }
 
-        ArrayList<String> tmpQuestionText_X_Axis = questionSet_X_Axis.getQuestionText();
-
-        for( String qText : tmpQuestionText_X_Axis) {
-            tempResponse = pomptForResponse(qText, scanner);
-            responseSet.addQuestionResponse(tempResponse);
-        }
-
-        ArrayList<String> tmpQuestionText_Y_Axis = questionSet_Y_Axis.getQuestionText();
-
-        for( String qText : tmpQuestionText_Y_Axis) {
-            tempResponse = pomptForResponse(qText, scanner);
-            responseSet.addQuestionResponse(tempResponse);
-        }
-    }
-
-    public int calcCandidate_Coordinate(Questions questionSet) {
-        ArrayList<Integer> tmpQuestionWeight;
-        tmpQuestionWeight = questionSet.getQuestionWeight();
-        int coordinate = 0;
-        int currResponse = 0;
-        int i = 0;
-
-        for( int qText : tmpQuestionWeight) {
-            currResponse = responseSet.getQuestionResponse(i);
-            i++;
-
-            coordinate = coordinate + ( qText * currResponse);
-            System.out.println("weight = " + qText + "  response = " + currResponse + "  xCoordinate = " + coordinate);
-        }
-        return coordinate;
-    }
+//    public int calcCandidate_Coordinate(Questions questionSet) {
+//        ArrayList<Integer> tmpQuestionWeight;
+//        tmpQuestionWeight = questionSet.getQuestionWeight();
+//        int coordinate = 0;
+//        int currResponse = 0;
+//        int i = 0;
+//
+//        for( int qText : tmpQuestionWeight) {
+//            currResponse = responseSet.getQuestionResponse(i);
+//            i++;
+//
+//            coordinate = coordinate + ( qText * currResponse);
+//            System.out.println("weight = " + qText + "  response = " + currResponse + "  xCoordinate = " + coordinate);
+//        }
+//        return coordinate;
+//    }
 
     public int getxCoordinate() {
         return xCoordinate;

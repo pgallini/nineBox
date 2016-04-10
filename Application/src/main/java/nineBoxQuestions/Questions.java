@@ -11,42 +11,58 @@ public class Questions {
     //    - Question Text - the question itself
     //    - Question Weight - how much weight does the question carry?
     //
-    private ArrayList<String> questionText = new ArrayList<String>();
-    private ArrayList<Integer> questionWeight = new ArrayList<Integer>();
+    private long questionID = 0;
+    private String questionText;
+    private Integer questionWeight;
+    private ArrayList<String> questionTextList = new ArrayList<String>();
+    private ArrayList<Integer> questionWeightList = new ArrayList<Integer>();
 
-    public void addQuestionText(String newText) {
-        questionText.add(newText);
+    // TODO figure out if we really need these ....
+//    public void addQuestionText(String newText) {
+//        questionTextList.add(newText);
+//    }
+
+//    public void addQuestionText(int ord, String newText) {
+//        if( ord <= questionTextList.size()) {
+//            questionTextList.add(ord, newText);
+//        }
+//        else
+//        {
+//            System.out.println("Cannot insert Question Text at given position, it does not exist.  Position = " + ord);
+//        }
+//    }
+
+//    public void addQuestionWeightList(int newResponse) {
+//        questionWeightList.add(newResponse);
+//    }
+//
+//    public void addQuestionWeightList(int ord, int newText) {
+//        if( ord <= questionWeightList.size()) {
+//            questionWeightList.add(ord, newText);
+//        }
+//        else
+//        {
+//            System.out.println("Cannot insert Question Weight at given position, it does not exist.  Position = " + ord);
+//        }
+//    }
+
+    public ArrayList<String> getQuestionTextList() {
+        return questionTextList;
     }
 
-    public void addQuestionText(int ord, String newText) {
-        if( ord <= questionText.size()) {
-            questionText.add(ord, newText);
-        }
-        else
-        {
-            System.out.println("Cannot insert Question Text at given position, it does not exist.  Position = " + ord);
-        }
+    public ArrayList<Integer> getQuestionWeightList() {
+        return questionWeightList;
     }
 
-    public void addQuestionWeight(int newResponse) {
-        questionWeight.add(newResponse);
-    }
+    public void setQuestionText( String text ) { questionText = text; }
 
-    public void addQuestionWeight(int ord, int newText) {
-        if( ord <= questionWeight.size()) {
-            questionWeight.add(ord, newText);
-        }
-        else
-        {
-            System.out.println("Cannot insert Question Weight at given position, it does not exist.  Position = " + ord);
-        }
-    }
+    public String getQuestionText() { return questionText; }
 
-    public ArrayList<String> getQuestionText() {
-        return questionText;
-    }
+    public void setQuestionWeight( int newWeight ) { questionWeight = newWeight; };
 
-    public ArrayList<Integer> getQuestionWeight() {
-        return questionWeight;
-    }
+    public int getQuestionWeight() { return questionWeight; }
+
+    public void setQuestionID( long id ) { questionID = id; }
+
+    public long getQuestionID() { return questionID; }
 }

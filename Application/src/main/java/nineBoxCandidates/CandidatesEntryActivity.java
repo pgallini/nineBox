@@ -1,22 +1,22 @@
-package com.ninebox.nineboxapp;
+package nineBoxCandidates;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
+import com.ninebox.nineboxapp.R;
 
-//import nineBoxCanidates.Candidates;
+import nineBoxQuestions.Questions;
+import nineBoxQuestions.QuestionsOperations;
 
 
 public class CandidatesEntryActivity extends Activity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         Bundle extras = getIntent().getExtras();
-//        System.out.println(extras.getString("myKey"));
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidates_entry);
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -28,17 +28,10 @@ public class CandidatesEntryActivity extends Activity {
         EditText Notestext = (EditText) findViewById( R.id.NotesText);
         String candidateNotes = Notestext.getText().toString();
 
-        System.out.println(canidateName);
-
-        // TODO figure out how to really add the new canidate to the list that gets displayed
-//        ArrayList<Candidates> canidatesList = new ArrayList<Candidates>();
-//        canidatesList.add(new Candidates(canidateName));
-//        this.kill_activity();
-
+        // save to database
         //create a new intent so we can return Canidate Data ...
         Intent intent = new Intent();
-        //add "returnKey" as a key and assign it the value
-        //in the textbox...
+        //add "returnKey" as a key and assign it the value in the textbox...
         intent.putExtra("returnKey",canidateName);
         intent.putExtra("returnNotes",candidateNotes);
         //get ready to send the result back to the caller (MainActivity)
@@ -49,7 +42,6 @@ public class CandidatesEntryActivity extends Activity {
     }
 
     public void CancelSave(View view) {
-//        System.out.println("========== inside Cancel Save  ==========");
         this.kill_activity();
     }
 
@@ -57,5 +49,4 @@ public class CandidatesEntryActivity extends Activity {
     {
         finish();
     }
-
 }

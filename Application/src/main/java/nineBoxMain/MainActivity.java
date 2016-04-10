@@ -28,31 +28,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-import android.widget.BaseAdapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-import com.ninebox.nineboxapp.CandidatesEntryActivity;
+
+import nineBoxCandidates.CandidatesEntryActivity;
+import nineBoxQuestions.QuestionsEntryActivity;
 import com.ninebox.nineboxapp.R;
 
 import nineBoxCandidates.Candidates;
 import nineBoxCandidates.CandidateOperations;
-import nineBoxQuestions.Questions;
 
 /**
  * This activity is the main activity for the NineBoxMobile app.
  */
 public class MainActivity extends Activity {
     //    TODO  get rid of this or change it to something useful
-    private static final Uri DOCS_URI = Uri.parse(
-            "http://developer.android.com/design/building-blocks/buttons.html#borderless");
+//    private static final Uri DOCS_URI = Uri.parse(
+//            "http://developer.android.com/design/building-blocks/buttons.html#borderless");
     private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
+    private final int QUESTIONSENTRY_ACTIVITY_REQUEST_CODE = 0;
     public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
-
     private CandidateOperations candidateOperations;
     private ListView mainListView;
     private ArrayAdapter<String> mainArrayAdapter;
@@ -191,70 +189,60 @@ public class MainActivity extends Activity {
     }
 
     //    TODO - this is temporary set-up code ... get rid of it
-    private void setUpQuestions() {
-        Questions questionSet_X_Axis = new Questions();
-        Questions questionSet_Y_Axis = new Questions();
-        ArrayList<String> tmpQuestionText;
-        ArrayList<String> tmpQuestionResp;
-        ArrayList<Integer> tmpQuestionWeight;
-        String newCandidateName = " ";
-
-        // Set up X Axis questions ...
-        questionSet_X_Axis.addQuestionText("X Question 1");
-        questionSet_X_Axis.addQuestionText("X Question 2");
-        questionSet_X_Axis.addQuestionText("X Question 3");
-        questionSet_X_Axis.addQuestionText("X Question 4");
-
-        questionSet_X_Axis.addQuestionWeight(1);
-        questionSet_X_Axis.addQuestionWeight(3);
-        questionSet_X_Axis.addQuestionWeight(5);
-        questionSet_X_Axis.addQuestionWeight(1);
-
-        System.out.println("========== Question Text ==========");
-        tmpQuestionText = questionSet_X_Axis.getQuestionText();
-        for (String qText : tmpQuestionText) {
-            System.out.println(qText.toString());
-        }
-
-        System.out.println("========== Question Weight ==========");
-        tmpQuestionWeight = questionSet_X_Axis.getQuestionWeight();
-        for (int qText : tmpQuestionWeight) {
-            System.out.println(qText);
-        }
-
-        // Set up Y Axis questions ...
-        questionSet_Y_Axis.addQuestionText("Y Question 1");
-        questionSet_Y_Axis.addQuestionText("Y Question 2");
-//		questionSet_Y_Axis.addQuestionText("Y Question 3");
-//		questionSet_Y_Axis.addQuestionText("Y Question 4");
-
-        questionSet_Y_Axis.addQuestionWeight(6);
-        questionSet_Y_Axis.addQuestionWeight(4);
-//		questionSet_Y_Axis.addQuestionWeight(5);
-//		questionSet_Y_Axis.addQuestionWeight(1);
-
-        System.out.println("========== Question Text ==========");
-        tmpQuestionText = questionSet_Y_Axis.getQuestionText();
-        for (String qText : tmpQuestionText) {
-            System.out.println(qText.toString());
-        }
-
-        System.out.println("========== Question Weight ==========");
-        tmpQuestionWeight = questionSet_Y_Axis.getQuestionWeight();
-        for (int qText : tmpQuestionWeight) {
-            System.out.println(qText);
-        }
-    }
-
-    //    TODO - this is temporary set-up code ... get rid of it
-    private ArrayList<Candidates> setUpCandidates() {
-        ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
-        candidatesList.add(new Candidates("Bob"));
-        candidatesList.add(new Candidates("Suresh"));
-        candidatesList.add(new Candidates("Kathy"));
-
-        return candidatesList;
-    }
+//    private void setUpQuestions() {
+//        Questions questionSet_X_Axis = new Questions();
+//        Questions questionSet_Y_Axis = new Questions();
+//        ArrayList<String> tmpQuestionText;
+//        ArrayList<String> tmpQuestionResp;
+//        ArrayList<Integer> tmpQuestionWeight;
+//        String newCandidateName = " ";
+//
+//        // Set up X Axis questions ...
+//        questionSet_X_Axis.addQuestionText("X Question 1");
+//        questionSet_X_Axis.addQuestionText("X Question 2");
+//        questionSet_X_Axis.addQuestionText("X Question 3");
+//        questionSet_X_Axis.addQuestionText("X Question 4");
+//
+//        questionSet_X_Axis.addQuestionWeight(1);
+//        questionSet_X_Axis.addQuestionWeight(3);
+//        questionSet_X_Axis.addQuestionWeight(5);
+//        questionSet_X_Axis.addQuestionWeight(1);
+//
+//        System.out.println("========== Question Text ==========");
+//        tmpQuestionText = questionSet_X_Axis.getQuestionText();
+//        for (String qText : tmpQuestionText) {
+//            System.out.println(qText.toString());
+//        }
+//
+//        System.out.println("========== Question Weight ==========");
+//        tmpQuestionWeight = questionSet_X_Axis.getQuestionWeight();
+//        for (int qText : tmpQuestionWeight) {
+//            System.out.println(qText);
+//        }
+//
+//        // Set up Y Axis questions ...
+//        questionSet_Y_Axis.addQuestionText("Y Question 1");
+//        questionSet_Y_Axis.addQuestionText("Y Question 2");
+////		questionSet_Y_Axis.addQuestionText("Y Question 3");
+////		questionSet_Y_Axis.addQuestionText("Y Question 4");
+//
+//        questionSet_Y_Axis.addQuestionWeight(6);
+//        questionSet_Y_Axis.addQuestionWeight(4);
+////		questionSet_Y_Axis.addQuestionWeight(5);
+////		questionSet_Y_Axis.addQuestionWeight(1);
+//
+//        System.out.println("========== Question Text ==========");
+//        tmpQuestionText = questionSet_Y_Axis.getQuestionText();
+//        for (String qText : tmpQuestionText) {
+//            System.out.println(qText.toString());
+//        }
+//
+//        System.out.println("========== Question Weight ==========");
+//        tmpQuestionWeight = questionSet_Y_Axis.getQuestionWeight();
+//        for (int qText : tmpQuestionWeight) {
+//            System.out.println(qText);
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -268,21 +256,15 @@ public class MainActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.docs_link:
                 try {
+                    // TODO remove this
+                    System.out.println(" docs-links cliecked");
 //                    startActivity(new Intent(Intent.ACTION_VIEW, DOCS_URI));
-//                    TODO replace this with something real...
-//                    candidatesList = setUpCandidates();
-//
-//                    System.out.println("=== Candidate Info ===");
-//                    for (int i = 0; i < candidatesList.size(); i++) {
-//
-//                        // add each Candidates name to our listAdapter ...
-//                        arrayAdapter.add(candidatesList.get(i).getCandidateName());
-//                        arrayAdapter.notifyDataSetChanged();
-//                        System.out.println("name = " + candidatesList.get(i).getCandidateName());
-//                    }
-
-                    //    TODO remove this ...
-                    setUpQuestions();
+//                    Intent intent = new Intent(view.getContext(), QuestionsEntryActivity.class);
+                    Intent intent = new Intent(this, QuestionsEntryActivity.class);
+                    // TODO these probably need to change ....
+//                    intent.putExtra("myKey", "sampleText");
+//                    startActivityForResult(intent, QUESTIONSENTRY_ACTIVITY_REQUEST_CODE);
+                    this.startActivity(intent);
 
 
                 } catch (ActivityNotFoundException ignored) {
