@@ -35,7 +35,13 @@
     <string name="edit_candidate_notes_title">Notes</string>
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
 
+    <string name="edit_question_intro">Question Text:</string>
+    <string name="edit_question_hint">Add new question here</string>
+    <string name="edit_weight_title">Question Weight:</string>
+    <string name="edit_weight_hint">Enter whole number between 1 and 100</string>
+
     <string name="docs_link_title">Design docs: tbd</string>
     <string name="title_activity_candidates_entry">Enter Candidates</string>
     <string name="title_activity_candidates_entry2">Enter Candidates</string>
+    <string name="title_activity_questions_entry">Enter Questions</string>
 </resources>
