@@ -16,7 +16,11 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/docs_link"
-        android:title="@string/docs_link_title"
+        android:id="@+id/menu_configure_questions"
+        android:title="@string/menu_configure_questions"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/menu_add_people"
+        android:title="@string/title_activity_candidates_entry"
         android:showAsAction="never" />
 </menu>

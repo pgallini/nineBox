@@ -16,6 +16,7 @@
 -->
 
 <resources>
-
+ <color name="background_main">#ADBCAB</color>
+ <color name="background_secondary">#F3C376</color>
 
 </resources>

@@ -30,12 +30,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="?android:dividerHorizontal"
-    android:showDividers="middle">
+    android:showDividers="middle"
+    android:background="@color/background_main">
 
     <TextView style="@style/Widget.DescriptionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/intro_message" />
+        android:text="@string/intro_message"
+        android:background="@color/background_secondary" />
 
     <!--
         Remember to use padding on your ListViews to adhere to the standard
@@ -44,13 +46,22 @@
         doesn'isn't inset.
     -->
 
-    <ListView android:id="@+id/list"
+
+    <ListView style="@style/ScrollList"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingLeft="@dimen/page_margin"
-        android:paddingRight="@dimen/page_margin"
-        android:scrollbarStyle="outsideOverlay" />
+        />
+
+    <!--<ListView android:id="@+id/list"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:paddingLeft="@dimen/page_margin"-->
+        <!--android:paddingRight="@dimen/page_margin"-->
+        <!--android:scrollbarStyle="outsideOverlay"-->
+        <!--android:background="#ffffff"-->
+        <!--android:smoothScrollbar="false" />-->
 
     <!--
         When using the Holo theme (setting your activity or app theme to
@@ -71,19 +82,21 @@
             ?android:borderlessButtonStyle, but designed for use specifically
             in horizontal button bars.
         -->
-        <Button style="?android:buttonBarButtonStyle"
+        <Button style="@style/MainButton"
             android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:layout_weight="2"
+            android:text="@string/cancel"
+            android:background="@color/background_secondary" />
 
-        <Button style="?android:buttonBarButtonStyle"
+        <Button style="@style/MainButton"
             android:id="@+id/ok_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/newbtn" />
+            android:layout_weight="2"
+            android:text="@string/newbtn"
+            android:background="@color/background_secondary" />
 
     </LinearLayout>
 
