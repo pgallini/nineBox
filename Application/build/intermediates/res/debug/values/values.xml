@@ -11,6 +11,8 @@
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="button_main_height">115dp</dimen>
+    <dimen name="button_main_width">220dp</dimen>
     <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
@@ -32,6 +34,10 @@
     <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/values/template-dimens.xml -->
     <eat-comment/>
     <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
+    <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="add_people_btn">Add People</string>
+    <string name="answer_questions_btn">Answer Questions</string>
     <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/values/base-strings.xml -->
     <eat-comment/>
     <string name="app_name">BorderlessButtons</string>
@@ -41,7 +47,6 @@
     <string name="cancel">Cancel</string>
     <string name="config_content_description">Configure</string>
     <string name="delete_content_description">Delete</string>
-    <string name="docs_link_title">Design docs: tbd</string>
     <string name="dummy_subtitle">Dummy subtitle</string>
     <string name="dummy_title">Dummy title</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
@@ -66,8 +71,10 @@
     </string>
     <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="menu_configure_questions">Configure Questions</string>
     <string name="newbtn">New</string>
     <string name="ok">OK</string>
+    <string name="see_results_btn">See Results</string>
     <string name="title_activity_candidates_entry">Enter Candidates</string>
     <string name="title_activity_candidates_entry2">Enter Candidates</string>
     <string name="title_activity_questions_entry">Enter Questions</string>
@@ -92,6 +99,22 @@
     </style>
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
+    </style>
+    <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="MainButton" parent="@android:style/Holo.ButtonBar">
+
+    </style>
+    <style name="ScrollList">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">@dimen/page_margin</item>
+        <item name="android:paddingRight">@dimen/page_margin</item>
+        <item name="android:scrollIndicators">right</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:smoothScrollbar">false</item>
     </style>
     <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/values/template-styles.xml -->
     <eat-comment/>

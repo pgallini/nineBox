@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sample_main);
+        setContentView(R.layout.candidates_list);
 
         // Create initial listAdapter - populate with initial entry
         String[] itemList = new String[] { "Empty List" };

@@ -28,4 +28,20 @@
         <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
 
+    <style name="ScrollList">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">@dimen/page_margin</item>
+        <item name="android:paddingRight">@dimen/page_margin</item>
+        <item name="android:scrollIndicators">right</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:smoothScrollbar">false</item>
+    </style>
+
+    <style name="MainButton" parent="@android:style/Holo.ButtonBar">
+
+    </style>
+
 </resources>
