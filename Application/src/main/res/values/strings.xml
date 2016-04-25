@@ -32,6 +32,7 @@
     <string name="ok">OK</string>
     <string name="newbtn">New</string>
     <string name="button_save">Save</string>
+    <string name="done_button">Done</string>
 
     <string name="dummy_title">Dummy title</string>
     <string name="dummy_subtitle">Dummy subtitle</string>
@@ -47,6 +48,13 @@
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
     <string name="edit_candidate_notes_title">Notes</string>
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
+
+    <string name="title_activity_evaluation">Lets Answer Some Questions</string>
+    <string name="evaluation_for_prompt">Evaluating:</string>
+    <string name="question_x_of_x_prompt">Question: </string>
+    <string name="question_x_of_x_of">of </string>
+    <string name="next_question_button">Next Question</string>
+    <string name="next_question_button_alt">Next Candidate</string>
 
     <string name="edit_question_intro">Question Text:</string>
     <string name="edit_question_hint">Add new question here</string>

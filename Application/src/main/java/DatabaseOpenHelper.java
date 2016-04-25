@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * adb devices
  * adb -s emulator-5554 shell   (where you specify one of the emulators listed)
  * cd /data/data/com.ninebox.nineboxapp/databases
- * sqlite3 candidates.db
+ * sqlite3 ninebox.db
  *
  */
 

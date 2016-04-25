@@ -75,8 +75,6 @@ public class CandidatesListActivity extends Activity {
         mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.candidate, displayList) {
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
-                // TODO remove this
-                System.out.println("inside getView ");
 
                 Context context = parent.getContext();
 
@@ -95,6 +93,7 @@ public class CandidatesListActivity extends Activity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                // TODO make this an edit feature
                                 Toast.makeText(CandidatesListActivity.this,
                                         R.string.touched_primary_message,
                                         Toast.LENGTH_SHORT).show();
@@ -171,8 +170,6 @@ public class CandidatesListActivity extends Activity {
             Bundle extras = intent.getExtras();
             String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
             String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
-            System.out.println("returned name = " + returnCandidateName);
-//            mainArrayAdapter.add(returnCandidateName);
             // save to database
             Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes);
 
@@ -200,7 +197,6 @@ public class CandidatesListActivity extends Activity {
                 try {
                     Intent intent = new Intent(this, QuestionsEntryActivity.class);
                     this.startActivity(intent);
-
 
                 } catch (ActivityNotFoundException ignored) {
                 }

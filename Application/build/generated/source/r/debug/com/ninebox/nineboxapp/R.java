@@ -118,10 +118,11 @@ containing a value of this type.
     public static final class color {
         public static final int background_main=0x7f060000;
         public static final int background_secondary=0x7f060001;
-        public static final int cardview_dark_background=0x7f060002;
-        public static final int cardview_light_background=0x7f060003;
-        public static final int cardview_shadow_end_color=0x7f060004;
-        public static final int cardview_shadow_start_color=0x7f060005;
+        public static final int cardview_dark_background=0x7f060003;
+        public static final int cardview_light_background=0x7f060004;
+        public static final int cardview_shadow_end_color=0x7f060005;
+        public static final int cardview_shadow_start_color=0x7f060006;
+        public static final int divider=0x7f060002;
     }
     public static final class dimen {
         public static final int activity_horizontal_margin=0x7f040002;
@@ -140,6 +141,9 @@ containing a value of this type.
         public static final int page_margin=0x7f04000e;
         public static final int standard_touch_target_size=0x7f04000f;
         public static final int text_margin=0x7f040010;
+        public static final int text_padding=0x7f040011;
+        public static final int text_size=0x7f040012;
+        public static final int text_size_big=0x7f040013;
         public static final int vertical_page_margin=0x7f040001;
     }
     public static final class drawable {
@@ -153,72 +157,94 @@ containing a value of this type.
         public static final int ic_action_delete=0x7f020007;
         public static final int ic_launcher=0x7f020008;
         public static final int icon_questions=0x7f020009;
-        public static final int tile=0x7f02000a;
+        public static final int seekbar_thumb=0x7f02000a;
+        public static final int tile=0x7f02000b;
     }
     public static final class id {
-        public static final int EditQuestionText=0x7f090012;
-        public static final int EditTextName=0x7f090002;
-        public static final int LinearLayout02=0x7f090005;
-        public static final int NotesText=0x7f090004;
-        public static final int NotesTitle=0x7f090003;
-        public static final int TextViewTitle=0x7f090001;
-        public static final int WeightTitle=0x7f090013;
-        public static final int WeightValue=0x7f090014;
-        public static final int addCandidate=0x7f090000;
-        public static final int addQuestion=0x7f090011;
-        public static final int button_add_people=0x7f09000e;
-        public static final int button_see_results=0x7f090010;
-        public static final int button_set_questions=0x7f09000f;
-        public static final int cancel_button=0x7f090006;
-        public static final int candidate=0x7f09000b;
-        public static final int config_action=0x7f09000d;
-        public static final int delete_action=0x7f09000c;
-        public static final int list=0x7f090007;
-        public static final int menu_add_people=0x7f090016;
-        public static final int menu_configure_questions=0x7f090015;
-        public static final int ok_button=0x7f090008;
-        public static final int primary_target=0x7f09000a;
-        public static final int scrollView1=0x7f090009;
+        public static final int EditQuestionText=0x7f0a001c;
+        public static final int EditTextName=0x7f0a0002;
+        public static final int LinearLayout02=0x7f0a0005;
+        public static final int NotesText=0x7f0a0004;
+        public static final int NotesTitle=0x7f0a0003;
+        public static final int TextViewTitle=0x7f0a0001;
+        public static final int WeightTitle=0x7f0a001d;
+        public static final int WeightValue=0x7f0a001e;
+        public static final int addCandidate=0x7f0a0000;
+        public static final int addQuestion=0x7f0a001b;
+        public static final int button_add_people=0x7f0a0018;
+        public static final int button_see_results=0x7f0a001a;
+        public static final int button_set_questions=0x7f0a0019;
+        public static final int cancel_button=0x7f0a0006;
+        public static final int candidate=0x7f0a0015;
+        public static final int config_action=0x7f0a0017;
+        public static final int curr_question_no=0x7f0a000c;
+        public static final int delete_action=0x7f0a0016;
+        public static final int done_button=0x7f0a0012;
+        public static final int evalCandidateName=0x7f0a000a;
+        public static final int list=0x7f0a0007;
+        public static final int max_question_no=0x7f0a000e;
+        public static final int menu_add_people=0x7f0a0020;
+        public static final int menu_configure_questions=0x7f0a001f;
+        public static final int next_question_button=0x7f0a0011;
+        public static final int ok_button=0x7f0a0008;
+        public static final int primary_target=0x7f0a0014;
+        public static final int question_text=0x7f0a000f;
+        public static final int question_x_of_x_of=0x7f0a000d;
+        public static final int question_x_of_x_prompt=0x7f0a000b;
+        public static final int responseSeekBar=0x7f0a0010;
+        public static final int scrollView1=0x7f0a0013;
+        public static final int textView=0x7f0a0009;
+    }
+    public static final class integer {
+        public static final int maxResponse=0x7f070000;
     }
     public static final class layout {
         public static final int activity_candidates_entry=0x7f030000;
         public static final int candidates_list=0x7f030001;
-        public static final int list_item=0x7f030002;
-        public static final int nine_box_main=0x7f030003;
-        public static final int questions_entry=0x7f030004;
+        public static final int evaluation_entry=0x7f030002;
+        public static final int list_item=0x7f030003;
+        public static final int nine_box_main=0x7f030004;
+        public static final int questions_entry=0x7f030005;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int main=0x7f090000;
     }
     public static final class string {
-        public static final int add_people_btn=0x7f070000;
-        public static final int answer_questions_btn=0x7f070001;
-        public static final int app_name=0x7f070002;
-        public static final int button_save=0x7f070003;
-        public static final int cancel=0x7f070004;
-        public static final int config_content_description=0x7f070005;
-        public static final int delete_content_description=0x7f070006;
-        public static final int dummy_subtitle=0x7f070007;
-        public static final int dummy_title=0x7f070008;
-        public static final int edit_candidate_hint=0x7f070009;
-        public static final int edit_candidate_intro=0x7f07000a;
-        public static final int edit_candidate_notes_hint=0x7f07000b;
-        public static final int edit_candidate_notes_title=0x7f07000c;
-        public static final int edit_question_hint=0x7f07000d;
-        public static final int edit_question_intro=0x7f07000e;
-        public static final int edit_weight_hint=0x7f07000f;
-        public static final int edit_weight_title=0x7f070010;
-        public static final int intro_message=0x7f070011;
-        public static final int menu_configure_questions=0x7f070012;
-        public static final int newbtn=0x7f070013;
-        public static final int ok=0x7f070014;
-        public static final int see_results_btn=0x7f070015;
-        public static final int title_activity_candidates_entry=0x7f070016;
-        public static final int title_activity_candidates_entry2=0x7f070017;
-        public static final int title_activity_questions_entry=0x7f070018;
-        public static final int touched_config_message=0x7f070019;
-        public static final int touched_primary_message=0x7f07001a;
-        public static final int touched_secondary_message=0x7f07001b;
+        public static final int add_people_btn=0x7f080000;
+        public static final int answer_questions_btn=0x7f080001;
+        public static final int app_name=0x7f080002;
+        public static final int button_save=0x7f080003;
+        public static final int cancel=0x7f080004;
+        public static final int config_content_description=0x7f080005;
+        public static final int delete_content_description=0x7f080006;
+        public static final int done_button=0x7f080007;
+        public static final int dummy_subtitle=0x7f080008;
+        public static final int dummy_title=0x7f080009;
+        public static final int edit_candidate_hint=0x7f08000a;
+        public static final int edit_candidate_intro=0x7f08000b;
+        public static final int edit_candidate_notes_hint=0x7f08000c;
+        public static final int edit_candidate_notes_title=0x7f08000d;
+        public static final int edit_question_hint=0x7f08000e;
+        public static final int edit_question_intro=0x7f08000f;
+        public static final int edit_weight_hint=0x7f080010;
+        public static final int edit_weight_title=0x7f080011;
+        public static final int evaluation_for_prompt=0x7f080012;
+        public static final int intro_message=0x7f080013;
+        public static final int menu_configure_questions=0x7f080014;
+        public static final int newbtn=0x7f080015;
+        public static final int next_question_button=0x7f080016;
+        public static final int next_question_button_alt=0x7f080017;
+        public static final int ok=0x7f080018;
+        public static final int question_x_of_x_of=0x7f080019;
+        public static final int question_x_of_x_prompt=0x7f08001a;
+        public static final int see_results_btn=0x7f08001b;
+        public static final int title_activity_candidates_entry=0x7f08001c;
+        public static final int title_activity_candidates_entry2=0x7f08001d;
+        public static final int title_activity_evaluation=0x7f08001e;
+        public static final int title_activity_questions_entry=0x7f08001f;
+        public static final int touched_config_message=0x7f080020;
+        public static final int touched_primary_message=0x7f080021;
+        public static final int touched_secondary_message=0x7f080022;
     }
     public static final class style {
         public static final int AppTheme=0x7f050002;

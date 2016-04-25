@@ -18,5 +18,5 @@
 <resources>
  <color name="background_main">#ADBCAB</color>
  <color name="background_secondary">#F3C376</color>
-
+ <color name="divider">#697B63</color>
 </resources>

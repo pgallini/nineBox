@@ -21,6 +21,7 @@ public class CandidatesEntryActivity extends Activity {
         setContentView(R.layout.activity_candidates_entry);
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
     public void saveCandidate(View view) {
         // find the ListView so we can work with it ...
         EditText Nametext = (EditText) findViewById( R.id.EditTextName);

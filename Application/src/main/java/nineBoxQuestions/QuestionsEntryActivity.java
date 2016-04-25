@@ -13,10 +13,6 @@ import com.ninebox.nineboxapp.R;
 public class QuestionsEntryActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO remove this
-        System.out.println("Inside QuestionsEntryActivity onCreate ####");
-
-//        Bundle extras = getIntent().getExtras();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questions_entry);
         getActionBar().setDisplayHomeAsUpEnabled(true);

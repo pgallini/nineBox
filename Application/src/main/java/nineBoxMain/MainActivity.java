@@ -20,25 +20,18 @@ package nineBoxMain;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
-import android.widget.Toast;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-
-import nineBoxCandidates.CandidatesEntryActivity;
+import nineBoxCandidates.CandidateOperations;
+import nineBoxCandidates.Candidates;
+import nineBoxEvaluation.Evaluation;
 import nineBoxQuestions.QuestionsEntryActivity;
 import com.ninebox.nineboxapp.R;
 
-import nineBoxCandidates.Candidates;
-import nineBoxCandidates.CandidateOperations;
+import java.util.ArrayList;
 
 /**
  * This activity is the main activity for the NineBoxMobile app.
@@ -57,6 +50,16 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.button_set_questions).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Evaluation.class);
+                startActivity(intent);
+            }
+        });
+
+
 //
 //        findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -157,5 +160,21 @@ public class MainActivity extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //we need a handler for when the secondary activity (add new candidate) finishes it's work
+    //and returns control to this activity...
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (intent != null ) {
+            Bundle extras = intent.getExtras();
+//            String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
+//            String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
+
+            if (resultCode == RESULT_CANCELED) {
+                System.out.println(" Evaluation was Cancelled");
+            }
+        }
     }
 }
