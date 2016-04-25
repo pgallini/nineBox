@@ -67,10 +67,6 @@ public class CandidateOperations {
 
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-
-                // TODO remove this ...
-                System.out.println("inside getAllCandidates - looping " );
-
                 Candidates candidate = parseCandidate(cursor);
                 candidates.add(candidate);
                 cursor.moveToNext();
