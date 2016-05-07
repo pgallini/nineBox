@@ -1,19 +1,4 @@
 <!--
-  Copyright 2013 The Android Open Source Project
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-
-
   Possible Names:
   Grid 9
   Evaluation Station
@@ -24,14 +9,15 @@
   -->
 
 <resources>
+    <string name="appname">Grid 9</string>
     <string name="add_people_btn">Add People</string>
     <string name="answer_questions_btn">Answer Questions</string>
     <string name="see_results_btn">See Results</string>
 
-    <string name="cancel">Cancel</string>
+    <string name="cancel_button">Cancel</string>
     <string name="ok">OK</string>
     <string name="newbtn">New</string>
-    <string name="button_save">Save</string>
+    <string name="save_button">Save</string>
     <string name="done_button">Done</string>
 
     <string name="dummy_title">Dummy title</string>
@@ -44,12 +30,18 @@
     <string name="touched_secondary_message">Touched secondary list item target (delete).</string>
     <string name="touched_config_message">Touched config list item target.</string>
 
+    <string name="add_people_title">Add People</string>
+    <string name="reports_title">See Results</string>
+    <string name="evaluate_title">Evaluate People</string>
+
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
+    <string name="intro_message">Enter candidates here .... </string>
     <string name="edit_candidate_notes_title">Notes</string>
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this candidate?</string>
 
-    <string name="title_activity_evaluation">Lets Answer Some Questions</string>
     <string name="evaluation_for_prompt">Evaluating:</string>
     <string name="question_x_of_x_prompt">Question: </string>
     <string name="question_x_of_x_of">of </string>
@@ -62,7 +54,7 @@
     <string name="edit_weight_hint">Enter whole number between 1 and 100</string>
 
     <string name="menu_configure_questions">Configure Questions</string>
-    <string name="title_activity_candidates_entry">Enter Candidates</string>
-    <string name="title_activity_candidates_entry2">Enter Candidates</string>
-    <string name="title_activity_questions_entry">Enter Questions</string>
+    <string name="title_activity_candidates_entry">Grid 9: Enter Candidates</string>
+    <string name="title_activity_questions_entry">Grid 9: Enter Questions</string>
+    <string name="title_activity_evaluation">Grid 9: Evaluate Candidates</string>
 </resources>

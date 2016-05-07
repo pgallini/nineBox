@@ -1,65 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:background="@color/background_main">
+    android:background="@color/background_main"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
 
-    <LinearLayout
-        android:orientation="vertical"
+    android:weightSum="1">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"></include>
+
+    <RelativeLayout
+        android:layout_below="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.11"></LinearLayout>
+        android:elevation="@dimen/abc_action_bar_default_height_material"
+        android:layout_margin="@dimen/margin_medium">
 
-    <ImageButton
-        android:layout_width="@dimen/button_main_width"
-        android:layout_height="@dimen/button_main_height"
-        android:id="@+id/button_add_people"
-        android:clickable="true"
-        android:baselineAlignBottom="false"
-        android:src="@drawable/button_people"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="add people"
-        android:background="@color/background_main"
-        android:labelFor="@string/add_people_btn"
-        android:theme="@style/AppTheme"
-        android:visibility="visible"
-        android:scaleType="fitCenter" />
+        <ImageView
+            android:id="@+id/button_add_people"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_image_height"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_people_image" />
 
-    <LinearLayout
-        android:orientation="vertical"
+        <TextView
+            android:id="@+id/card_title"
+            style="@style/MainButtonText"
+            android:layout_alignBottom="@+id/button_add_people"
+            android:text="@string/add_people_title" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.11" >
+        android:elevation="@dimen/abc_action_bar_default_height_material"
+        android:layout_margin="@dimen/margin_medium">
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/button_set_questions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_image_height"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/evaluate_image" />
 
-    <ImageButton
-        android:layout_width="@dimen/button_main_width"
-        android:layout_height="@dimen/button_main_height"
-        android:id="@+id/button_set_questions"
-        android:layout_weight="0"
-        android:src="@drawable/button_eval"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/background_main"
-        android:scaleType="fitCenter" />
+        <TextView
+            android:id="@+id/eval_card_title"
+            style="@style/MainButtonText"
+            android:layout_alignBottom="@+id/button_set_questions"
+            android:text="@string/evaluate_title" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.11" />
+        android:elevation="@dimen/abc_action_bar_default_height_material"
+        android:layout_margin="@dimen/margin_medium">
 
-    <ImageButton
-        android:layout_width="@dimen/button_main_width"
-        android:layout_height="@dimen/button_main_height"
-        android:id="@+id/button_see_results"
-        android:src="@drawable/button_results"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/background_main"
-        android:scaleType="fitCenter" />
+        <ImageView
+            android:id="@+id/button_see_results"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_image_height"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/reports_image" />
+
+        <TextView
+            android:id="@+id/reprts_card_title"
+            style="@style/MainButtonText"
+            android:layout_alignBottom="@+id/button_see_results"
+            android:text="@string/reports_title" />
+
+    </RelativeLayout>
 
 </LinearLayout>

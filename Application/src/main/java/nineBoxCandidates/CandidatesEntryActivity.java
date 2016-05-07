@@ -1,25 +1,45 @@
 package nineBoxCandidates;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.EditText;
 import com.ninebox.nineboxapp.R;
 
-import nineBoxQuestions.Questions;
-import nineBoxQuestions.QuestionsOperations;
 
-
-public class CandidatesEntryActivity extends Activity {
-
+public class CandidatesEntryActivity extends AppCompatActivity {
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_candidates_entry);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.candidates_entry);
+
+        // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+
+        findViewById(R.id.save_candidate).setOnClickListener(new View.OnClickListener() {
+                                                                 @Override
+                                                                 public void onClick(View view) {
+                                                                     saveCandidate(view);
+                                                                 }
+                                                             }
+
+        );
+
+        findViewById(R.id.cancel_save_candidate).setOnClickListener(new View.OnClickListener() {
+                                                                 @Override
+                                                                 public void onClick(View view) {
+                                                                     finish();
+                                                                 }
+                                                             }
+
+        );
     }
 
     public void saveCandidate(View view) {

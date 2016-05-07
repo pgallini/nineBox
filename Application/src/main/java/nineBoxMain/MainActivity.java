@@ -17,31 +17,35 @@
 //package com.ninebox.nineboxapp;
 package nineBoxMain;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.support.v7.widget.Toolbar;
 
-import nineBoxCandidates.CandidateOperations;
-import nineBoxCandidates.Candidates;
+import nineBoxCandidates.CandidatesListActivity;
 import nineBoxEvaluation.Evaluation;
 import nineBoxQuestions.QuestionsEntryActivity;
 import com.ninebox.nineboxapp.R;
 
-import java.util.ArrayList;
-
 /**
  * This activity is the main activity for the NineBoxMobile app.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+//    public class MainActivity extends Activity {
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nine_box_main);
+
+        // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
         findViewById(R.id.button_add_people).setOnClickListener(new View.OnClickListener() {
             @Override

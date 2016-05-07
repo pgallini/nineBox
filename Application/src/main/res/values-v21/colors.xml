@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2016 Paul Gallini
+-->
+<resources>
+ <!--<color name="background_main">#ADBCAB</color>-->
+ <color name="ColorPrimary">#B5FF27</color>
+ <color name="ColorPrimaryDark">#14397E</color>
+ <color name="background_main">#4972CB</color>
+ <color name="highlight_color">#b5ff27</color>
+ <color name="mutedbutton_color">#9AA6CB</color>
+ <color name="toolbar_color">#15397E</color>
+
+ <color name="background_secondary">#A5656A</color>
+ <color name="divider">#582D31</color>
+ <color name="text_light">#ffffff</color>
+ <color name="text_dark">#582D31</color>
+</resources>
