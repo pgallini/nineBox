@@ -16,8 +16,55 @@
 
 <resources>
 
-    <!-- Widget styling -->
+    <!-- Activity themes -->
 
+    <!--<style name="Theme.Base" parent="android:Theme.Light" />-->
+
+    <!--<style name="Theme.Sample" parent="Theme.Base" />-->
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorAccent">@color/text_dark</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+
+    </style>
+
+    <!--<style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">-->
+        <!--<item name="actionBarStyle">@style/ActionBarStyle</item>-->
+    <!--</style>-->
+
+    <!--<style name="ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar.Solid">-->
+        <!--<item name="titleTextStyle">@style/MyTitleTextStyle</item>-->
+    <!--</style>-->
+
+    <!--<style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">-->
+        <!--<item name="android:textColor">@color/text_light</item>-->
+    <!--</style>-->
+
+
+    <style name="WindowTitleBackground" >
+        <item name="android:background">@android:color/transparent
+        </item>
+    </style>
+
+    <style name="Widget" />
+
+    <style name="Widget.SampleMessage">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <style name="Widget.SampleMessageTile">
+        <item name="android:background">@drawable/tile</item>
+        <item name="android:shadowColor">#7F000000</item>
+        <item name="android:shadowDy">-3.5</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
     <style name="Widget.DescriptionBar">
         <item name="android:background">#fb3</item>
         <item name="android:paddingTop">@dimen/margin_medium</item>
@@ -40,8 +87,62 @@
         <item name="android:smoothScrollbar">false</item>
     </style>
 
-    <style name="MainButton" parent="@android:style/Holo.ButtonBar">
+    <style name="MainButton" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:background">@color/highlight_color</item>
+        <item name="android:layout_width">@dimen/button_main_width</item>
+        <item name="android:layout_height">@dimen/button_main_height</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">6dp</item>"
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:textColor">@color/ColorPrimaryDark</item>
+    </style>
 
+    <style name="MainButtonText" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/card_title_height</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginLeft">@dimen/md_keylines</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/text_light</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/text_dark</item>
+        <item name="colorControlNormal">@color/text_light</item>
+        <item name="colorControlActivated">@color/text_light</item>
+    </style>
+
+    <style name="EditTextStyle" >
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:inputType">textPersonName</item>
+    </style>
+
+    <style name="Text_Instructional" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width"> wrap_content</item>
+        <item name="android:layout_height"> wrap_content</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textSize">10pt</item>
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+    </style>
+
+    <style name="Slidder_Legend" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textSize">10pt</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
     </style>
 
 </resources>

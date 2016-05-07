@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addCandidate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main"
+    tools:context="nineBoxCandidates.CandidatesEntryActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"></include>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tool_bar"
+        android:orientation="vertical">
+
+        <!--<TextView-->
+        <!--android:id="@+id/TextViewTitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/edit_candidate_intro"-->
+        <!--android:textSize="10pt"></TextView>-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/EditTextName_layout"
+            style="@style/TextLabel"
+            android:theme="@style/TextLabel"
+            >
+
+            <EditText
+                android:id="@+id/EditTextName"
+                style="@style/EditTextStyle"
+                android:inputType="textPersonName"
+                android:hint="@string/edit_candidate_hint">
+            </EditText>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<TextView-->
+        <!--android:id="@+id/NotesTitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/edit_candidate_notes_title"-->
+        <!--android:textSize="10pt"></TextView>-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/NotesText_layout"
+            style="@style/TextLabel"
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:id="@+id/NotesText"
+                style="@style/EditTextStyle"
+                android:hint="@string/edit_candidate_notes_hint">
+            </EditText>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:gravity="center|bottom">
+
+            <Button
+                android:id="@+id/cancel_save_candidate"
+                style="@style/MainButton"
+                android:layout_below="@+id/cancel_button"
+                android:background="@color/mutedbutton_color"
+                android:text="@string/cancel_button" />
+
+            <Button
+                android:id="@+id/save_candidate"
+                style="@style/MainButton"
+                android:layout_below="@+id/EditTextName"
+                android:text="@string/save_button" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

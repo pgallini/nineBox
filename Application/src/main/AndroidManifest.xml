@@ -31,11 +31,16 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="NineBoxApp"
-        android:theme="@style/Theme.Sample">
+        android:label="Grid 9"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <!--android:theme="@style/AppTheme"-->
+
+        <!--android:theme="@style/Theme.Sample">-->
         <activity
             android:name="nineBoxMain.MainActivity"
-            android:label="NineBoxApp">
+            android:label="@string/appname"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,8 +48,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="nineBoxMain.CandidatesListActivity"
-            android:label="@string/title_activity_candidates_entry2"
+            android:name="nineBoxCandidates.CandidatesListActivity"
+            android:label="@string/title_activity_candidates_entry"
             android:parentActivityName="nineBoxMain.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -52,7 +57,7 @@
         </activity>
         <activity
             android:name="nineBoxCandidates.CandidatesEntryActivity"
-            android:label="@string/title_activity_candidates_entry2"
+            android:label="@string/title_activity_candidates_entry"
             android:parentActivityName="nineBoxMain.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

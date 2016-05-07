@@ -17,11 +17,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_configure_questions"
-        android:title="@string/menu_configure_questions"
-        android:showAsAction="never" />
+        android:title="@string/menu_configure_questions"/>
+        <!--android:showAsAction="never" />-->
     <item
         android:id="@+id/menu_add_people"
-        android:title="@string/title_activity_candidates_entry"
-        android:showAsAction="never" />
+        android:title="@string/title_activity_candidates_entry"/>
+        <!--android:showAsAction="never" />-->
 </menu>
 <!-- From: file:/Users/ase408/Projects/NineBoxMobile/Application/src/main/res/menu/main.xml -->

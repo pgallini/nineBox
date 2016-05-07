@@ -3,6 +3,8 @@ package nineBoxQuestions;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import com.ninebox.nineboxapp.R;
@@ -10,12 +12,17 @@ import com.ninebox.nineboxapp.R;
 /**
  * Created by ase408 on 4/9/16.
  */
-public class QuestionsEntryActivity extends Activity {
+public class QuestionsEntryActivity extends AppCompatActivity {
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questions_entry);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
     }
 
     public void saveQuestion(View view) {
