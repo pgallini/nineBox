@@ -8,6 +8,9 @@
 # Java class files
 *.class
 
+#bin files
+*.bin
+`
 # Generated files
 bin/
 gen/
@@ -31,3 +34,6 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+# my own sandbox area for images
+ImageSandBox

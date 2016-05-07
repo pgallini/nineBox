@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.ninebox.nineboxapp.R;
@@ -30,10 +32,10 @@ public class Evaluation extends AppCompatActivity {
     public int currentQuestionNo = 1;
     public int maxQuestionNo = 0;
     private Toolbar toolbar;
+    private int currentResponse = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         int returnCode = 0;
 
         super.onCreate(savedInstanceState);
@@ -56,14 +58,29 @@ public class Evaluation extends AppCompatActivity {
         QuestionsOperations questionsOperations = new QuestionsOperations(this);
         questionsOperations.open();
         questionsList = questionsOperations.getAllQuestions();
-//        currentQuestionNo = 1;
         maxQuestionNo = questionsList.size();
 
         final TextView nextQuestionButtonView = (TextView) findViewById(R.id.next_question_button);
 
+        SeekBar seek=(SeekBar) findViewById(R.id.responseSeekBar);
+        seek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+                                            @Override
+                                            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+                                                currentResponse=progress;
+                                            }
+                                            @Override
+                                            public void onStartTrackingTouch(final SeekBar seekBar) {
+                                            }
+                                            @Override
+                                            public void onStopTrackingTouch(final SeekBar seekBar) {
+                                            }
+                                        });
+
         findViewById(R.id.next_question_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // save the response
+                saveResponse( candidatesList.get(currentIndex).getCandidateID(), questionsList.get((currentQuestionNo - 1)).getQuestionID(), currentResponse );
                 if (currentQuestionNo < maxQuestionNo) {
                     currentQuestionNo++;
                     if (currentQuestionNo == maxQuestionNo) {
@@ -91,14 +108,25 @@ public class Evaluation extends AppCompatActivity {
         findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
                                                                 @Override
                                                                 public void onClick(View view) {
-                                                                    //create a new intent so we can return Canidate Data ...
+                                                                    //create a new intent so we can return Candidate Data ...
                                                                     Intent intent = new Intent();
                                                                     setResult(RESULT_CANCELED, intent);
                                                                     finish();
                                                                 }
                                                             }
-
         );
+    }
+
+    private void saveResponse( long candidate_id, long question_id, int response ) {
+        boolean wasSuccessful = false;
+        EvaluationOperations evaluationOperations = new EvaluationOperations(this);
+        evaluationOperations.open();
+        long foundRespID = evaluationOperations.getResponseID(candidate_id, question_id);
+        if( foundRespID == -1 ) {
+            wasSuccessful = evaluationOperations.addResponse(candidate_id, question_id, response);
+        } else {
+            wasSuccessful = evaluationOperations.updateResponse(foundRespID, candidate_id, question_id, response);
+        }
     }
 
     public void onResume() {
@@ -108,6 +136,10 @@ public class Evaluation extends AppCompatActivity {
         TextView maxQuestionNoView = (TextView) findViewById(R.id.max_question_no);
         TextView quesitonTextView = (TextView) findViewById(R.id.question_text);
 
+        int currResponse = 1;
+        long candidateID = -1;
+        long questionID = -1;
+
         currQuestionNoView.setText(Integer.toString(currentQuestionNo));
         maxQuestionNoView.setText(Integer.toString(maxQuestionNo));
 
@@ -115,10 +147,24 @@ public class Evaluation extends AppCompatActivity {
             System.out.println(" candidatesList.get(i).getCandidateName() = ");
             System.out.println(candidatesList.get(currentIndex).getCandidateName());
             displayName.setText(candidatesList.get(currentIndex).getCandidateName());
+            candidateID = candidatesList.get(currentIndex).getCandidateID();
         }
         if (currentQuestionNo <= questionsList.size()) {
             // TODO see if there is a cleaner way to manage what we want to display versus the real index ...
             quesitonTextView.setText(questionsList.get((currentQuestionNo - 1)).getQuestionText());
+            questionID = questionsList.get((currentQuestionNo - 1)).getQuestionID();
+        }
+        // See if there is already a response for this combo of candidate and question ..
+        if( candidateID != -1 && questionID != -1 ) {
+            EvaluationOperations evaluationOperations = new EvaluationOperations(this);
+            evaluationOperations.open();
+            long foundRespID = evaluationOperations.getResponseID( candidateID, questionID);
+            if( foundRespID != -1 ) {
+                // if there is a response in the DB, then set the seekbar to that value ...
+                currResponse = evaluationOperations.getResponseValue(candidateID,  questionID);
+                SeekBar seek=(SeekBar) findViewById(R.id.responseSeekBar);
+                seek.setProgress( currResponse );
+            }
         }
     }
 
