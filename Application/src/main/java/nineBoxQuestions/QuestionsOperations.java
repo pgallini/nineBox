@@ -11,7 +11,7 @@ import com.ninebox.nineboxapp.DatabaseOpenHelper;
 import java.util.ArrayList;
 
 /**
- * Created by ase408 on 4/8/16.
+ * Created by Paul Gallini on 4/8/16.
  */
 public class QuestionsOperations {
 
@@ -41,9 +41,6 @@ public class QuestionsOperations {
             values.put(DatabaseOpenHelper.QUESTIONS_WEIGHT, questionWeight);
             long quesId = database.insert(DatabaseOpenHelper.QUESTIONS, null, values);
 
-            // see here for details on looking at the database outside of the app ...
-            // http://stackoverflow.com/questions/18370219/how-to-use-adb-in-android-studio-to-view-an-sqlite-db
-
             // now that the question is created return it ...
             Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
                     QUESTIONS_TABLE_COLUMNS, DatabaseOpenHelper.QUESTIONS_ID + " = "
@@ -71,10 +68,6 @@ public class QuestionsOperations {
 
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-
-                // TODO remove this ...
-                System.out.println("inside getAllQuestions - looping " );
-
                 Questions question = parseQuestion(cursor);
                 questionsList.add(question);
                 cursor.moveToNext();
