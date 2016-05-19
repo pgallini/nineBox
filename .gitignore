@@ -14,6 +14,7 @@
 # Generated files
 bin/
 gen/
+Application/build/
 
 # Gradle files
 .gradle/
@@ -37,3 +38,5 @@ captures/
 
 # my own sandbox area for images
 ImageSandBox
+
+.idea/inspectionProfiles/

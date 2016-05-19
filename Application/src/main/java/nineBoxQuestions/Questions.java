@@ -14,6 +14,7 @@ public class Questions {
     private long questionID = 0;
     private String questionText;
     private Integer questionWeight;
+    private String questionAxis;
     private ArrayList<String> questionTextList = new ArrayList<String>();
     private ArrayList<Integer> questionWeightList = new ArrayList<Integer>();
 
@@ -65,4 +66,9 @@ public class Questions {
     public void setQuestionID( long id ) { questionID = id; }
 
     public long getQuestionID() { return questionID; }
+
+    public String getQuestionAxis() { return questionAxis; }
+
+    public void setQuestionAxis(String questionAxis) { this.questionAxis = questionAxis; }
+
 }

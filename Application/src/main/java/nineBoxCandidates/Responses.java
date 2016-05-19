@@ -3,7 +3,7 @@ package nineBoxCandidates;
 import java.util.ArrayList;
 
 /**
- * Created by ase408 on 2/22/16.
+ * Created by Paul Gallini on 2/22/16.
  */
 public class Responses {
     private ArrayList<Integer> questionResponse = new ArrayList<Integer>();

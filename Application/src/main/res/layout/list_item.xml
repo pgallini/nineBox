@@ -86,11 +86,11 @@
         android:contentDescription="@string/delete_content_description"
         android:clickable="true" />
 
-    <ImageButton android:id="@+id/config_action"
+    <ImageButton android:id="@+id/eval_action"
         style="?android:borderlessButtonStyle"
         android:layout_width="@dimen/standard_touch_target_size"
         android:layout_height="match_parent"
-        android:src="@drawable/icon_questions"
+        android:src="@drawable/icon_questions_small"
         android:contentDescription="@string/config_content_description"
         android:clickable="true"/>
 

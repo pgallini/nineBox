@@ -26,6 +26,7 @@
             android:id="@+id/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_light"
             android:text="@string/edit_question_intro"
             android:textSize="10pt"></TextView>
 
@@ -33,13 +34,22 @@
             android:id="@+id/EditQuestionText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:lines="8"
+            android:minLines="6"
+            android:maxLines="10"
+            android:textColor="@color/text_light"
+            android:scrollHorizontally="false"
+            android:scrollbars="vertical"
             android:hint="@string/edit_question_hint"
-            android:inputType="textPersonName"></EditText>
+            android:gravity="top|left"
+            android:inputType="textMultiLine"></EditText>
 
         <TextView
             android:id="@+id/WeightTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_light"
             android:text="@string/edit_weight_title"
             android:textSize="10pt"></TextView>
 
@@ -47,8 +57,30 @@
             android:id="@+id/WeightValue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_light"
             android:hint="@string/edit_weight_hint"
             android:inputType="number"></EditText>
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/x_axis_rb"
+                style="@style/MyRadioButton"
+                android:checked="true"
+                android:text="@string/x_axis" />
+
+            <RadioButton
+                android:id="@+id/y_axis_rb"
+                style="@style/MyRadioButton"
+                android:checked="false"
+                android:text="@string/y_axis" />
+
+        </RadioGroup>
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
@@ -56,23 +88,39 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
+            android:layout_below="@+id/EditQuestionText"
             android:gravity="center|bottom">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/EditQuestionText"
-                android:layout_centerHorizontal="true"
-                android:onClick="saveQuestion"
-                android:text="@string/save_button" />
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/EditQuestionText"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:onClick="saveQuestion"-->
+                <!--android:text="@string/save_button" />-->
+
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/cancel_button"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:onClick="CancelSave"-->
+                <!--android:text="@string/cancel_button" />-->
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/cancel_save_candidate"
+                style="@style/MainButton"
                 android:layout_below="@+id/cancel_button"
-                android:layout_centerHorizontal="true"
+                android:background="@color/mutedbutton_color"
                 android:onClick="CancelSave"
                 android:text="@string/cancel_button" />
+
+            <Button
+                android:id="@+id/save_candidate"
+                style="@style/MainButton"
+                android:layout_below="@+id/EditQuestionText"
+                android:onClick="saveQuestion"
+                android:text="@string/save_button" />
 
         </LinearLayout>
     </LinearLayout>

@@ -1,12 +1,10 @@
 package nineBoxEvaluation;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
+import nineBoxMain.MainActivity;
 import nineBoxQuestions.Questions;
 import nineBoxQuestions.QuestionsOperations;
 
@@ -28,7 +27,7 @@ public class Evaluation extends AppCompatActivity {
     private final int EVALUATION_ACTIVITY_REQUEST_CODE = 0;
     public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
     public ArrayList<Questions> questionsList = new ArrayList<>();
-    public int currentIndex = 0;
+    //    public int candidateIndex = 0;
     public int currentQuestionNo = 1;
     public int maxQuestionNo = 0;
     private Toolbar toolbar;
@@ -48,7 +47,7 @@ public class Evaluation extends AppCompatActivity {
         // create a list of candidates from what's in the database ...
         candidatesList = candidateOperations.getAllCandidates();
         // start the index at zero
-        currentIndex = 0;
+//        candidateIndex = 0;
 
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -62,46 +61,65 @@ public class Evaluation extends AppCompatActivity {
 
         final TextView nextQuestionButtonView = (TextView) findViewById(R.id.next_question_button);
 
-        SeekBar seek=(SeekBar) findViewById(R.id.responseSeekBar);
+        SeekBar seek = (SeekBar) findViewById(R.id.responseSeekBar);
         seek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-                                            @Override
-                                            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
-                                                currentResponse=progress;
-                                            }
-                                            @Override
-                                            public void onStartTrackingTouch(final SeekBar seekBar) {
-                                            }
-                                            @Override
-                                            public void onStopTrackingTouch(final SeekBar seekBar) {
-                                            }
-                                        });
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                currentResponse = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(final SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(final SeekBar seekBar) {
+            }
+        });
 
         findViewById(R.id.next_question_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // save the response
-                saveResponse( candidatesList.get(currentIndex).getCandidateID(), questionsList.get((currentQuestionNo - 1)).getQuestionID(), currentResponse );
-                if (currentQuestionNo < maxQuestionNo) {
-                    currentQuestionNo++;
-                    if (currentQuestionNo == maxQuestionNo) {
-                        // if we are now on the last question, change the text of the button to Next Candidate
-                        nextQuestionButtonView.setText(R.string.next_question_button_alt);
-                    }
-                    onResume();
-                } else {
-                    // increment the index for the next candidate ...
-                    currentIndex++;
-                    // reset the Questions
-                    currentQuestionNo = 1;
-                    if (currentIndex < candidatesList.size()) {
-                        // reset label of the Next btn
-                        nextQuestionButtonView.setText(R.string.next_question_button);
+                int candidateIndex = MainActivity.getCurrentCandidate();
+                System.out.println("in setOnClickListener ...  candidateIndex = ");
+                System.out.println(candidateIndex);
+
+                if (candidateIndex < candidatesList.size()) {
+
+                    saveResponse(candidatesList.get(candidateIndex).getCandidateID(), questionsList.get((currentQuestionNo - 1)).getQuestionID(), currentResponse);
+                    if (currentQuestionNo < maxQuestionNo) {
+                        currentQuestionNo++;
+                        if (currentQuestionNo == maxQuestionNo) {
+                            // if we are now on the last question, change the text of the button to Next Candidate or Done
+                            if(candidateIndex == (candidatesList.size() - 1) ) {
+                                nextQuestionButtonView.setText(R.string.done_button);
+                            } else {
+                                nextQuestionButtonView.setText(R.string.next_question_button_alt);
+                            }
+                        }
                         onResume();
                     } else {
-                        // unless we are on the last candidate
-                        finish();
-                        ;
+                        // increment the index for the next candidate ...
+//                    candidateIndex++;
+                        MainActivity.incrementCurrentCandidate();
+                        // reset the Questions
+                        currentQuestionNo = 1;
+                        if (candidateIndex < candidatesList.size()) {
+                            // reset label of the Next btn
+                            nextQuestionButtonView.setText(R.string.next_question_button);
+                            onResume();
+                        } else {
+                            // unless we are on the last candidate
+                            MainActivity.setCurrentCandidate(0);
+                            finish();
+                            ;
+                        }
                     }
+                } else {
+                    // if we've looped past the last candidate, reset the index to 0 and finish
+                    MainActivity.setCurrentCandidate(0);
+                    finish();
                 }
             }
         });
@@ -117,12 +135,12 @@ public class Evaluation extends AppCompatActivity {
         );
     }
 
-    private void saveResponse( long candidate_id, long question_id, int response ) {
+    private void saveResponse(long candidate_id, long question_id, int response) {
         boolean wasSuccessful = false;
         EvaluationOperations evaluationOperations = new EvaluationOperations(this);
         evaluationOperations.open();
         long foundRespID = evaluationOperations.getResponseID(candidate_id, question_id);
-        if( foundRespID == -1 ) {
+        if (foundRespID == -1) {
             wasSuccessful = evaluationOperations.addResponse(candidate_id, question_id, response);
         } else {
             wasSuccessful = evaluationOperations.updateResponse(foundRespID, candidate_id, question_id, response);
@@ -139,32 +157,38 @@ public class Evaluation extends AppCompatActivity {
         int currResponse = 1;
         long candidateID = -1;
         long questionID = -1;
+        int candidateIndex = MainActivity.getCurrentCandidate();
 
         currQuestionNoView.setText(Integer.toString(currentQuestionNo));
         maxQuestionNoView.setText(Integer.toString(maxQuestionNo));
 
-        if (currentIndex < candidatesList.size()) {
+        if (candidateIndex < candidatesList.size()) {
             System.out.println(" candidatesList.get(i).getCandidateName() = ");
-            System.out.println(candidatesList.get(currentIndex).getCandidateName());
-            displayName.setText(candidatesList.get(currentIndex).getCandidateName());
-            candidateID = candidatesList.get(currentIndex).getCandidateID();
-        }
-        if (currentQuestionNo <= questionsList.size()) {
-            // TODO see if there is a cleaner way to manage what we want to display versus the real index ...
-            quesitonTextView.setText(questionsList.get((currentQuestionNo - 1)).getQuestionText());
-            questionID = questionsList.get((currentQuestionNo - 1)).getQuestionID();
-        }
-        // See if there is already a response for this combo of candidate and question ..
-        if( candidateID != -1 && questionID != -1 ) {
-            EvaluationOperations evaluationOperations = new EvaluationOperations(this);
-            evaluationOperations.open();
-            long foundRespID = evaluationOperations.getResponseID( candidateID, questionID);
-            if( foundRespID != -1 ) {
-                // if there is a response in the DB, then set the seekbar to that value ...
-                currResponse = evaluationOperations.getResponseValue(candidateID,  questionID);
-                SeekBar seek=(SeekBar) findViewById(R.id.responseSeekBar);
-                seek.setProgress( currResponse );
+            System.out.println(candidatesList.get(candidateIndex).getCandidateName());
+            displayName.setText(candidatesList.get(candidateIndex).getCandidateName());
+            candidateID = candidatesList.get(candidateIndex).getCandidateID();
+
+            if (currentQuestionNo <= questionsList.size()) {
+                // TODO see if there is a cleaner way to manage what we want to display versus the real index ...
+                quesitonTextView.setText(questionsList.get((currentQuestionNo - 1)).getQuestionText());
+                questionID = questionsList.get((currentQuestionNo - 1)).getQuestionID();
             }
+            // See if there is already a response for this combo of candidate and question ..
+            if (candidateID != -1 && questionID != -1) {
+                EvaluationOperations evaluationOperations = new EvaluationOperations(this);
+                evaluationOperations.open();
+                long foundRespID = evaluationOperations.getResponseID(candidateID, questionID);
+                if (foundRespID != -1) {
+                    // if there is a response in the DB, then set the seekbar to that value ...
+                    currResponse = evaluationOperations.getResponseValue(candidateID, questionID);
+                    SeekBar seek = (SeekBar) findViewById(R.id.responseSeekBar);
+                    seek.setProgress(currResponse);
+                }
+            }
+        } else {
+            MainActivity.setCurrentCandidate(0);
+            finish();
+
         }
     }
 

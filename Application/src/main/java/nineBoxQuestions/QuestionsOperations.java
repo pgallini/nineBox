@@ -17,11 +17,15 @@ public class QuestionsOperations {
 
     // Database fields
         private DatabaseOpenHelper dbHelper;
-        private String[] QUESTIONS_TABLE_COLUMNS = {DatabaseOpenHelper.QUESTIONS_ID, DatabaseOpenHelper.QUESTIONS_TEXT, DatabaseOpenHelper.QUESTIONS_WEIGHT };
+        private String[] QUESTIONS_TABLE_COLUMNS = {DatabaseOpenHelper.QUESTIONS_ID, DatabaseOpenHelper.QUESTIONS_TEXT, DatabaseOpenHelper.QUESTIONS_WEIGHT , DatabaseOpenHelper.QUESTIONS_AXIS};
         private SQLiteDatabase database;
 
         public QuestionsOperations(Context context) {
             dbHelper = new DatabaseOpenHelper(context);
+            // TODO remove
+            System.out.println( "inside constructor for QuestionsOperations ... Database Name = ");
+            System.out.println( dbHelper.getDatabaseName());
+
         }
 
         public void open() throws SQLException {
@@ -35,10 +39,15 @@ public class QuestionsOperations {
             dbHelper.close();
         }
 
-        public Questions addQuestion(String questionText, int questionWeight) {
+        public Questions addQuestion(String questionText, int questionWeight, boolean x_axis) {
             ContentValues values = new ContentValues();
             values.put(DatabaseOpenHelper.QUESTIONS_TEXT, questionText);
             values.put(DatabaseOpenHelper.QUESTIONS_WEIGHT, questionWeight);
+            if(x_axis) {
+                values.put(DatabaseOpenHelper.QUESTIONS_AXIS, "X");
+            } else {
+                values.put(DatabaseOpenHelper.QUESTIONS_AXIS, "Y");
+            }
             long quesId = database.insert(DatabaseOpenHelper.QUESTIONS, null, values);
 
             // now that the question is created return it ...
@@ -72,6 +81,7 @@ public class QuestionsOperations {
                 questionsList.add(question);
                 cursor.moveToNext();
             }
+            // TODO decide if we should or should not close the cursor here - seems to be cause null pointer second time
             cursor.close();
             return questionsList;
         }
@@ -81,6 +91,7 @@ public class QuestionsOperations {
             question.setQuestionID((cursor.getInt(0)));
             question.setQuestionText(cursor.getString(1));
             question.setQuestionWeight(cursor.getInt(2));
+            question.setQuestionAxis(cursor.getString(3));
             return question;
         }
     }

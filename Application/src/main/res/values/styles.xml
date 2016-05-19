@@ -87,6 +87,25 @@
         <item name="android:smoothScrollbar">false</item>
     </style>
 
+    <style name="MainButtonCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/card_image_height</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:clickable">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="MainButtonLayout" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+        <item name="android:padding">@dimen/abc_button_padding_horizontal_material</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
     <style name="MainButton" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:background">@color/highlight_color</item>
         <item name="android:layout_width">@dimen/button_main_width</item>
@@ -133,7 +152,32 @@
         <item name="android:textColor">@color/text_light</item>
         <item name="android:textSize">10pt</item>
         <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:layout_margin">@dimen/margin_tiny</item>
+    </style>
+
+    <style name="Text_Bold" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">14pt</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:layout_margin">@dimen/margin_tiny</item>
+    </style>
+
+    <style name="MyRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/text_dark</item>
+        <item name="colorControlActivated">@color/highlight_color</item>
+        <item name="android:buttonTint">@color/highlight_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:layout_margin">@dimen/margin_small</item>
+        <item name="android:colorAccent">@color/highlight_color</item>
     </style>
 
     <style name="Slidder_Legend" >

@@ -38,6 +38,8 @@ import com.ninebox.nineboxapp.R;
 
 import java.util.ArrayList;
 
+import nineBoxEvaluation.Evaluation;
+import nineBoxMain.MainActivity;
 import nineBoxQuestions.QuestionsEntryActivity;
 
 /**
@@ -112,13 +114,17 @@ public class CandidatesListActivity extends AppCompatActivity {
                                 showDeleteDialog(position);
                             }
                         });
-                convertView.findViewById(R.id.config_action).setOnClickListener(
+                convertView.findViewById(R.id.eval_action).setOnClickListener(
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(CandidatesListActivity.this,
-                                        R.string.touched_config_message,
-                                        Toast.LENGTH_SHORT).show();
+                                // TODO figure out how to tell Evaluate to stop after its done with this candidate
+                                MainActivity.setCurrentCandidate(position);
+                                Intent intent = new Intent(view.getContext(), Evaluation.class);
+                                startActivity(intent);
+//                                Toast.makeText(CandidatesListActivity.this,
+//                                        R.string.touched_config_message,
+//                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                 return convertView;

@@ -22,11 +22,7 @@
 
         <ImageView
             android:id="@+id/button_add_people"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_image_height"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            android:scaleType="centerCrop"
+            style="@style/MainButtonCard"
             android:src="@drawable/add_people_image" />
 
         <TextView
@@ -45,12 +41,8 @@
 
         <ImageView
             android:id="@+id/button_set_questions"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_image_height"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/evaluate_image" />
+            style="@style/MainButtonCard"
+            android:src="@drawable/eval_people_image" />
 
         <TextView
             android:id="@+id/eval_card_title"
@@ -68,11 +60,7 @@
 
         <ImageView
             android:id="@+id/button_see_results"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_image_height"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            android:scaleType="centerCrop"
+            style="@style/MainButtonCard"
             android:src="@drawable/reports_image" />
 
         <TextView
@@ -82,5 +70,20 @@
             android:text="@string/reports_title" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        style="@style/MainButtonLayout">
+
+        <Button
+            android:id="@+id/done_button"
+            style="@style/MainButton"
+            android:background="@color/mutedbutton_color"
+            android:text="@string/done_button" />
+
+        <Button
+            android:id="@+id/rate_app_button"
+            style="@style/MainButton"
+            android:text="@string/rate_app_button" />
+    </LinearLayout>
 
 </LinearLayout>
