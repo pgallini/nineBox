@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import nineBoxQuestions.Questions;
 /**
- * Created by ase408 on 2/22/16.
+ * Created by Paul Gallini on 2/22/16.
  */
 public class Canidates {
     private String canidateName = " ";

@@ -26,6 +26,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String QUESTIONS_ID = "_id";
     public static final String QUESTIONS_TEXT = "_text";
     public static final String QUESTIONS_WEIGHT = "_weight";
+    public static final String QUESTIONS_AXIS = "_axis";
 
     public static final String RESPONSES = "Responses";
     public static final String RESP_ID = "_id";
@@ -46,7 +47,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + QUESTIONS + " (" +
                     QUESTIONS_ID  + " integer primary key autoincrement, " +
                     QUESTIONS_TEXT + " TEXT NOT NULL, " +
-                    QUESTIONS_WEIGHT + " integer);";
+                    QUESTIONS_WEIGHT + " integer," +
+                    QUESTIONS_AXIS + " TEXT NOT NULL);";
 
     private static final String RESPONSES_TABLE_CREATE =
             "CREATE TABLE " + RESPONSES + " (" +

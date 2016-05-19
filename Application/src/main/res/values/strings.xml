@@ -19,6 +19,7 @@
     <string name="newbtn">New</string>
     <string name="save_button">Save</string>
     <string name="done_button">Done</string>
+    <string name="rate_app_button">Rate App</string>
 
     <string name="dummy_title">Dummy title</string>
     <string name="dummy_subtitle">Dummy subtitle</string>
@@ -43,7 +44,7 @@
     <string name="confirm_delete_message">Are you sure you want to delete this candidate?</string>
 
     <string name="evaluation_for_prompt">Evaluating:</string>
-    <string name="question_x_of_x_prompt">Question: </string>
+    <string name="question_x_of_x_prompt">Question:   </string>
     <string name="question_x_of_x_of">of </string>
     <string name="next_question_button">Next Question</string>
     <string name="next_question_button_alt">Next Candidate</string>
@@ -52,9 +53,12 @@
     <string name="edit_question_hint">Add new question here</string>
     <string name="edit_weight_title">Question Weight:</string>
     <string name="edit_weight_hint">Enter whole number between 1 and 100</string>
+    <string name="x_axis">X Axis</string>
+    <string name="y_axis">Y Axis</string>
 
     <string name="menu_configure_questions">Configure Questions</string>
     <string name="title_activity_candidates_entry">Grid 9: Enter Candidates</string>
     <string name="title_activity_questions_entry">Grid 9: Enter Questions</string>
     <string name="title_activity_evaluation">Grid 9: Evaluate Candidates</string>
+    <string name="title_activity_report">Grid 9: See Results</string>
 </resources>

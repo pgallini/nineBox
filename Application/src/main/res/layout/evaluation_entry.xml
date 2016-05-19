@@ -12,25 +12,41 @@
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"></include>
 
+    <!--<LinearLayout-->
+        <!--android:id="@+id/candidate_name"-->
+        <!--android:layout_below="@+id/tool_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="fill_vertical|center|top"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--style="@style/Text_Instructional"-->
+            <!--android:text="@string/evaluation_for_prompt"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/evalCandidateName"-->
+            <!--style="@style/Text_Instructional"-->
+            <!--android:inputType="none|textPersonName" />-->
+    <!--</LinearLayout>-->
+
     <LinearLayout
         android:id="@+id/candidate_name"
         android:layout_below="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_vertical|center|top"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/mutedbutton_color"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView"
-            style="@style/Text_Instructional"
-            android:text="@string/evaluation_for_prompt"/>
-
-        <TextView
             android:id="@+id/evalCandidateName"
-            style="@style/Text_Instructional"
-            android:inputType="none|textPersonName" />
+            style="@style/Text_Bold"
+            />
+        <!--android:inputType="none|textPersonName"-->
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -54,8 +70,9 @@
             <TextView
                 android:id="@+id/curr_question_no"
                 style="@style/Text_Instructional"
-                android:layout_width="40dp"
+                android:layout_width="42dp"
                 android:layout_height="31dp"
+                android:gravity="right"
                 android:inputType="none|textPersonName" />
 
             <TextView
@@ -66,8 +83,9 @@
             <TextView
                 android:id="@+id/max_question_no"
                 style="@style/Text_Instructional"
-                android:layout_width="40dp"
+                android:layout_width="42dp"
                 android:layout_height="31dp"
+                android:gravity="left"
                 android:inputType="none|textPersonName"/>
         </LinearLayout>
 
@@ -126,26 +144,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center|bottom"
-        android:layout_weight="1.0"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        style="?android:buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
-        android:padding="@dimen/abc_button_padding_horizontal_material"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:orientation="horizontal">
+        style="@style/MainButtonLayout">
 
         <Button
             android:id="@+id/cancel_button"

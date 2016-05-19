@@ -29,6 +29,7 @@ import android.support.v7.widget.Toolbar;
 import nineBoxCandidates.CandidatesListActivity;
 import nineBoxEvaluation.Evaluation;
 import nineBoxQuestions.QuestionsEntryActivity;
+import nineBoxReport.ReportActivity;
 import com.ninebox.nineboxapp.R;
 
 /**
@@ -37,6 +38,7 @@ import com.ninebox.nineboxapp.R;
 public class MainActivity extends AppCompatActivity {
 //    public class MainActivity extends Activity {
     private Toolbar toolbar;
+    static public int candidateIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +65,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//
-//        findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(view.getContext(), MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        findViewById(R.id.button_see_results).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 //    @Override
@@ -180,5 +185,15 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(" Evaluation was Cancelled");
             }
         }
+    }
+    static public int getCurrentCandidate() {
+        return candidateIndex;
+    }
+    static public void setCurrentCandidate(int newIndex) {
+        candidateIndex = newIndex;
+    }
+    static public void incrementCurrentCandidate() {
+        // TODO consider adding test to ensure we don't incrment it past candidatesList.size()
+            candidateIndex++;
     }
 }

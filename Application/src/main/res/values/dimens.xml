@@ -15,18 +15,18 @@
     <dimen name="text_size_big">32dp</dimen>
     <dimen name="text_size_button">16dp</dimen>
     <!-- ninebox-specific dimensions -->
-    <dimen name="question_view_height">180dp</dimen>
+    <dimen name="question_view_height">210dp</dimen>
     <dimen name="text_padding">2dp</dimen>
     <dimen name="text_margin">6dp</dimen>
     <dimen name="border_height">13dp</dimen>
 
     <dimen name="slidder_padding">8dp</dimen>
 
-    <dimen name="card_image_height">120dp</dimen>
+    <dimen name="card_image_height">100dp</dimen>
     <dimen name="card_image_width">220dp</dimen>
     <dimen name="card_title_height">40dp</dimen>
     <dimen name="md_keylines">8dp</dimen>
-    <dimen name="abc_text_size_title_material">12dp</dimen>
+    <dimen name="abc_text_size_title_material">18dp</dimen>
 
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>

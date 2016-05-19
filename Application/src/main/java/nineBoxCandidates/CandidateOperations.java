@@ -55,7 +55,6 @@ public class CandidateOperations {
 
         public void deleteCandidate(Candidates candidate) {
             long id = candidate.getCandidateID();
-            System.out.println("Comment deleted with id: " + id);
             database.delete(DatabaseOpenHelper.CANDIDATES, DatabaseOpenHelper.CANDIDATE_ID
                     + " = " + id, null);
         }
