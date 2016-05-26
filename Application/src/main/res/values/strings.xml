@@ -37,6 +37,7 @@
 
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
+    <string name="candidate_saved">Candidate has been saved.</string>
     <string name="intro_message">Enter candidates here .... </string>
     <string name="edit_candidate_notes_title">Notes</string>
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>

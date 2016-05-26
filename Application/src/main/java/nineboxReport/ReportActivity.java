@@ -2,6 +2,7 @@ package nineBoxReport;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -87,7 +88,11 @@ public class ReportActivity extends AppCompatActivity {
 
             currCandidate = candidatesList.get( i );
 
-            ShapeDrawable newPoint = drawPoint(this, 2, 2, 0xffffff00);
+            // grab the next available color ...
+            String currentColor = currCandidate.getCandidateColor();
+            // convert the String color to an int
+            int tmpcolor = Color.parseColor(currentColor);
+            ShapeDrawable newPoint = drawPoint(this, 2, 2, tmpcolor);
 
             layerDrawable.addLayer(newPoint, 4 , 300, 300);
             // temp X & Y -axis reading from a candidate ...

@@ -25,11 +25,12 @@ public class GridLayerDrawable extends LayerDrawable {
     public void setWidgetPosition(int layer, double result_X_axis, double result_Y_axis) {
         // This method will position a given layer/Circle on the Grid
         int rightOffset = 8; // used to keep the circles off the right edge
-        int bottomOffset = 8; // used to keep the circles off the bottom
+        int topOffset = 8; // used to keep the circles off the ceiling
         // convert X axis result into offset based on the actual Width of the grid ...
         int leftOffset = (int) ((result_X_axis / 10.0) * (double) this.getIntrinsicWidth());
         // convert Y axis result into offset based on the actual Height of the grid ...
-        int topOffset = (int) ((result_Y_axis / 10.0) * (double) this.getIntrinsicHeight());
+        int bottomOffset = (int) ((result_Y_axis / 10.0) * (double) this.getIntrinsicHeight());
+//        int topOffset = this.getIntrinsicHeight() - tmpOffset;
         // position this cirlce using ...
         this.setLayerInset(layer, leftOffset, topOffset, rightOffset, bottomOffset);
     }

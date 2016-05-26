@@ -13,6 +13,7 @@ public class Candidates {
     private int xCoordinate = 0;
     private int yCoordinate = 0;
     private long candidateID = 0;
+    private String candidateColor = " ";
     private Responses responseSet = new Responses();
 
     private int pomptForResponse(String qText, Scanner scanner) {
@@ -117,6 +118,12 @@ public class Candidates {
 
     public long getCandidateID() { return candidateID; }
 
+    public String getCandidateColor() {
+        return candidateColor;
+    }
 
+    public void setCandidateColor(String candidateColor) {
+        this.candidateColor = candidateColor;
+    }
 
 }

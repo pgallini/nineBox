@@ -183,8 +183,9 @@ public class CandidatesListActivity extends AppCompatActivity {
             Bundle extras = intent.getExtras();
             String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
             String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
+            String returnCandidateColor = (extras != null ? extras.getString("returnColor") : " ");
             // save to database
-            Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes);
+            Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes, returnCandidateColor);
 
             // TODO  should we add Notes?
             candidatesList.add(candidate);
