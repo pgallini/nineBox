@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.ninebox.nineboxapp.DatabaseOpenHelper;
+import databaseOpenHelper.DatabaseOpenHelper;
 
 import java.util.ArrayList;
 
@@ -22,10 +22,6 @@ public class QuestionsOperations {
 
         public QuestionsOperations(Context context) {
             dbHelper = new DatabaseOpenHelper(context);
-            // TODO remove
-            System.out.println( "inside constructor for QuestionsOperations ... Database Name = ");
-            System.out.println( dbHelper.getDatabaseName());
-
         }
 
         public void open() throws SQLException {

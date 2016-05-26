@@ -57,6 +57,36 @@
             </EditText>
         </android.support.design.widget.TextInputLayout>
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top|center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_gravity="center"
+                android:text="Color:"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_size"/>
+
+            <View
+                android:id="@+id/current_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <Spinner
+                android:id="@+id/spinner_widget"
+                style="@style/mySpinnerItemStyle"
+                android:layout_gravity="center"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
+
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/LinearLayout02"
             android:layout_width="match_parent"

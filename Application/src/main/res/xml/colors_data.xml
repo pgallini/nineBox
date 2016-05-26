@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<colors_data>
+    <record color_text="light green"    color_number="#CDFF92" color_inuse="0" />
+    <record color_text="grey"           color_number="#7E7E7E"  color_inuse="0" />
+    <record color_text="dark blue"      color_number="#4A567E"  color_inuse="0" />
+    <record color_text="dark tan"       color_number="#7E7049"  color_inuse="0" />
+    <record color_text="light tan"      color_number="#CBBF9E" color_inuse="0" />
+    <record color_text="purple"         color_number="#C5ACFE" color_inuse="0" />
+    <record color_text="red"            color_number="#D46A64" color_inuse="0" />
+</colors_data>

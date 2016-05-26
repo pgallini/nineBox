@@ -5,13 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-import com.ninebox.nineboxapp.DatabaseOpenHelper;
-
-import java.util.ArrayList;
-
-import nineBoxQuestions.Questions;
+import databaseOpenHelper.DatabaseOpenHelper;
 
 /**
  * Created by Paul Gallini on 4/8/16.
