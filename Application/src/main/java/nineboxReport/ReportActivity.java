@@ -1,11 +1,10 @@
 package nineBoxReport;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,14 +16,13 @@ import com.ninebox.nineboxapp.R;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.Canvas;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 
 import java.util.ArrayList;
 
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
+import drawables.drawPoint;
 import nineBoxEvaluation.EvaluationOperations;
-import nineBoxMain.MainActivity;
 import nineBoxQuestions.Questions;
 import nineBoxQuestions.QuestionsOperations;
 
@@ -84,6 +82,8 @@ public class ReportActivity extends AppCompatActivity {
         candidateOperations = new CandidateOperations(this);
         candidateOperations.open();
         candidatesList = candidateOperations.getAllCandidates();
+        // grab the width of the circle ...
+        int widget_width = (int) getResources().getDimension(R.dimen.widget_width);
         for(int i = 0;  i < candidatesList.size(); i++) {
 
             currCandidate = candidatesList.get( i );
@@ -92,14 +92,24 @@ public class ReportActivity extends AppCompatActivity {
             String currentColor = currCandidate.getCandidateColor();
             // convert the String color to an int
             int tmpcolor = Color.parseColor(currentColor);
-            ShapeDrawable newPoint = drawPoint(this, 2, 2, tmpcolor);
+            // TODO - see if there is a cleaner way to do this ...
+            Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
+            Drawable[] emptyDrawableLayers = {d1};
 
-            layerDrawable.addLayer(newPoint, 4 , 300, 300);
+            drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
+            LayerDrawable newPoint = currDrawPoint.getPoint( currCandidate.getCandidateInitials() );
+
+//            Drawable tempPoint = getSingleDrawable(newPoint);
+
+            Drawable tempPoint = newPoint.mutate();
+
+            // TODO figure out the purpose of the last two params - they don't seem to do anything
+            layerDrawable.addLayer(tempPoint, 4 , widget_width, widget_width);
             // temp X & Y -axis reading from a candidate ...
             double result_X_axis = get_X_ResultForCandiate(currCandidate);
             double result_Y_axis = get_Y_ResultForCandiate(currCandidate);
             // set the size of the circle (not sure why this can't be done inside add
-            layerDrawable.setLayerSize(currLayer, 100, 100);
+            layerDrawable.setLayerSize(currLayer, widget_width, widget_width);
             // set the position of the circle
 
             // TODO remove
@@ -108,7 +118,7 @@ public class ReportActivity extends AppCompatActivity {
             System.out.println("result_Y_axis = ");
             System.out.println(result_Y_axis);
 
-            layerDrawable.setWidgetPosition(currLayer, result_X_axis, result_Y_axis);
+            layerDrawable.setWidgetPosition(currLayer, result_X_axis, result_Y_axis, widget_width);
 
             currLayer++;
         }
@@ -119,6 +129,40 @@ public class ReportActivity extends AppCompatActivity {
         layerDrawable.draw(gridCanvas);
         gridImageView.setImageDrawable(layerDrawable);
     }
+
+//    // trying this method to convert from LayerDrawable to Shapedrawable
+//    public Drawable getSingleDrawable(LayerDrawable layerDrawable){
+//
+//        int resourceBitmapHeight = 136, resourceBitmapWidth = 153;
+//
+//        float widthInInches = 0.9f;
+//
+//        int widthInPixels = (int)(widthInInches * getResources().getDisplayMetrics().densityDpi);
+//        int heightInPixels = (int)(widthInPixels * resourceBitmapHeight / resourceBitmapWidth);
+//
+//        int insetLeft = 10, insetTop = 10, insetRight = 10, insetBottom = 10;
+//
+//        layerDrawable.setLayerInset(1, insetLeft, insetTop, insetRight, insetBottom);
+//
+//        Bitmap bitmap = Bitmap.createBitmap(widthInPixels, heightInPixels, Bitmap.Config.ARGB_8888);
+//
+//        Canvas canvas = new Canvas(bitmap);
+//        layerDrawable.setBounds(0, 0, widthInPixels, heightInPixels);
+//        layerDrawable.draw(canvas);
+//
+//        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+//
+////        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+//        bitmapDrawable.setBounds(0, 0, widthInPixels, heightInPixels);
+//
+//        Drawable sDrawable = bitmapDrawable.mutate();
+//
+//        ShapeDrawable tempSD = (ShapeDrawable) sDrawable.draw(canvas);
+//        return sDrawable;
+//    }
+//
+//
+
 
 //        findViewById(R.id.save_candidate).setOnClickListener(new View.OnClickListener() {
 //                                                                 @Override
@@ -150,17 +194,8 @@ public class ReportActivity extends AppCompatActivity {
 
         for (int i = 0; i < questionsList.size(); i++) {
 
-            System.out.println( "looping through question list i = " );
-            System.out.println( i );
-
             questionID = questionsList.get(i).getQuestionID();
-
-
             if (candidateID != -1 && questionID != -1) {
-
-                System.out.println( "questionsList.get(i).getQuestionAxis() = ");
-                System.out.println( questionsList.get(i).getQuestionAxis());
-
                 // If the Axis of the current question is not X, then ignore it ...
                 if (questionsList.get(i).getQuestionAxis().equals("X")) {
 
@@ -174,9 +209,9 @@ public class ReportActivity extends AppCompatActivity {
                     }
 
                     // TODO remove
-                    System.out.println( " currWeight & currResponse == ");
-                    System.out.println( currWeight );
-                    System.out.println( currResponse );
+//                    System.out.println( " currWeight & currResponse == ");
+//                    System.out.println( currWeight );
+//                    System.out.println( currResponse );
                 }
             }
         }
@@ -195,16 +230,16 @@ public class ReportActivity extends AppCompatActivity {
 
         for (int i = 0; i < questionsList.size(); i++) {
 
-            System.out.println( "looping through question list i = " );
-            System.out.println( i );
+//            System.out.println( "looping through question list i = " );
+//            System.out.println( i );
 
             questionID = questionsList.get(i).getQuestionID();
 
 
             if (candidateID != -1 && questionID != -1) {
 
-                System.out.println( "questionsList.get(i).getQuestionAxis() = ");
-                System.out.println( questionsList.get(i).getQuestionAxis());
+//                System.out.println( "questionsList.get(i).getQuestionAxis() = ");
+//                System.out.println( questionsList.get(i).getQuestionAxis());
 
                 // If the Axis of the current question is not Y, then ignore it ...
                 if (questionsList.get(i).getQuestionAxis().equals("Y")) {
@@ -219,9 +254,9 @@ public class ReportActivity extends AppCompatActivity {
                     }
 
                     // TODO remove
-                    System.out.println( " currWeight & currResponse == ");
-                    System.out.println( currWeight );
-                    System.out.println( currResponse );
+//                    System.out.println( " currWeight & currResponse == ");
+//                    System.out.println( currWeight );
+//                    System.out.println( currResponse );
                 }
             }
         }
@@ -229,15 +264,7 @@ public class ReportActivity extends AppCompatActivity {
         return ( result * 0.01 );
     }
 
-    public static ShapeDrawable drawPoint(Context context, int width, int height, int color) {
 
-        ShapeDrawable oval = new ShapeDrawable(new OvalShape());
-        oval.setIntrinsicHeight(height);
-        oval.setIntrinsicWidth(width);
-        oval.getPaint().setColor(color);
-        oval.setPadding(10, 10, 10, 10);
-        return oval;
-    }
 }
 
 

@@ -82,8 +82,8 @@ public class Evaluation extends AppCompatActivity {
             public void onClick(View v) {
                 // save the response
                 int candidateIndex = MainActivity.getCurrentCandidate();
-                System.out.println("in setOnClickListener ...  candidateIndex = ");
-                System.out.println(candidateIndex);
+//                System.out.println("in setOnClickListener ...  candidateIndex = ");
+//                System.out.println(candidateIndex);
 
                 if (candidateIndex < candidatesList.size()) {
 

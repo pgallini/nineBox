@@ -19,10 +19,8 @@
     <string name="newbtn">New</string>
     <string name="save_button">Save</string>
     <string name="done_button">Done</string>
+    <string name="exit_button">Exit</string>
     <string name="rate_app_button">Rate App</string>
-
-    <string name="dummy_title">Dummy title</string>
-    <string name="dummy_subtitle">Dummy subtitle</string>
 
     <string name="delete_content_description">Delete</string>
     <string name="config_content_description">Configure</string>
@@ -37,6 +35,9 @@
 
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
+    <string name="edit_candidate_icon_label">Icon:</string>
+    <string name="edit_candidate_initials_label">Icon Initials:</string>
+    <string name="edit_candidate_initials_hint">Enter Initials.</string>
     <string name="candidate_saved">Candidate has been saved.</string>
     <string name="intro_message">Enter candidates here .... </string>
     <string name="edit_candidate_notes_title">Notes</string>

@@ -2,6 +2,8 @@ package nineBoxCandidates;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -19,12 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import databaseOpenHelper.DatabaseOpenHelper;
+import drawables.drawPoint;
 
 
 public class CandidatesEntryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Toolbar toolbar;
     private DatabaseOpenHelper dbHelper;
     private String currentColor;
+    private String candidateInitials = " ";
     public ArrayList<appColor> colorList;
     // Spinner element
     Spinner spinner;
@@ -34,7 +38,6 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         Bundle extras = getIntent().getExtras();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.candidates_entry);
-
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -46,6 +49,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
         List<String> labels = getColorLabels(colorList);
 //        SpinnerArrayAdapter adapter = new SpinnerArrayAdapter(this, R.layout.spinner_item, labels);
+        // TODO - consider changing this to ArrayAdapter adapter ....
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_item, labels);
         // TODO delete SpinnerArrayAdapter if we're really not going to use it ....
 //        ArrayAdapter<String> adapter = new SpinnerArrayAdapter(this, R.layout.spinner_item, labels);
@@ -59,12 +63,25 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
+        // grab the initials
+        EditText Initialstext = (EditText) findViewById( R.id.EditCandidateInitials);
+        candidateInitials = Initialstext.getText().toString();
+
         // grab the next available color ...
         currentColor = getNetAvailableColor( colorList );
         // convert the String color to an int
         int tmpcolor = Color.parseColor(currentColor);
         // set-up current icon based on the current color for this candidate ...
-        ShapeDrawable newPoint = drawPoint(this, 2, 2, tmpcolor);
+        // TODO look for cleaner way to do this
+        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
+        Drawable[] emptyDrawableLayers = {d1};
+        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
+        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
+        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
+
+        // TODO Remove ...
+        System.out.println( " just called getPoint");
+
         View currentIcon = (View) findViewById(R.id.current_icon);
 
         currentIcon.setBackgroundDrawable(newPoint);
@@ -114,7 +131,18 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         currentColor = tmpColorNum;
         int tmpcolor = Color.parseColor(currentColor);
         // refresh current icon based on the current color for this candidate ...
-        ShapeDrawable newPoint = drawPoint(this, 2, 2, tmpcolor);
+
+        // TODO look for cleaner way to do this
+        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
+        Drawable[] emptyDrawableLayers = {d1};
+
+        // grab the initials
+        EditText Initialstext = (EditText) findViewById( R.id.EditCandidateInitials);
+        candidateInitials = Initialstext.getText().toString();
+
+        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
+        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
+//        ShapeDrawable newPoint = drawPoint(this, 2, 2, tmpcolor);
         View currentIcon = (View) findViewById(R.id.current_icon);
 
         currentIcon.setBackgroundDrawable(newPoint);
@@ -132,6 +160,8 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         String canidateName = Nametext.getText().toString();
         EditText Notestext = (EditText) findViewById( R.id.NotesText);
         String candidateNotes = Notestext.getText().toString();
+        EditText Initialstext = (EditText) findViewById( R.id.EditCandidateInitials);
+        String candidateInitials = Initialstext.getText().toString();
 
         // save to database
         //create a new intent so we can return Canidate Data ...
@@ -140,6 +170,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         intent.putExtra("returnKey",canidateName);
         intent.putExtra("returnNotes",candidateNotes);
         intent.putExtra("returnColor",currentColor);
+        intent.putExtra("returnInitials",candidateInitials);
         //get ready to send the result back to the caller (MainActivity)
         //and put our intent into it (RESULT_OK will tell the caller that
         //we have successfully accomplished our task..
@@ -157,13 +188,13 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
     }
 
     // TODO if this is useful here - we need to collapse this one with the same method in ReportActivity
-    public static ShapeDrawable drawPoint(Context context, int width, int height, int color) {
-
-        ShapeDrawable oval = new ShapeDrawable(new OvalShape());
-        oval.setIntrinsicHeight(height);
-        oval.setIntrinsicWidth(width);
-        oval.getPaint().setColor(color);
-        oval.setPadding(10, 10, 10, 10);
-        return oval;
-    }
+//    public static ShapeDrawable drawPoint(Context context, int width, int height, int color)  {
+//
+//        ShapeDrawable oval = new ShapeDrawable(new OvalShape());
+//        oval.setIntrinsicHeight(height);
+//        oval.setIntrinsicWidth(width);
+//        oval.getPaint().setColor(color);
+//        oval.setPadding(10, 10, 10, 10);
+//        return oval;
+//    }
 }
