@@ -37,6 +37,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String CANDIDATE_NAME = "_name";
     public static final String CANDIDATE_NOTES = "_notes";
     public static final String CANDIDATE_COLOR = "_color";
+    public static final String CANDIDATE_INITIALS = "_initials";
 
     public static final String QUESTIONS = "Questions";
     public static final String QUESTIONS_ID = "_id";
@@ -63,7 +64,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     CANDIDATE_ID  + " integer primary key autoincrement, " +
                     CANDIDATE_NAME + " TEXT NOT NULL, " +
                     CANDIDATE_NOTES + " TEXT, " +
-                    CANDIDATE_COLOR + " TEXT NOT NULL);";
+                    CANDIDATE_COLOR + " TEXT NOT NULL, " +
+                    CANDIDATE_INITIALS + " TEXT NOT NULL );";
 
     private static final String QUESTIONS_TABLE_CREATE =
             "CREATE TABLE " + QUESTIONS + " (" +
@@ -120,23 +122,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static void updateColorsTableToggleInUse(SQLiteDatabase db, String color, boolean inuse ) {
         int inuseVal = 1;
         if( inuse ) { inuseVal = 1; } else { inuseVal = 0; };
-//        db.execSQL("UPDATE " + COLORS + " SET _color_inuse = " + inuseVal + " WHERE _color_number = ' " + color + "'");
 
         final ContentValues values = new ContentValues();
-
         values.put(COLOR_INUSE, inuseVal);
 
-        // TODO remove 3
-        System.out.println(" color = ");
-        System.out.println(color );
         try {
             db.beginTransaction();
             final boolean state = db.update(COLORS, values, COLOR_NUMBER + " = " + "'"+ color + "'", null)>0;
             db.setTransactionSuccessful();
-
-            // TODO remove 3
-            System.out.println(" state = ");
-            System.out.println(state);
 
 //            return state;
         } catch (SQLException e) {
@@ -144,7 +137,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
         }
-
     }
 
     public void loadColorsTable(SQLiteDatabase db) {
@@ -195,10 +187,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             _xml.close();
         }
     }
-
-//    public int getLabelColor( int index ) {
-//        return colorList.get( index ).getColor_number();
-//    }
 
     public ArrayList<appColor> getAllColors(){
         // Select All Query

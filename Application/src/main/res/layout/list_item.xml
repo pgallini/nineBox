@@ -68,8 +68,7 @@
         <TextView style="?android:textAppearanceListItemSmall"
             android:id="@+id/candidate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dummy_title" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

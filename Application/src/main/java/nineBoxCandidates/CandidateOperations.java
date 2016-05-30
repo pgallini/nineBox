@@ -16,7 +16,7 @@ import databaseOpenHelper.DatabaseOpenHelper;
 public class CandidateOperations {
         // Database fields
         private DatabaseOpenHelper dbHelper;
-        private String[] CANDIDATE_TABLE_COLUMNS = {DatabaseOpenHelper.CANDIDATE_ID, DatabaseOpenHelper.CANDIDATE_NAME, DatabaseOpenHelper.CANDIDATE_NOTES, DatabaseOpenHelper.CANDIDATE_COLOR };
+        private String[] CANDIDATE_TABLE_COLUMNS = {DatabaseOpenHelper.CANDIDATE_ID, DatabaseOpenHelper.CANDIDATE_NAME, DatabaseOpenHelper.CANDIDATE_NOTES, DatabaseOpenHelper.CANDIDATE_COLOR, DatabaseOpenHelper.CANDIDATE_INITIALS };
         private SQLiteDatabase database;
 
         public CandidateOperations(Context context) {
@@ -31,11 +31,12 @@ public class CandidateOperations {
             dbHelper.close();
         }
 
-        public Candidates addCandidate(String name, String notes, String CandidateColor) {
+        public Candidates addCandidate(String name, String notes, String CandidateColor, String CandidateInitials) {
             ContentValues values = new ContentValues();
             values.put(DatabaseOpenHelper.CANDIDATE_NAME, name);
             values.put(DatabaseOpenHelper.CANDIDATE_NOTES, notes);
             values.put(DatabaseOpenHelper.CANDIDATE_COLOR, CandidateColor);
+            values.put(DatabaseOpenHelper.CANDIDATE_INITIALS,CandidateInitials );
             long candId = database.insert(DatabaseOpenHelper.CANDIDATES, null, values);
             // now that the candidate is created return it ...
             Cursor cursor = database.query(DatabaseOpenHelper.CANDIDATES,
@@ -79,8 +80,9 @@ public class CandidateOperations {
             Candidates candidate = new Candidates();
             candidate.setCandidateID((cursor.getInt(0)));
             candidate.setCandidateName(cursor.getString(1));
-            candidate.setCandidateNotes( cursor.getString(2));
+            candidate.setCandidateNotes(cursor.getString(2));
             candidate.setCandidateColor(cursor.getString(3));
+            candidate.setCandidateInitials(cursor.getString(4));
             return candidate;
         }
     }

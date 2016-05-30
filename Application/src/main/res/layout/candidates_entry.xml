@@ -38,13 +38,6 @@
             </EditText>
         </android.support.design.widget.TextInputLayout>
 
-        <!--<TextView-->
-        <!--android:id="@+id/NotesTitle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/edit_candidate_notes_title"-->
-        <!--android:textSize="10pt"></TextView>-->
-
         <android.support.design.widget.TextInputLayout
             android:id="@+id/NotesText_layout"
             style="@style/TextLabel"
@@ -60,23 +53,25 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="top|center"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_gravity="center"
-                android:text="Color:"
-                android:textColor="@color/text_light"
-                android:textSize="@dimen/text_size"/>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/EditCandidates_Initials_layout"
+                style="@style/TextLabel"
+                android:theme="@style/TextLabel"
+                >
 
-            <View
-                android:id="@+id/current_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                <EditText
+                    android:id="@+id/EditCandidateInitials"
+                    style="@style/EditTextStyle"
+                    android:inputType="textPersonName"
+                    android:hint="@string/edit_candidate_initials_hint">
+                </EditText>
+            </android.support.design.widget.TextInputLayout>
+
+
             <Spinner
                 android:id="@+id/spinner_widget"
                 style="@style/mySpinnerItemStyle"
@@ -84,6 +79,28 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top|center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_gravity="center"
+                android:text="@string/edit_candidate_icon_label"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_size"/>
+
+            <View
+                android:id="@+id/current_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
 
         </LinearLayout>
 

@@ -14,6 +14,7 @@ public class Candidates {
     private int yCoordinate = 0;
     private long candidateID = 0;
     private String candidateColor = " ";
+    private String candidateInitials = " ";
     private Responses responseSet = new Responses();
 
     private int pomptForResponse(String qText, Scanner scanner) {
@@ -118,12 +119,12 @@ public class Candidates {
 
     public long getCandidateID() { return candidateID; }
 
-    public String getCandidateColor() {
-        return candidateColor;
-    }
+    public String getCandidateColor() { return candidateColor; }
 
-    public void setCandidateColor(String candidateColor) {
-        this.candidateColor = candidateColor;
-    }
+    public void setCandidateColor(String candidateColor) { this.candidateColor = candidateColor; }
+
+    public String getCandidateInitials() { return candidateInitials; }
+
+    public void setCandidateInitials(String candidateInitials) { this.candidateInitials = candidateInitials; }
 
 }
