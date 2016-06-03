@@ -8,6 +8,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.ninebox.nineboxapp.R;
 import java.util.ArrayList;
@@ -22,8 +24,10 @@ import java.util.List;
 
 import databaseOpenHelper.DatabaseOpenHelper;
 import drawables.drawPoint;
-
-
+//
+//  Note:  using icons from:  https://materialdesignicons.com/
+//     using this color for all icons:  #616161
+//
 public class CandidatesEntryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Toolbar toolbar;
     private DatabaseOpenHelper dbHelper;
@@ -64,7 +68,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         spinner.setOnItemSelectedListener(this);
 
         // grab the initials
-        EditText Initialstext = (EditText) findViewById( R.id.EditCandidateInitials);
+        TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
         candidateInitials = Initialstext.getText().toString();
 
         // grab the next available color ...
@@ -137,7 +141,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         Drawable[] emptyDrawableLayers = {d1};
 
         // grab the initials
-        EditText Initialstext = (EditText) findViewById( R.id.EditCandidateInitials);
+        TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
         candidateInitials = Initialstext.getText().toString();
 
         drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
@@ -160,7 +164,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         String canidateName = Nametext.getText().toString();
         EditText Notestext = (EditText) findViewById( R.id.NotesText);
         String candidateNotes = Notestext.getText().toString();
-        EditText Initialstext = (EditText) findViewById( R.id.EditCandidateInitials);
+        TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
         String candidateInitials = Initialstext.getText().toString();
 
         // save to database

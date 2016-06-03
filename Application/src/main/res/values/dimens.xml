@@ -11,6 +11,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="button_main_width">160dp</dimen>
     <dimen name="button_main_height">60dp</dimen>
+    <dimen name="hint_text_size">12dp</dimen>
+    <dimen name="text_size_extra_small">14dp</dimen>
+    <dimen name="text_size_small">20dp</dimen>
     <dimen name="text_size">26dp</dimen>
     <dimen name="text_size_big">32dp</dimen>
     <dimen name="text_size_button">16dp</dimen>
@@ -29,12 +32,14 @@
     <dimen name="abc_text_size_title_material">18dp</dimen>
 
     <dimen name="widget_width">60dp</dimen>
-
+    <dimen name="global_elevation">8dp</dimen>
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
     <dimen name="margin_huge">64dp</dimen>
+    <dimen name="cardhead_leftmargin">30dp</dimen>
+    <dimen name="cardhead_rightmargin">10dp</dimen>
 
     <!-- Semantic definitions -->
 
