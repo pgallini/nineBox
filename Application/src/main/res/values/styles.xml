@@ -92,6 +92,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/card_image_height</item>
         <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:elevation">@dimen/global_elevation</item>
         <item name="android:clickable">true</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
@@ -108,14 +109,14 @@
     </style>
 
     <style name="MainButton" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
-        <item name="android:background">@color/highlight_color</item>
+        <item name="android:background">@color/ColorAccent</item>
         <item name="android:layout_width">@dimen/button_main_width</item>
         <item name="android:layout_height">@dimen/button_main_height</item>
         <item name="android:layout_margin">@dimen/margin_small</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:textAlignment">center</item>
         <item name="android:gravity">center</item>
-        <item name="android:elevation">6dp</item>"
+        <item name="android:elevation">@dimen/global_elevation</item>"
         <item name="android:textSize">@dimen/text_size_button</item>
         <item name="android:textColor">@color/ColorPrimaryDark</item>
     </style>
@@ -134,15 +135,18 @@
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/text_light</item>
         <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:layout_marginLeft">@dimen/cardhead_leftmargin</item>
+        <item name="android:layout_marginRight">@dimen/cardhead_rightmargin</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-        <item name="colorAccent">@color/text_dark</item>
+        <item name="colorAccent">@color/text_light</item>
         <item name="colorControlNormal">@color/text_light</item>
-        <item name="colorControlActivated">@color/text_light</item>
+        <item name="colorControlActivated">@color/ColorAccent</item>
     </style>
 
     <style name="EditTextStyle" >
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textColor">@color/text_light</item>
         <item name="android:inputType">textPersonName</item>
     </style>
@@ -168,17 +172,33 @@
         <item name="android:layout_margin">@dimen/margin_tiny</item>
     </style>
 
+    <style name="details_text_main" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center_horizontal|left</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="details_text_sub" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center_horizontal|left</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:textSize">@dimen/text_size_extra_small</item>
+    </style>
+
     <style name="MyRadioButton" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/text_dark</item>
-        <item name="colorControlActivated">@color/highlight_color</item>
-        <item name="android:buttonTint">@color/highlight_color</item>
+        <item name="colorControlActivated">@color/ColorAccent</item>
+        <item name="android:buttonTint">@color/ColorAccent</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/text_padding</item>
         <item name="android:textColor">@color/text_light</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:layout_margin">@dimen/margin_small</item>
-        <item name="android:colorAccent">@color/highlight_color</item>
+        <item name="android:colorAccent">@color/ColorAccent</item>
     </style>
 
     <style name="Slidder_Legend" >

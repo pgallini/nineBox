@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
  Copyright 2016 Paul Gallini
 -->
 <resources>
- <!--<color name="background_main">#ADBCAB</color>-->
- <color name="ColorPrimary">#B5FF27</color>
- <color name="ColorPrimaryDark">#14397E</color>
- <color name="background_main">#4963CB</color>
- <!--<color name="highlight_color">#b5ff27</color>-->
- <color name="highlight_color">#91C721</color>
+    <!--<color name="background_main">#ADBCAB</color>-->
+    <color name="ColorPrimary">#111734</color>
+    <color name="ColorPrimaryDark">#14397E</color>
+    <color name="background_main">#4963CB</color>
+    <color name="background_light">#ffffff</color>
+    <!--<color name="ColorAccent">#b5ff27</color>-->
+    <color name="ColorAccent">#62FED8</color>
 
- <color name="mutedbutton_color">#9AA6CB</color>
- <color name="toolbar_color">#173D7E</color>
+    <color name="mutedbutton_color">#7E88C1</color>
+    <color name="toolbar_color">#173D7E</color>
 
- <color name="background_secondary">#A5656A</color>
- <color name="divider">#582D31</color>
- <color name="text_light">#ffffff</color>
- <color name="text_dark">#582D31</color>
+    <color name="background_secondary">#A5656A</color>
+    <color name="divider">#582D31</color>
+    <color name="text_light">#ffffff</color>
+    <color name="text_dark">#582D31</color>
+    <color name="text_grey">#616161</color>
 </resources>

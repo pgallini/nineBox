@@ -36,8 +36,9 @@
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
     <string name="edit_candidate_icon_label">Icon:</string>
-    <string name="edit_candidate_initials_label">Icon Initials:</string>
+    <string name="edit_candidate_initials_label">Icon Initials</string>
     <string name="edit_candidate_initials_hint">Enter Initials.</string>
+    <string name="edit_candidate_color_label">Icon Color</string>
     <string name="candidate_saved">Candidate has been saved.</string>
     <string name="intro_message">Enter candidates here .... </string>
     <string name="edit_candidate_notes_title">Notes</string>

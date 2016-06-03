@@ -37,6 +37,8 @@ public class Evaluation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         int returnCode = 0;
 
+        // TODO - Code to handle case where there are no questions
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.evaluation_entry);
 
@@ -87,33 +89,35 @@ public class Evaluation extends AppCompatActivity {
 
                 if (candidateIndex < candidatesList.size()) {
 
-                    saveResponse(candidatesList.get(candidateIndex).getCandidateID(), questionsList.get((currentQuestionNo - 1)).getQuestionID(), currentResponse);
-                    if (currentQuestionNo < maxQuestionNo) {
-                        currentQuestionNo++;
-                        if (currentQuestionNo == maxQuestionNo) {
-                            // if we are now on the last question, change the text of the button to Next Candidate or Done
-                            if(candidateIndex == (candidatesList.size() - 1) ) {
-                                nextQuestionButtonView.setText(R.string.done_button);
-                            } else {
-                                nextQuestionButtonView.setText(R.string.next_question_button_alt);
+                    if ((currentQuestionNo - 1) <= questionsList.size()) {
+                        saveResponse(candidatesList.get(candidateIndex).getCandidateID(), questionsList.get((currentQuestionNo - 1)).getQuestionID(), currentResponse);
+                        if (currentQuestionNo < maxQuestionNo) {
+                            currentQuestionNo++;
+                            if (currentQuestionNo == maxQuestionNo) {
+                                // if we are now on the last question, change the text of the button to Next Candidate or Done
+                                if (candidateIndex == (candidatesList.size() - 1)) {
+                                    nextQuestionButtonView.setText(R.string.done_button);
+                                } else {
+                                    nextQuestionButtonView.setText(R.string.next_question_button_alt);
+                                }
                             }
-                        }
-                        onResume();
-                    } else {
-                        // increment the index for the next candidate ...
-//                    candidateIndex++;
-                        MainActivity.incrementCurrentCandidate();
-                        // reset the Questions
-                        currentQuestionNo = 1;
-                        if (candidateIndex < candidatesList.size()) {
-                            // reset label of the Next btn
-                            nextQuestionButtonView.setText(R.string.next_question_button);
                             onResume();
                         } else {
-                            // unless we are on the last candidate
-                            MainActivity.setCurrentCandidate(0);
-                            finish();
-                            ;
+                            // increment the index for the next candidate ...
+//                    candidateIndex++;
+                            MainActivity.incrementCurrentCandidate();
+                            // reset the Questions
+                            currentQuestionNo = 1;
+                            if (candidateIndex < candidatesList.size()) {
+                                // reset label of the Next btn
+                                nextQuestionButtonView.setText(R.string.next_question_button);
+                                onResume();
+                            } else {
+                                // unless we are on the last candidate
+                                MainActivity.setCurrentCandidate(0);
+                                finish();
+                                ;
+                            }
                         }
                     }
                 } else {
