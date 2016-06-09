@@ -188,6 +188,16 @@
         <item name="android:textSize">@dimen/text_size_extra_small</item>
     </style>
 
+    <style name="details_edit_button" parent="TextAppearance.AppCompat">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <!--<item name="android:layout_weight">2</item>-->
+        <!--<item name="android:layout_gravity">center_horizontal|right</item>-->
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:textSize">@dimen/text_size_extra_small</item>
+    </style>
+
     <style name="MyRadioButton" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/text_dark</item>
         <item name="colorControlActivated">@color/ColorAccent</item>

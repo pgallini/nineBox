@@ -94,19 +94,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_medium"
-                android:weightSum="8">
+                android:weightSum="12">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|left"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_initials" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
+                    android:layout_weight="8"
                     android:orientation="vertical"
                     android:layout_marginLeft="@dimen/margin_large">
 
@@ -116,13 +116,13 @@
 
                     <TextView
                         android:id="@+id/candidate_initials"
-                        android:text="PG"
                         style="@style/details_text_sub" />
                 </LinearLayout>
 
-                <TextView
+                <Button
                     android:id="@+id/edit_candidate_initials"
-                    style="@style/details_text_sub"
+                    style="@style/details_edit_button"
+                    android:layout_weight="3"
                     android:layout_gravity="bottom"
                     android:text="edit"/>
             </LinearLayout>
@@ -131,19 +131,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_medium"
-                android:weightSum="8">
+                android:weightSum="12">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|left"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_paintbrush" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
+                    android:layout_weight="8"
                     android:orientation="vertical"
                     android:layout_marginLeft="@dimen/margin_large">
 
@@ -157,10 +157,11 @@
                         style="@style/details_text_sub" />
                 </LinearLayout>
 
-                <TextView
+                <Button
                     android:id="@+id/edit_candidate_colors"
-                    style="@style/details_text_sub"
+                    style="@style/details_edit_button"
                     android:layout_gravity="bottom"
+                    android:layout_weight="3"
                     android:text="edit"/>
             </LinearLayout>
 
@@ -168,19 +169,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_medium"
-                android:weightSum="8">
+                android:weightSum="12">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|left"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_palette_black" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
+                    android:layout_weight="10"
                     android:orientation="horizontal"
                     android:layout_marginLeft="@dimen/margin_large">
 
@@ -193,35 +194,36 @@
                     android:id="@+id/current_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_weight="1"
                     android:layout_gravity="right"/>
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spinner_widget"
-                style="@style/mySpinnerItemStyle"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:popupTheme="@android:style/ThemeOverlay.Material.Light" />
+            <!--<Spinner-->
+                <!--android:id="@+id/spinner_widget"-->
+                <!--style="@style/mySpinnerItemStyle"-->
+                <!--android:layout_width="120dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:popupTheme="@android:style/ThemeOverlay.Material.Light" />-->
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="top|center"
-                android:orientation="horizontal">
+            <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="top|center"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/edit_candidate_icon_label"
-                    android:textColor="@color/text_light"
-                    android:textSize="@dimen/text_size" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:padding="8dp"-->
+                    <!--android:text="@string/edit_candidate_icon_label"-->
+                    <!--android:textColor="@color/text_light"-->
+                    <!--android:textSize="@dimen/text_size" />-->
 
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:id="@+id/LinearLayout02"
