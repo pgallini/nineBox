@@ -19,9 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.view.View;
 import android.widget.EditText;
@@ -57,6 +59,8 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         Bundle extras = getIntent().getExtras();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.candidates_entry);
+        // make sure the soft keyboard doesn't push everything up ...
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -79,24 +83,11 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
 //        spinner.setOnItemSelectedListener(this);
 
         // grab the initials
-        final TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
-        candidateInitials = Initialstext.getText().toString();
+//        final TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
+//        candidateInitials = Initialstext.getText().toString();
 
-        // grab the next available color ...
-        currentColor = getNetAvailableColor( colorList );
-        // convert the String color to an int
-        int tmpcolor = Color.parseColor(currentColor);
-        // set-up current icon based on the current color for this candidate ...
-        // TODO look for cleaner way to do this
-        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
-        Drawable[] emptyDrawableLayers = {d1};
-        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
-        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
-        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
+        display_icon();
 
-        View currentIcon = findViewById(R.id.current_icon);
-
-        currentIcon.setBackgroundDrawable(newPoint);
 
 //        findViewById(R.id.edit_candidate_initials).setOnTouchListener(
 //                 new View.OnTouchListener() {
@@ -120,56 +111,71 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                 String candidateName = candidateNameTV.getText().toString();
                 candidateInitials = calculateInitials( candidateName );
 
+                display_icon();
                 // grab the initials
-                final TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
-                Initialstext.setText(candidateInitials);
+//                final TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
+//                Initialstext.setText(candidateInitials);
 
             }
         });
 
-        findViewById(R.id.edit_candidate_initials).setOnClickListener(
+        findViewById(R.id.edit_candidate_icon).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         // edit Initials selected - call dialog
                         showEditInitialsDialog(candidateInitials);
-                        Initialstext.setText(candidateInitials);
+//                        Initialstext.setText(candidateInitials);
 
                         // refresh the view once you have the new initials
-                        View thisView = findViewById(R.id.candidate_initials);
-                        thisView.invalidate();
+//                        View thisView = findViewById(R.id.candidate_initials);
+//                        thisView.invalidate();
                     }
                 });
-
-        findViewById(R.id.edit_candidate_colors).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Remove
-                System.out.println(" about to initialize ColorPicker");
-
-//                ColorPicker colorPicker = new ColorPicker();
-//                colorPicker.;
-                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-
-                // TODO switch this out to use our custom list of colors
-                colorPickerDialog.initialize(R.string.color_select_title, new int[]{Color.CYAN, Color.LTGRAY, Color.BLACK, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.RED, Color.GRAY, Color.YELLOW}, Color.YELLOW, 3, 2);
-                android.app.FragmentManager fragMan = getFragmentManager();
-                colorPickerDialog.show(fragMan, "colorpicker");
-
-                colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
-
-                                                                 @Override
-                                                                 public void onColorSelected(int color) {
-                                                                     // Toast.makeText(MainActivity.this, "selectedColor : " + color, Toast.LENGTH_SHORT).show();
-                                                                     // TODO Remove
-                                                                     System.out.println(" color selected = ");
-                                                                     System.out.println(color);
-                                                                 }
-                                                             }
-                );
-            }
-        });
+//
+//        findViewById(R.id.edit_candidate_initials).setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        // edit Initials selected - call dialog
+//                        showEditInitialsDialog(candidateInitials);
+//                        Initialstext.setText(candidateInitials);
+//
+//                        // refresh the view once you have the new initials
+//                        View thisView = findViewById(R.id.candidate_initials);
+//                        thisView.invalidate();
+//                    }
+//                });
+//
+//        findViewById(R.id.edit_candidate_colors).setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Remove
+//                System.out.println(" about to initialize ColorPicker");
+//
+////                ColorPicker colorPicker = new ColorPicker();
+////                colorPicker.;
+//                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+//
+//                // TODO switch this out to use our custom list of colors
+//                colorPickerDialog.initialize(R.string.color_select_title, new int[]{Color.CYAN, Color.LTGRAY, Color.BLACK, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.RED, Color.GRAY, Color.YELLOW}, Color.YELLOW, 3, 2);
+//                android.app.FragmentManager fragMan = getFragmentManager();
+//                colorPickerDialog.show(fragMan, "colorpicker");
+//
+//                colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+//
+//                                                                 @Override
+//                                                                 public void onColorSelected(int color) {
+//                                                                     // Toast.makeText(MainActivity.this, "selectedColor : " + color, Toast.LENGTH_SHORT).show();
+//                                                                     // TODO Remove
+//                                                                     System.out.println(" color selected = ");
+//                                                                     System.out.println(color);
+//                                                                 }
+//                                                             }
+//                );
+//            }
+//        });
 
         findViewById(R.id.save_candidate).setOnClickListener(new View.OnClickListener() {
                                                                  @Override
@@ -189,6 +195,24 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         );
     }
 
+    private void display_icon() {
+        // grab the next available color ...
+        currentColor = getNetAvailableColor( colorList );
+        // convert the String color to an int
+        int tmpcolor = Color.parseColor(currentColor);
+        // set-up current icon based on the current color for this candidate ...
+        // TODO look for cleaner way to do this
+        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
+        Drawable[] emptyDrawableLayers = {d1};
+        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
+        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
+        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
+
+        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+
+        //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
+        currentIcon.setImageDrawable(newPoint);
+    }
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
@@ -216,17 +240,10 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
 
         String tempName = candidateName.trim();
         if( tempName.length() > 0 )  {
-
             returnInitials = tempName.substring(0, 1) ;
-
             int firstSpace = tempName.indexOf(" ");
 
-            // TODO Remove
-            System.out.println(" first Space = ");
-            System.out.println(firstSpace);
-
             if( firstSpace != -1  ){
-
                 returnInitials = returnInitials.concat(tempName.substring((firstSpace+1), (firstSpace + 2)));
             }
             else if( tempName.length() > 1 ) {
@@ -277,6 +294,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                         if(Initialstext != null) {
                             candidateInitials = Initialstext.getText().toString();
 
+                            display_icon();
                             // TODO Remove
                             System.out.println(" just set candidateInitials");
 
@@ -298,16 +316,16 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         // display dialog
         dialog.show();
 
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            public void onDismiss(DialogInterface dialog) {
-
-
-                // TODO Remove
-                System.out.println(" inside setOnDismissListener ");
-                // refresh the view once you have the new initials
-                View thisView = findViewById(R.id.candidate_initials);
-                thisView.invalidate();            }
-        });
+//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            public void onDismiss(DialogInterface dialog) {
+//
+//
+//                // TODO Remove
+//                System.out.println(" inside setOnDismissListener ");
+//                // refresh the view once you have the new initials
+//                View thisView = findViewById(R.id.candidate_initials);
+//                thisView.invalidate();            }
+//        });
     }
 
     @Override
@@ -316,22 +334,11 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         currentColor = tmpColorNum;
         int tmpcolor = Color.parseColor(currentColor);
         // refresh current icon based on the current color for this candidate ...
+        // TODO Remove
+        System.out.println(" About to call display_icon ... candidateInitials");
+        System.out.println(candidateInitials);
 
-        // TODO look for cleaner way to do this
-        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
-        Drawable[] emptyDrawableLayers = {d1};
-
-        // grab the initials
-        TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
-        candidateInitials = Initialstext.getText().toString();
-
-        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
-        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
-//        ShapeDrawable newPoint = drawPoint(this, 2, 2, tmpcolor);
-        View currentIcon = (View) findViewById(R.id.current_icon);
-
-        currentIcon.setBackgroundDrawable(newPoint);
-        Toast.makeText(this, "Selection: " + tmpColorNum, Toast.LENGTH_SHORT).show();
+        display_icon();
     }
 
     @Override
@@ -345,8 +352,8 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         String canidateName = Nametext.getText().toString();
         EditText Notestext = (EditText) findViewById( R.id.NotesText);
         String candidateNotes = Notestext.getText().toString();
-        TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
-        String candidateInitials = Initialstext.getText().toString();
+//        TextView Initialstext = (TextView) findViewById( R.id.candidate_initials);
+//        String candidateInitials = Initialstext.getText().toString();
 
         // save to database
         //create a new intent so we can return Canidate Data ...

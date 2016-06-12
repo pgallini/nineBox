@@ -39,7 +39,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:listPreferredItemHeight"
-    android:divider="?android:dividerVertical"
+    android:divider="@null"
     android:dividerPadding="8dp"
     android:showDividers="middle">
 
@@ -64,6 +64,12 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:background="?android:selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/current_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="2" />
 
         <TextView style="?android:textAppearanceListItemSmall"
             android:id="@+id/candidate"

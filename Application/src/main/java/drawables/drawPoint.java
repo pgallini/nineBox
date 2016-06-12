@@ -99,6 +99,10 @@ public class drawPoint extends LayerDrawable {
             int y = (bitmap.getHeight() + bounds.height())/2;
             canvas.drawText(gText, x, y, paint);
 
+            // TODO Remove
+            System.out.println( " inside getDrawable ... gText = ");
+            System.out.println( gText ) ;
+
             BitmapDrawable drawable = new BitmapDrawable(this.resources, bitmap);
             return drawable;
         }
