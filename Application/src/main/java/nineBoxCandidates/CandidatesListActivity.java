@@ -91,6 +91,9 @@ public class CandidatesListActivity extends AppCompatActivity {
 
                 View view = super.getView(position, convertView, parent);
 
+                // display icon for current candidate ...
+//                String cInitials = displayList.get(position).????;
+                        
                 TextView candidateText = (TextView) view.findViewById(R.id.candidate);
                 candidateText.setText(displayList.get(position).toString());
 

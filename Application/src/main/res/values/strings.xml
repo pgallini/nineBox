@@ -37,7 +37,8 @@
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
     <string name="edit_candidate_icon_label">Icon:</string>
     <string name="edit_candidate_initials_label">Icon Initials</string>
-    <string name="edit_candidate_initials_hint">Enter Initials.</string>
+    <string name="edit_candidate_initials_hint">Edit Initials.</string>
+    <string name="confirm_edit_initials_message">Enter new initials for this candidate (limit 2 characters).</string>
     <string name="edit_candidate_color_label">Icon Color</string>
     <string name="candidate_saved">Candidate has been saved.</string>
     <string name="intro_message">Enter candidates here .... </string>
@@ -64,4 +65,9 @@
     <string name="title_activity_questions_entry">Grid 9: Enter Questions</string>
     <string name="title_activity_evaluation">Grid 9: Evaluate Candidates</string>
     <string name="title_activity_report">Grid 9: See Results</string>
+
+    <string name="color_select_title">Please select a new color</string>
+    <string name="color_swatch_description">Color %1$d</string>
+    <string name="color_swatch_description_selected">Color %1$d selected</string>
+    <string name="color_picker_default_title">Select a Color</string>
 </resources>

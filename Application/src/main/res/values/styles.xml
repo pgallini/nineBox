@@ -143,12 +143,39 @@
         <item name="colorControlActivated">@color/ColorAccent</item>
     </style>
 
+    <style name="TextLabelDark" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/text_light</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:layout_marginLeft">@dimen/cardhead_leftmargin</item>
+        <item name="android:layout_marginRight">@dimen/cardhead_rightmargin</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/text_light</item>
+        <item name="colorControlNormal">@color/text_light</item>
+        <item name="colorControlActivated">@color/ColorAccent</item>
+    </style>
+
     <style name="EditTextStyle" >
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textColor">@color/text_light</item>
         <item name="android:inputType">textPersonName</item>
+    </style>
+
+    <style name="EditMultiLineTextStyle" >
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:lines">4</item> <!-- Total Lines prior display -->
+        <item name="android:minLines">2</item> <!-- Minimum lines -->
+        <item name="android:gravity">top|left</item> <!-- Cursor Position -->
+        <item name="android:maxLines">6</item> <!-- Maximum Lines -->
+        <item name="android:scrollbars">vertical</item> <!-- Vertical Scroll Bar -->
     </style>
 
     <style name="Text_Instructional" parent="TextAppearance.AppCompat">
@@ -176,7 +203,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center_horizontal|left</item>
-        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColor">@color/text_light</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
@@ -185,6 +212,16 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center_horizontal|left</item>
         <item name="android:textColor">@color/text_grey</item>
+        <item name="android:textSize">@dimen/text_size_extra_small</item>
+    </style>
+
+    <style name="details_edit_button" parent="TextAppearance.AppCompat">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <!--<item name="android:layout_weight">2</item>-->
+        <!--<item name="android:layout_gravity">center_horizontal|right</item>-->
+        <item name="android:textColor">@color/text_light</item>
         <item name="android:textSize">@dimen/text_size_extra_small</item>
     </style>
 
