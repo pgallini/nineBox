@@ -147,14 +147,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/text_light</item>
+        <item name="android:textColorHint">@color/text_dark</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:layout_marginLeft">@dimen/cardhead_leftmargin</item>
         <item name="android:layout_marginRight">@dimen/cardhead_rightmargin</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-        <item name="colorAccent">@color/text_light</item>
-        <item name="colorControlNormal">@color/text_light</item>
-        <item name="colorControlActivated">@color/ColorAccent</item>
+        <item name="colorAccent">@color/text_dark</item>
+        <item name="colorControlNormal">@color/text_dark</item>
+        <item name="colorControlActivated">@color/text_grey</item>
     </style>
 
     <style name="EditTextStyle" >

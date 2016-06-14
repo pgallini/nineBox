@@ -57,8 +57,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingLeft="?android:listPreferredItemPaddingLeft"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_tiny"
         android:paddingRight="?android:listPreferredItemPaddingRight"
         android:clickable="true"
         android:focusable="true"
@@ -67,14 +67,17 @@
 
         <ImageView
             android:id="@+id/current_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="2" />
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_width"
+            android:gravity="left"
+            android:paddingRight="@dimen/margin_tiny"
+            />
 
         <TextView style="?android:textAppearanceListItemSmall"
             android:id="@+id/candidate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_small"/>
 
     </LinearLayout>
 
@@ -91,12 +94,17 @@
         android:contentDescription="@string/delete_content_description"
         android:clickable="true" />
 
-    <ImageButton android:id="@+id/eval_action"
+    <!--android:layout_width="@dimen/icon_width"-->
+    <!--android:layout_height="@dimen/icon_width"-->
+    <!-- -->
+    <ImageView android:id="@+id/eval_action"
         style="?android:borderlessButtonStyle"
-        android:layout_width="@dimen/standard_touch_target_size"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/eval_btn_width"
+        android:layout_height="@dimen/eval_btn_width"
         android:src="@drawable/icon_questions_small"
         android:contentDescription="@string/config_content_description"
+        android:gravity="right"
+        android:layout_gravity="center_vertical"
         android:clickable="true"/>
 
 </LinearLayout>

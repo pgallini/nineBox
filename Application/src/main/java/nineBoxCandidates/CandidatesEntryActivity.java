@@ -196,6 +196,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
     }
 
     private void display_icon() {
+        // TODO find way to combine this method with the one in  CandidatesListActivity
         // grab the next available color ...
         currentColor = getNetAvailableColor( colorList );
         // convert the String color to an int
