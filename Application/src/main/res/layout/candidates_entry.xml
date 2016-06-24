@@ -29,7 +29,6 @@
             android:orientation="vertical"
             card_view:cardBackgroundColor="@color/background_main">
 
-
             <LinearLayout
                 android:id="@+id/EditTextName_layout"
                 android:layout_width="fill_parent"
@@ -61,61 +60,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/EditTextName_layout"
-                android:layout_margin="@dimen/margin_medium"
-                android:layout_gravity="bottom|center"
+                android:layout_marginLeft="@dimen/cardhead_leftmargin"
+                android:layout_marginRight="@dimen/cardhead_rightmargin"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_gravity="bottom|left"
                 android:orientation="horizontal"
                 android:weightSum="12">
 
                 <TextView
                     style="@style/details_text_main"
-                    android:layout_weight="6"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/cardhead_leftmargin"
+                    android:layout_marginTop="@dimen/margin_small"
                     android:text="@string/edit_candidate_icon_label" />
 
                 <ImageView
                     android:id="@+id/current_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="2" />
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_gravity="left" />
 
                 <Button
                     android:id="@+id/edit_candidate_icon"
                     style="@style/details_edit_button"
                     android:layout_gravity="bottom"
-                    android:layout_weight="4"
-                    android:text="edit" />
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="@dimen/margin_medium"-->
-                <!--android:weightSum="8">-->
-
-                <!--<ImageView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="center_horizontal|left"-->
-                <!--android:layout_weight="1"-->
-                <!--android:src="@drawable/ic_paintbrush" />-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="8"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_marginLeft="@dimen/margin_large">-->
-
-                <!--<TextView-->
-                <!--style="@style/details_text_main"-->
-                <!--android:text="@string/edit_candidate_color_label" />-->
-
-                <!--<TextView-->
-                <!--android:id="@+id/candidate_color"-->
-                <!--android:text="Dark Blue"-->
-                <!--style="@style/details_text_sub" />-->
-                <!--</LinearLayout>-->
-
-                <!--</LinearLayout>-->
-
+                    android:layout_weight="7.73"
+                    android:text="@string/edit" />
 
             </LinearLayout>
 
@@ -125,7 +96,6 @@
             android:id="@+id/bottom_card"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_below="@+id/top_card"
             android:layout_weight="3"
             android:background="@color/background_light"
             android:orientation="vertical">
@@ -134,7 +104,7 @@
                 android:id="@+id/NotesText_layout"
                 style="@style/TextLabelDark"
                 android:layout_below="@+id/EditTextName_layout"
-                android:theme="@style/TextLabel">
+                android:theme="@style/TextLabelDark">
 
                 <EditText
                     android:id="@+id/NotesText"
@@ -142,69 +112,6 @@
                     android:hint="@string/edit_candidate_notes_hint"></EditText>
             </android.support.design.widget.TextInputLayout>
 
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/margin_medium"-->
-            <!--android:weightSum="12">-->
-
-            <!--<ImageView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="center_horizontal|left"-->
-            <!--android:layout_weight="1"-->
-            <!--android:src="@drawable/ic_initials" />-->
-
-            <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="8"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_marginLeft="@dimen/margin_large">-->
-
-            <!--<TextView-->
-            <!--style="@style/details_text_main"-->
-            <!--android:text="@string/edit_candidate_initials_label" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/candidate_initials"-->
-            <!--style="@style/details_text_sub" />-->
-            <!--</LinearLayout>-->
-
-            <!--<Button-->
-            <!--android:id="@+id/edit_candidate_initials"-->
-            <!--style="@style/details_edit_button"-->
-            <!--android:layout_weight="3"-->
-            <!--android:layout_gravity="bottom"-->
-            <!--android:text="edit"/>-->
-            <!--</LinearLayout>-->
-
-
-            <!--<Spinner-->
-            <!--android:id="@+id/spinner_widget"-->
-            <!--style="@style/mySpinnerItemStyle"-->
-            <!--android:layout_width="120dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:popupTheme="@android:style/ThemeOverlay.Material.Light" />-->
-
-            <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="top|center"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:padding="8dp"-->
-            <!--android:text="@string/edit_candidate_icon_label"-->
-            <!--android:textColor="@color/text_light"-->
-            <!--android:textSize="@dimen/text_size" />-->
-
-
-            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:id="@+id/LinearLayout02"

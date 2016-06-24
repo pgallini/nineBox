@@ -35,13 +35,14 @@
 
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
-    <string name="edit_candidate_icon_label">Icon:</string>
+    <string name="edit_candidate_icon_label">Icon</string>
     <string name="edit_candidate_initials_label">Icon Initials</string>
     <string name="edit_candidate_initials_hint">Edit Initials.</string>
     <string name="confirm_edit_initials_message">Enter new initials for this candidate (limit 2 characters).</string>
     <string name="edit_candidate_color_label">Icon Color</string>
     <string name="candidate_saved">Candidate has been saved.</string>
     <string name="intro_message">Enter candidates here .... </string>
+    <string name="edit">EDIT</string>
     <string name="edit_candidate_notes_title">Notes</string>
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
     <string name="confirm_delete_title">Confirm Delete</string>

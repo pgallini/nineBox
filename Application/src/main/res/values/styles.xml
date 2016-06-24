@@ -1,26 +1,9 @@
 <!--
-  Copyright 2013 The Android Open Source Project
+  Copyright 2016 Paul Gallini
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
   -->
 
 <resources>
-
-    <!-- Activity themes -->
-
-    <!--<style name="Theme.Base" parent="android:Theme.Light" />-->
-
-    <!--<style name="Theme.Sample" parent="Theme.Base" />-->
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -33,20 +16,6 @@
         <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
 
     </style>
-
-    <!--<item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle</item>-->
-    <!--<style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">-->
-        <!--<item name="actionBarStyle">@style/ActionBarStyle</item>-->
-    <!--</style>-->
-
-    <!--<style name="ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar.Solid">-->
-        <!--<item name="titleTextStyle">@style/MyTitleTextStyle</item>-->
-    <!--</style>-->
-
-    <!--<style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">-->
-        <!--<item name="android:textColor">@color/text_light</item>-->
-    <!--</style>-->
-
 
     <style name="WindowTitleBackground" >
         <item name="android:background">@android:color/transparent
@@ -89,12 +58,11 @@
     </style>
 
     <style name="MainButtonCard">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/card_image_height</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:elevation">@dimen/global_elevation</item>
-        <item name="android:clickable">true</item>
         <item name="android:scaleType">centerCrop</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="MainButtonLayout" >
@@ -104,7 +72,7 @@
         <item name="android:padding">@dimen/abc_button_padding_horizontal_material</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_gravity">bottom</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">center|bottom</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
@@ -126,7 +94,8 @@
         <item name="android:layout_height">@dimen/card_title_height</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_marginLeft">@dimen/md_keylines</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textColor">@color/ColorPrimaryDark</item>
     </style>
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
@@ -147,14 +116,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/text_light</item>
+        <item name="android:textColorHint">@color/text_dark</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:layout_marginLeft">@dimen/cardhead_leftmargin</item>
         <item name="android:layout_marginRight">@dimen/cardhead_rightmargin</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-        <item name="colorAccent">@color/text_light</item>
-        <item name="colorControlNormal">@color/text_light</item>
-        <item name="colorControlActivated">@color/ColorAccent</item>
+        <item name="colorAccent">@color/text_dark</item>
+        <item name="colorControlNormal">@color/text_dark</item>
+        <item name="colorControlActivated">@color/text_grey</item>
     </style>
 
     <style name="EditTextStyle" >
@@ -179,8 +148,8 @@
     </style>
 
     <style name="Text_Instructional" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width"> wrap_content</item>
-        <item name="android:layout_height"> wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_light</item>
         <item name="android:textSize">10pt</item>
         <item name="android:padding">@dimen/text_padding</item>
@@ -202,7 +171,7 @@
     <style name="details_text_main" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_gravity">center_horizontal|left</item>
+        <item name="android:layout_gravity">center_vertical|left</item>
         <item name="android:textColor">@color/text_light</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
@@ -219,6 +188,10 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/margin_medium</item>
+        <item name="android:layout_marginRight">@dimen/cardhead_rightmargin</item>
+        <item name="android:gravity">top|right</item>
+        <item name="android:paddingLeft">10dp</item>
         <!--<item name="android:layout_weight">2</item>-->
         <!--<item name="android:layout_gravity">center_horizontal|right</item>-->
         <item name="android:textColor">@color/text_light</item>
@@ -241,7 +214,7 @@
     <style name="Slidder_Legend" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textColor">@color/text_dark</item>
         <item name="android:textSize">10pt</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>

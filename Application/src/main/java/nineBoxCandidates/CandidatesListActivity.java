@@ -21,6 +21,9 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +42,7 @@ import com.ninebox.nineboxapp.R;
 
 import java.util.ArrayList;
 
+import drawables.drawPoint;
 import nineBoxEvaluation.Evaluation;
 import nineBoxMain.MainActivity;
 import nineBoxQuestions.QuestionsEntryActivity;
@@ -92,8 +97,16 @@ public class CandidatesListActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
 
                 // display icon for current candidate ...
-//                String cInitials = displayList.get(position).????;
-                        
+                String cInitials = candidatesList.get(position).getCandidateInitials();
+                String cColor = candidatesList.get(position).getCandidateColor();
+
+                ImageView currentIcon = (ImageView) convertView.findViewById(R.id.current_icon);
+
+                //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
+                currentIcon.setImageDrawable(display_icon(cColor, cInitials));
+
+//                display_icon(cColor, cInitials);
+
                 TextView candidateText = (TextView) view.findViewById(R.id.candidate);
                 candidateText.setText(displayList.get(position).toString());
 
@@ -154,6 +167,28 @@ public class CandidatesListActivity extends AppCompatActivity {
             }
         });
     }
+
+    private LayerDrawable display_icon(String currentColor,String candidateInitials ) {
+        // TODO find way to combine this method with the one in CandidatesEntryActivity
+        // grab the next available color ...
+//        currentColor = getNetAvailableColor( colorList );
+        // convert the String color to an int
+        int tmpcolor = Color.parseColor(currentColor);
+        // set-up current icon based on the current color for this candidate ...
+        // TODO look for cleaner way to do this
+        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
+        Drawable[] emptyDrawableLayers = {d1};
+        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
+        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
+        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
+
+//        ImageView currentIcon = (ImageView) convertView.findViewById(R.id.current_icon);
+
+        return newPoint;
+        //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
+//        currentIcon.setImageDrawable(newPoint);
+    }
+
     private void delete_candidate( int position ) {
         candidateOperations.deleteCandidate(candidatesList.get(position));
         candidatesList.remove(candidatesList.get(position));

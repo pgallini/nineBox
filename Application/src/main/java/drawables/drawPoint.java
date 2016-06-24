@@ -14,6 +14,8 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
+import com.ninebox.nineboxapp.R;
+
 import java.net.URL;
 
 import nineBoxReport.ReportActivity;
@@ -72,7 +74,8 @@ public class drawPoint extends LayerDrawable {
         oval.setIntrinsicHeight(getShapeHeight());
         oval.setIntrinsicWidth(getShapeWidth());
         oval.getPaint().setColor(getColor());
-        oval.setPadding(10, 10, 10, 10);
+        // TODO change this to use "@dimen/icon_padding"
+        oval.setPadding(6, 6, 6, 6);
         this.addLayer(oval);
         Drawable textLayer = getDrawable( initials );
         this.addLayer(textLayer);
@@ -84,7 +87,7 @@ public class drawPoint extends LayerDrawable {
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setAlpha(80);
             paint.setStyle(Paint.Style.FILL);
-            Bitmap bitmap = Bitmap.createBitmap(60, 60, Bitmap.Config.ARGB_8888);
+            Bitmap bitmap = Bitmap.createBitmap(80, 80, Bitmap.Config.ARGB_8888);
 
             Canvas canvas = new Canvas(bitmap);
             paint.setColor(Color.BLUE);
@@ -98,10 +101,6 @@ public class drawPoint extends LayerDrawable {
             int x = (bitmap.getWidth() - bounds.width())/2;
             int y = (bitmap.getHeight() + bounds.height())/2;
             canvas.drawText(gText, x, y, paint);
-
-            // TODO Remove
-            System.out.println( " inside getDrawable ... gText = ");
-            System.out.println( gText ) ;
 
             BitmapDrawable drawable = new BitmapDrawable(this.resources, bitmap);
             return drawable;

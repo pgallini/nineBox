@@ -1,162 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/lib/com.ninebox.nineboxapp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_main"
     android:orientation="vertical"
-    tools:context="nineBoxEvaluation.Evaluation"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="nineBoxEvaluation.Evaluation">
 
     <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"></include>
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/candidate_name"-->
-        <!--android:layout_below="@+id/tool_bar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="fill_vertical|center|top"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/textView"-->
-            <!--style="@style/Text_Instructional"-->
-            <!--android:text="@string/evaluation_for_prompt"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/evalCandidateName"-->
-            <!--style="@style/Text_Instructional"-->
-            <!--android:inputType="none|textPersonName" />-->
-    <!--</LinearLayout>-->
-
-    <LinearLayout
-        android:id="@+id/candidate_name"
-        android:layout_below="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:background="@color/mutedbutton_color"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/evalCandidateName"
-            style="@style/Text_Bold"
-            />
-        <!--android:inputType="none|textPersonName"-->
-    </LinearLayout>
+        layout="@layout/tool_bar" />
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/candidate_name"
-        android:orientation="vertical">
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tool_bar"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/top_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/background_main"
+            android:elevation="@dimen/global_elevation"
+            android:orientation="vertical"
+            card_view:cardBackgroundColor="@color/background_main">
+
+            <LinearLayout
+                android:id="@+id/candidate_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tool_bar"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/evalCandidateName"
+                    style="@style/Text_Bold"
+                    android:layout_gravity="center|top" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/candidate_name"
+                android:layout_gravity="center|bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/question_x_of_x_prompt"
+                    style="@style/Text_Instructional"
+                    android:layout_height="@dimen/question_number_height"
+                    android:layout_gravity="right|bottom"
+                    android:gravity="right|bottom"
+                    android:text="@string/question_x_of_x_prompt" />
+
+                <TextView
+                    android:id="@+id/curr_question_no"
+                    style="@style/Text_Instructional"
+                    android:layout_width="@dimen/question_number_width"
+                    android:layout_height="@dimen/question_number_height"
+                    android:layout_gravity="right|bottom"
+                    android:gravity="right|bottom" />
+
+                <TextView
+                    android:id="@+id/question_x_of_x_of"
+                    style="@style/Text_Instructional"
+                    android:layout_height="@dimen/question_number_height"
+                    android:layout_gravity="right|bottom"
+                    android:gravity="right|bottom"
+                    android:text="@string/question_x_of_x_of" />
+
+                <TextView
+                    android:id="@+id/max_question_no"
+                    style="@style/Text_Instructional"
+                    android:layout_width="@dimen/question_number_width"
+                    android:layout_height="@dimen/question_number_height"
+                    android:layout_gravity="left|bottom"
+                    android:gravity="left|bottom" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="fill_vertical|center|top"
-            android:background="@color/background_main"
-            android:orientation="horizontal">
+            android:id="@+id/bottom_card"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/top_card"
+            android:layout_weight="3"
+            android:background="@color/background_light"
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <TextView
-                android:id="@+id/question_x_of_x_prompt"
-                style="@style/Text_Instructional"
-                android:text="@string/question_x_of_x_prompt" />
+                android:id="@+id/question_text"
+                android:layout_width="fill_parent"
+                android:layout_height="182dp"
+                android:layout_gravity="top"
+                android:layout_margin="@dimen/text_margin"
+                android:padding="@dimen/text_padding"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size" />
 
-            <TextView
-                android:id="@+id/curr_question_no"
-                style="@style/Text_Instructional"
-                android:layout_width="42dp"
-                android:layout_height="31dp"
-                android:gravity="right"
-                android:inputType="none|textPersonName" />
+            <SeekBar
+                android:id="@+id/responseSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:max="@integer/maxResponse"
+                android:padding="@dimen/text_padding"
+                android:progress="1"
+                android:progressDrawable="@drawable/seekbar_progress"
+                android:thumb="@drawable/seekbar_thumb" />
 
-            <TextView
-                android:id="@+id/question_x_of_x_of"
-                style="@style/Text_Instructional"
-                android:text="@string/question_x_of_x_of" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_tiny">
 
-            <TextView
-                android:id="@+id/max_question_no"
-                style="@style/Text_Instructional"
-                android:layout_width="42dp"
-                android:layout_height="31dp"
-                android:gravity="left"
-                android:inputType="none|textPersonName"/>
+                <TextView
+                    android:id="@+id/tvLabel1"
+                    style="@style/Slidder_Legend"
+                    android:layout_alignParentLeft="true"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/tvLabel2"
+                    style="@style/Slidder_Legend"
+                    android:layout_centerHorizontal="true"
+                    android:text="5" />
+
+                <TextView
+                    android:id="@+id/tvLabel3"
+                    style="@style/Slidder_Legend"
+                    android:layout_alignParentRight="true"
+                    android:text="10" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_margin="@dimen/margin_small"
+                android:orientation="vertical"
+                android:padding="@dimen/slidder_padding">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/MainButtonLayout">
+
+            <Button
+                android:id="@+id/cancel_button"
+                style="@style/MainButton"
+                android:background="@color/mutedbutton_color"
+                android:text="@string/cancel_button" />
+
+            <Button
+                android:id="@+id/next_question_button"
+                style="@style/MainButton"
+                android:text="@string/next_question_button" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/question_text"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/question_view_height"
-        android:layout_gravity="top"
-        android:layout_margin="@dimen/text_margin"
-        android:padding="@dimen/text_padding"
-        android:textColor="@color/text_light"
-        android:textSize="@dimen/text_size_big" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/margin_small"
-        android:padding="@dimen/slidder_padding"
-        >
-    <SeekBar
-        android:id="@+id/responseSeekBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="@dimen/text_margin"
-        android:max="@integer/maxResponse"
-        android:progress="1"
-        android:padding="@dimen/text_padding"
-        android:progressDrawable="@drawable/seekbar_progress"
-        android:thumb="@drawable/seekbar_thumb"
-        />
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal" >
-        <TextView
-            android:id="@+id/tvLabel1"
-            style="@style/Slidder_Legend"
-            android:layout_alignParentLeft="true"
-            android:text="0" />
-        <TextView
-            android:id="@+id/tvLabel2"
-            style="@style/Slidder_Legend"
-            android:layout_centerHorizontal="true"
-            android:text="5" />
-        <TextView
-            android:id="@+id/tvLabel3"
-            style="@style/Slidder_Legend"
-            android:layout_alignParentRight="true"
-            android:text="10" />
-    </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/MainButtonLayout">
-
-        <Button
-            android:id="@+id/cancel_button"
-            style="@style/MainButton"
-            android:background="@color/mutedbutton_color"
-            android:text="@string/cancel_button" />
-
-        <Button
-            android:id="@+id/next_question_button"
-            style="@style/MainButton"
-            android:text="@string/next_question_button" />
-    </LinearLayout>
-
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
