@@ -5,17 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/background_main"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-
-    android:weightSum="1">
+    tools:context=".MainActivity">
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"></include>
 
-    <RelativeLayout
-        android:layout_below="@+id/tool_bar"
-        android:layout_width="match_parent"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="@dimen/abc_action_bar_default_height_material"
         android:layout_margin="@dimen/margin_medium">
@@ -26,16 +23,15 @@
             android:src="@drawable/add_people_image" />
 
         <TextView
-            android:id="@+id/card_title"
+            android:id="@+id/textView"
             style="@style/MainButtonText"
             android:layout_alignBottom="@+id/button_add_people"
-            android:text="@string/add_people_title" />
-
+            android:text="@string/add_people_title"/>
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/card_image_height"
         android:elevation="@dimen/abc_action_bar_default_height_material"
         android:layout_margin="@dimen/margin_medium">
 
@@ -48,8 +44,7 @@
             android:id="@+id/eval_card_title"
             style="@style/MainButtonText"
             android:layout_alignBottom="@+id/button_set_questions"
-            android:text="@string/evaluate_title" />
-
+            android:text="@string/evaluate_title"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -68,11 +63,12 @@
             style="@style/MainButtonText"
             android:layout_alignBottom="@+id/button_see_results"
             android:text="@string/reports_title" />
-
     </RelativeLayout>
 
     <LinearLayout
-        style="@style/MainButtonLayout">
+        style="@style/MainButtonLayout"
+        android:layout_gravity="bottom"
+        android:layout_height="fill_parent">
 
         <Button
             android:id="@+id/exit_button"

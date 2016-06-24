@@ -23,7 +23,7 @@
     <dimen name="text_margin">6dp</dimen>
     <dimen name="border_height">13dp</dimen>
 
-    <dimen name="slidder_padding">8dp</dimen>
+    <dimen name="slidder_padding">4dp</dimen>
 
     <dimen name="card_image_height">100dp</dimen>
     <dimen name="card_image_width">220dp</dimen>
@@ -40,6 +40,9 @@
     <dimen name="margin_huge">64dp</dimen>
     <dimen name="cardhead_leftmargin">30dp</dimen>
     <dimen name="cardhead_rightmargin">10dp</dimen>
+
+    <dimen name="question_number_width">42dp</dimen>
+    <dimen name="question_number_height">32dp</dimen>
 
     <!--icon stuff-->
     <dimen name="icon_width">48dp</dimen>
