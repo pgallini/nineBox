@@ -9,7 +9,9 @@
       <item name="android:minHeight">13dip</item>
       <item name="android:maxHeight">13dip</item>
       <item name="android:thumb">@drawable/apptheme_scrubber_control_selector_holo_light</item>
-
+      <item name="android:thumbOffset">16dip</item>
+      <item name="android:paddingLeft">16dip</item>
+      <item name="android:paddingRight">16dip</item>
   </style>
 
 </resources>

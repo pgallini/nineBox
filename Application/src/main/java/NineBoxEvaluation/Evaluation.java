@@ -1,5 +1,8 @@
 package nineBoxEvaluation;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,13 +24,14 @@ import nineBoxQuestions.QuestionsOperations;
 
 /**
  * Created by Paul Gallini on 4/17/16.
+ *
+ * The slider drawables are generated from here:  http://android-holo-colors.com/
  */
 public class Evaluation extends AppCompatActivity {
     TextView cName;
     private final int EVALUATION_ACTIVITY_REQUEST_CODE = 0;
     public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
     public ArrayList<Questions> questionsList = new ArrayList<>();
-    //    public int candidateIndex = 0;
     public int currentQuestionNo = 1;
     public int maxQuestionNo = 0;
     private Toolbar toolbar;
@@ -36,8 +40,6 @@ public class Evaluation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int returnCode = 0;
-
-        // TODO - Code to handle case where there are no questions
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.evaluation_entry);
@@ -48,8 +50,7 @@ public class Evaluation extends AppCompatActivity {
         candidateOperations.open();
         // create a list of candidates from what's in the database ...
         candidatesList = candidateOperations.getAllCandidates();
-        // start the index at zero
-//        candidateIndex = 0;
+
 
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -60,6 +61,11 @@ public class Evaluation extends AppCompatActivity {
         questionsOperations.open();
         questionsList = questionsOperations.getAllQuestions();
         maxQuestionNo = questionsList.size();
+
+        if(maxQuestionNo < 1 ) {
+            // If there are NO questions, then show a dialog to explain the situation and quit
+            showNoQuestionsDialog();
+        }
 
         final TextView nextQuestionButtonView = (TextView) findViewById(R.id.next_question_button);
 
@@ -84,8 +90,6 @@ public class Evaluation extends AppCompatActivity {
             public void onClick(View v) {
                 // save the response
                 int candidateIndex = MainActivity.getCurrentCandidate();
-//                System.out.println("in setOnClickListener ...  candidateIndex = ");
-//                System.out.println(candidateIndex);
 
                 if (candidateIndex < candidatesList.size()) {
 
@@ -167,8 +171,6 @@ public class Evaluation extends AppCompatActivity {
         maxQuestionNoView.setText(Integer.toString(maxQuestionNo));
 
         if (candidateIndex < candidatesList.size()) {
-            System.out.println(" candidatesList.get(i).getCandidateName() = ");
-            System.out.println(candidatesList.get(candidateIndex).getCandidateName());
             displayName.setText(candidatesList.get(candidateIndex).getCandidateName());
             candidateID = candidatesList.get(candidateIndex).getCandidateID();
 
@@ -191,8 +193,13 @@ public class Evaluation extends AppCompatActivity {
             }
         } else {
             MainActivity.setCurrentCandidate(0);
-            finish();
 
+            // if there aren't any candidates, then display a dialog to that effect and get out
+            if(candidatesList.size() < 1 ) {
+                showNoCandidatesDialog();
+            } else {
+                finish();
+            }
         }
     }
 
@@ -202,5 +209,54 @@ public class Evaluation extends AppCompatActivity {
 
     void kill_activity() {
         finish();
+    }
+
+    private void showNoQuestionsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Evaluation.this);
+        builder.setTitle(getString(R.string.dialog_no_questions_title));
+        builder.setMessage(getString(R.string.dialog_no_questions_message));
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        kill_activity();
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        kill_activity();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+    }
+
+    private void showNoCandidatesDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_no_candidates_title));
+        builder.setMessage(getString(R.string.dialog_no_candidates_message));
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        kill_activity();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        // display dialog
+        dialog.show();
     }
 }

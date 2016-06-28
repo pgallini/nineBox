@@ -32,7 +32,7 @@
     <string name="add_people_title">Add People</string>
     <string name="reports_title">See Results</string>
     <string name="evaluate_title">Evaluate People</string>
-
+    <!-- Strings to support Candidate Entry -->
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
     <string name="edit_candidate_icon_label">Icon</string>
@@ -47,13 +47,17 @@
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
     <string name="confirm_delete_title">Confirm Delete</string>
     <string name="confirm_delete_message">Are you sure you want to delete this candidate?</string>
-
+    <!-- Strings to support the Evaluation activity-->
     <string name="evaluation_for_prompt">Evaluating:</string>
     <string name="question_x_of_x_prompt">Question:   </string>
     <string name="question_x_of_x_of">of </string>
     <string name="next_question_button">Next Question</string>
     <string name="next_question_button_alt">Next Candidate</string>
-
+    <string name="dialog_no_candidates_title">No Candidiates Found!</string>
+    <string name="dialog_no_candidates_message">You haven\'t added any candidates yet.  Please select Add People and add candidates. </string>
+    <string name="dialog_no_questions_title">No Questions Found!</string>
+    <string name="dialog_no_questions_message">The questions have yet to be set-up.  Please reinstall the app. </string>
+    <!-- String to support the entry of Questions-->
     <string name="edit_question_intro">Question Text:</string>
     <string name="edit_question_hint">Add new question here</string>
     <string name="edit_weight_title">Question Weight:</string>
