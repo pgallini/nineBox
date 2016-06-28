@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     static public int candidateIndex = 0;
 
+    // TODO consider adding a FunkyNet splash screen
+    // https://www.bignerdranch.com/blog/splash-screens-the-right-way/
+    // 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,69 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        mainArrayAdapter.notifyDataSetChanged();
-//    }
-
-
-    //    TODO - this is temporary set-up code ... get rid of it
-//    private void setUpQuestions() {
-//        Questions questionSet_X_Axis = new Questions();
-//        Questions questionSet_Y_Axis = new Questions();
-//        ArrayList<String> tmpQuestionText;
-//        ArrayList<String> tmpQuestionResp;
-//        ArrayList<Integer> tmpQuestionWeight;
-//        String newCandidateName = " ";
-//
-//        // Set up X Axis questions ...
-//        questionSet_X_Axis.addQuestionText("X Question 1");
-//        questionSet_X_Axis.addQuestionText("X Question 2");
-//        questionSet_X_Axis.addQuestionText("X Question 3");
-//        questionSet_X_Axis.addQuestionText("X Question 4");
-//
-//        questionSet_X_Axis.addQuestionWeight(1);
-//        questionSet_X_Axis.addQuestionWeight(3);
-//        questionSet_X_Axis.addQuestionWeight(5);
-//        questionSet_X_Axis.addQuestionWeight(1);
-//
-//        System.out.println("========== Question Text ==========");
-//        tmpQuestionText = questionSet_X_Axis.getQuestionText();
-//        for (String qText : tmpQuestionText) {
-//            System.out.println(qText.toString());
-//        }
-//
-//        System.out.println("========== Question Weight ==========");
-//        tmpQuestionWeight = questionSet_X_Axis.getQuestionWeight();
-//        for (int qText : tmpQuestionWeight) {
-//            System.out.println(qText);
-//        }
-//
-//        // Set up Y Axis questions ...
-//        questionSet_Y_Axis.addQuestionText("Y Question 1");
-//        questionSet_Y_Axis.addQuestionText("Y Question 2");
-////		questionSet_Y_Axis.addQuestionText("Y Question 3");
-////		questionSet_Y_Axis.addQuestionText("Y Question 4");
-//
-//        questionSet_Y_Axis.addQuestionWeight(6);
-//        questionSet_Y_Axis.addQuestionWeight(4);
-////		questionSet_Y_Axis.addQuestionWeight(5);
-////		questionSet_Y_Axis.addQuestionWeight(1);
-//
-//        System.out.println("========== Question Text ==========");
-//        tmpQuestionText = questionSet_Y_Axis.getQuestionText();
-//        for (String qText : tmpQuestionText) {
-//            System.out.println(qText.toString());
-//        }
-//
-//        System.out.println("========== Question Weight ==========");
-//        tmpQuestionWeight = questionSet_Y_Axis.getQuestionWeight();
-//        for (int qText : tmpQuestionWeight) {
-//            System.out.println(qText);
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

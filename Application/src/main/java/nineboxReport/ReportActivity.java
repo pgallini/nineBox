@@ -15,6 +15,7 @@ import com.ninebox.nineboxapp.R;
 
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.Canvas;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -128,6 +129,26 @@ public class ReportActivity extends AppCompatActivity {
         ImageView gridImageView = (ImageView) findViewById(R.id.grid_background);
         layerDrawable.draw(gridCanvas);
         gridImageView.setImageDrawable(layerDrawable);
+
+
+//        findViewById(R.id.save_candidate).setOnClickListener(new View.OnClickListener() {
+//                                                                 @Override
+//                                                                 public void onClick(View view) {
+//                                                                     saveCandidate(view);
+//                                                                 }
+//                                                             }
+
+//        );
+//
+        findViewById(R.id.cancel_report).setOnClickListener(new View.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(View view) {
+                                                                            finish();
+                                                                        }
+                                                                    }
+
+        );
+
     }
 
 //    // trying this method to convert from LayerDrawable to Shapedrawable
@@ -164,23 +185,6 @@ public class ReportActivity extends AppCompatActivity {
 //
 
 
-//        findViewById(R.id.save_candidate).setOnClickListener(new View.OnClickListener() {
-//                                                                 @Override
-//                                                                 public void onClick(View view) {
-//                                                                     saveCandidate(view);
-//                                                                 }
-//                                                             }
-
-//        );
-//
-//        findViewById(R.id.cancel_save_candidate).setOnClickListener(new View.OnClickListener() {
-//                                                                        @Override
-//                                                                        public void onClick(View view) {
-//                                                                            finish();
-//                                                                        }
-//                                                                    }
-//
-//        );
 
 
     private double get_X_ResultForCandiate(Candidates currCandidate) {
