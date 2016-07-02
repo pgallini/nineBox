@@ -45,6 +45,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String QUESTIONS_WEIGHT = "_weight";
     public static final String QUESTIONS_AXIS = "_axis";
 
+
     public static final String RESPONSES = "Responses";
     public static final String RESP_ID = "_id";
     public static final String RESP_QUESTIONS_ID = "_question_id";
@@ -104,6 +105,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         db.execSQL(RESPONSES_TABLE_CREATE);
         db.execSQL(COLORS_TABLE_CREATE);
         loadColorsTable( db );
+        loadQuestionsTable( db );
     }
 
     @Override
@@ -138,7 +140,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
-
     public void loadColorsTable(SQLiteDatabase db) {
         //Add default record
         ContentValues _Values = new ContentValues();
@@ -163,6 +164,59 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     _Values.put(COLOR_NUMBER, _Color_Number);
                     _Values.put(COLOR_INUSE, _Color_InUse);
                     db.insert(COLORS, null, _Values);
+
+                }
+                eventType = _xml.next();
+            }
+        }
+        //Catch errors
+        catch (XmlPullParserException e)
+        {
+            // TODO - figure out this LOG thing - is that something I need throughout the app?
+//            Log.e(TAG, e.getMessage(), e);
+            System.out.println( e.getMessage() );
+        }
+        catch (IOException e)
+        {
+//            Log.e(TAG, e.getMessage(), e);
+            System.out.println( e.getMessage() );
+
+        }
+        finally
+        {
+            //Close the xml file
+            _xml.close();
+        }
+    }
+
+    public void loadQuestionsTable(SQLiteDatabase db) {
+        // This method will take the pre-defined questions in xml/questions_data.xml and load it into the questions table
+
+        //Add default record
+        ContentValues _Values = new ContentValues();
+        //Get xml resource file
+        Resources res = fContext.getResources();
+
+        //Open xml file
+        XmlResourceParser _xml = res.getXml(R.xml.questions_data);
+        try
+        {
+            //Check for end of document
+            int eventType = _xml.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                //Search for record tags
+                if ((eventType == XmlPullParser.START_TAG) &&(_xml.getName().equals("record"))){
+                    //Record tag found, now get values and insert record
+                    String _Questions_Id = _xml.getAttributeValue(null, "question_id");
+                    String _Questions_Text = _xml.getAttributeValue(null, "question_text");
+                    String _Questions_Weight = _xml.getAttributeValue(null, "question_weight");
+                    String _Questions_Axis = _xml.getAttributeValue(null, "question_axis");
+                    // TODO - you may need to convert the last two to integers
+                    _Values.put(QUESTIONS_ID, _Questions_Id);
+                    _Values.put(QUESTIONS_TEXT, _Questions_Text);
+                    _Values.put(QUESTIONS_WEIGHT, _Questions_Weight);
+                    _Values.put(QUESTIONS_AXIS, _Questions_Axis);
+                    db.insert(QUESTIONS, null, _Values);
 
                 }
                 eventType = _xml.next();

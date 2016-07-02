@@ -104,9 +104,6 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         findViewById(R.id.EditTextName).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // TODO Remove
-                System.out.println(" inside onFocusChange");
-
                 TextView candidateNameTV = (TextView) findViewById( R.id.EditTextName );
                 String candidateName = candidateNameTV.getText().toString();
                 candidateInitials = calculateInitials( candidateName );
@@ -296,9 +293,6 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                             candidateInitials = Initialstext.getText().toString();
 
                             display_icon();
-                            // TODO Remove
-                            System.out.println(" just set candidateInitials");
-
                         }
 
                     }
@@ -357,9 +351,10 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
 //        String candidateInitials = Initialstext.getText().toString();
 
         // save to database
-        //create a new intent so we can return Canidate Data ...
+        //create a new intent so we can return Candidate Data ...
         Intent intent = new Intent();
         //add "returnKey" as a key and assign it the value in the textbox...
+
         intent.putExtra("returnKey",canidateName);
         intent.putExtra("returnNotes",candidateNotes);
         intent.putExtra("returnColor",currentColor);

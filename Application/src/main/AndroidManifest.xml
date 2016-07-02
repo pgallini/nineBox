@@ -57,8 +57,24 @@
                 android:value="nineBoxMain.MainActivity" />
         </activity>
         <activity
+            android:name="nineBoxQuestions.QuestionsListActivity"
+            android:label="@string/title_activity_questions_list"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
             android:name="nineBoxQuestions.QuestionsEntryActivity"
             android:label="@string/title_activity_questions_entry"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxQuestions.QuestionsUpdateActivity"
+            android:label="@string/title_activity_questions_update"
             android:parentActivityName="nineBoxMain.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
