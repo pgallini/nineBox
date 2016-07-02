@@ -92,22 +92,6 @@ public class QuestionsEntryActivity extends AppCompatActivity {
             finish();
         }
     }
-//    public void onRadioButtonClicked(View view) {
-//        // Is the button now checked?
-//        boolean checked = ((RadioButton) view).isChecked();
-//
-//        // Check which radio button was clicked
-//        switch(view.getId()) {
-//            case R.id.x_axis_rb:
-//                if (checked)
-//                    // Pirates are the best
-//                    break;
-//            case R.id.y_axis_rb:
-//                if (checked)
-//                    // Ninjas rule
-//                    break;
-//        }
-//    }
 
     public void CancelSave(View view) {
         this.kill_activity();
