@@ -51,6 +51,7 @@ import nineBoxQuestions.QuestionsEntryActivity;
  */
 public class CandidatesListActivity extends AppCompatActivity {
     private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
+    private final int CANDIDATESUPDATE_ACTIVITY_REQUEST_CODE = 0;
 
     public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
     private CandidateOperations candidateOperations;
@@ -87,14 +88,12 @@ public class CandidatesListActivity extends AppCompatActivity {
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
 
-//                Context context = parent.getContext();
+                // TODO - see if we can do away with displayList
 
                 if (convertView == null) {
                     convertView = getLayoutInflater().inflate(R.layout.candidates_list_item, parent, false);
                 }
-
                 View view = super.getView(position, convertView, parent);
-
                 // display icon for current candidate ...
                 String cInitials = candidatesList.get(position).getCandidateInitials();
                 String cColor = candidatesList.get(position).getCandidateColor();
@@ -104,10 +103,8 @@ public class CandidatesListActivity extends AppCompatActivity {
                 //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
                 currentIcon.setImageDrawable(display_icon(cColor, cInitials));
 
-//                display_icon(cColor, cInitials);
-
                 TextView candidateText = (TextView) view.findViewById(R.id.candidate);
-                candidateText.setText(displayList.get(position).toString());
+                candidateText.setText(candidatesList.get(position).getCandidateName());
 
                 // Because the list item contains multiple touch targets, you should not override
                 // onListItemClick. Instead, set a click listener for each target individually.
@@ -115,10 +112,15 @@ public class CandidatesListActivity extends AppCompatActivity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                // TODO make this an edit feature
-                                Toast.makeText(CandidatesListActivity.this,
-                                        R.string.touched_primary_message,
-                                        Toast.LENGTH_SHORT).show();
+                                // send Update activity details on selected Candidate ..
+                                Intent intent = new Intent(CandidatesListActivity.this, CandidatesUpdateActivity.class);
+
+                                intent.putExtra("candidateId", Long.toString(candidatesList.get(position).getCandidateID()));
+                                intent.putExtra("candidateName", candidatesList.get(position).getCandidateName());
+                                intent.putExtra("candidateNote",candidatesList.get(position).getCandidateNotes());
+                                intent.putExtra("candidateInitials", candidatesList.get(position).getCandidateInitials());
+                                intent.putExtra("candidateColor", candidatesList.get(position).getCandidateColor());
+                                startActivityForResult(intent, CANDIDATESUPDATE_ACTIVITY_REQUEST_CODE);
                             }
                         });
                 convertView.findViewById(R.id.delete_action).setOnClickListener(
@@ -137,9 +139,6 @@ public class CandidatesListActivity extends AppCompatActivity {
                                 MainActivity.setCurrentCandidate(position);
                                 Intent intent = new Intent(view.getContext(), Evaluation.class);
                                 startActivity(intent);
-//                                Toast.makeText(CandidatesListActivity.this,
-//                                        R.string.touched_config_message,
-//                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                 return convertView;
@@ -181,11 +180,7 @@ public class CandidatesListActivity extends AppCompatActivity {
         drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
         LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
 
-//        ImageView currentIcon = (ImageView) convertView.findViewById(R.id.current_icon);
-
         return newPoint;
-        //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
-//        currentIcon.setImageDrawable(newPoint);
     }
 
     private void delete_candidate( int position ) {
@@ -194,7 +189,9 @@ public class CandidatesListActivity extends AppCompatActivity {
         displayList.remove(position);
         // notify mainArrayAdapter that things have changed and a refresh is needed ...
         mainArrayAdapter.notifyDataSetChanged();
-
+        Toast.makeText(CandidatesListActivity.this,
+                R.string.candidate_delete_message,
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -215,19 +212,50 @@ public class CandidatesListActivity extends AppCompatActivity {
     //and returns control to this activity...
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        long returnCandidateId = 0;
+
         super.onActivityResult(requestCode, resultCode, intent);
         if (intent != null ) {
             Bundle extras = intent.getExtras();
-            String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
+            String returnCandidateIdString = (extras != null ? extras.getString("returnKey") : "nothing returned");
+            if(returnCandidateIdString != null ) {
+                returnCandidateId = Long.parseLong(returnCandidateIdString);
+            };
+            String returnCandidateName = (extras != null ? extras.getString("returnName") : " ");
             String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
             String returnCandidateColor = (extras != null ? extras.getString("returnColor") : " ");
             String returnCandidateInitials = (extras != null ? extras.getString("returnInitials") : " ");
-            // save to database
-            Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes, returnCandidateColor, returnCandidateInitials);
+            String returnMode = (extras != null ? extras.getString("returnMode") : " ");
 
-            // TODO  should we add Notes?
-            candidatesList.add(candidate);
-            displayList.add(candidate.getCandidateName());
+            if(returnMode.equals("ADD")) {
+                // save to database
+                Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes, returnCandidateColor, returnCandidateInitials);
+                candidatesList.add(candidate);
+                displayList.add(candidate.getCandidateName());
+                Toast.makeText(CandidatesListActivity.this,
+                        R.string.candidate_save_message,
+                        Toast.LENGTH_LONG).show();
+
+            } else {
+                // save updated candidate to the database
+                // TODO code DB update and code update to candidatesList and code update to displayList
+                boolean returnVal = candidateOperations.updateCandidate( returnCandidateId, returnCandidateName, returnCandidateNotes, returnCandidateColor, returnCandidateInitials);
+
+                Toast.makeText(CandidatesListActivity.this,
+                                        R.string.candidate_save_message,
+                                        Toast.LENGTH_LONG).show();
+
+                // locate the question in questionList and update it ...
+                for( int i = 0; i < candidatesList.size(); i++ ) {
+                    if( candidatesList.get(i).getCandidateID() == returnCandidateId) {
+                        candidatesList.get(i).setCandidateName(returnCandidateName);
+                        candidatesList.get(i).setCandidateNotes(returnCandidateNotes);
+                        candidatesList.get(i).setCandidateColor(returnCandidateColor);
+                        candidatesList.get(i).setCandidateInitials(returnCandidateInitials);
+                        break;
+                    }
+                }
+            }
             // notify mainArrayAdapter that things have changed and a refresh is needed ...
             mainArrayAdapter.notifyDataSetChanged();
         }

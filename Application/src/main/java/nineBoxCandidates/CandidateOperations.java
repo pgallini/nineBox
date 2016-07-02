@@ -53,6 +53,22 @@ public class CandidateOperations {
             return newComment;
         }
 
+    public boolean updateCandidate(long candidateID, String name, String notes, String CandidateColor, String CandidateInitials) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseOpenHelper.CANDIDATE_NAME, name);
+        values.put(DatabaseOpenHelper.CANDIDATE_NOTES, notes);
+        values.put(DatabaseOpenHelper.CANDIDATE_COLOR, CandidateColor);
+        values.put(DatabaseOpenHelper.CANDIDATE_INITIALS,CandidateInitials );
+
+        long candId = database.update(DatabaseOpenHelper.CANDIDATES, values, DatabaseOpenHelper.CANDIDATE_ID + "=" + candidateID ,null);
+
+        // TODO remove
+        System.out.print( "candId = ");
+        System.out.println( candId );
+
+        return (candId > 0);
+    }
+
         public void deleteCandidate(Candidates candidate) {
             long id = candidate.getCandidateID();
             database.delete(DatabaseOpenHelper.CANDIDATES, DatabaseOpenHelper.CANDIDATE_ID

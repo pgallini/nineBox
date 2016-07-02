@@ -77,10 +77,6 @@ public class QuestionsUpdateActivity extends AppCompatActivity {
         RadioButton x_axis_radio_button = (RadioButton) findViewById(R.id.x_axis_rb);
         String questionAxis = "Y";
 
-        // TODO remove
-        System.out.println("inside - SaveQuestion - Just starting - do we finish? ");
-
-
         if( x_axis_radio_button.isChecked()) {
             questionAxis = "X";
         }
@@ -115,10 +111,6 @@ public class QuestionsUpdateActivity extends AppCompatActivity {
             //and put our intent into it (RESULT_OK will tell the caller that
             //we have successfully accomplished our task..
             setResult(RESULT_OK, intent);
-
-
-            // TODO remove
-            System.out.println("inside - SaveQuestion - About to finish ");
 
             finish();
         }

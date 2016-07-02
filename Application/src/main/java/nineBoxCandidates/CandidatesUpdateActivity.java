@@ -1,55 +1,39 @@
 package nineBoxCandidates;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
-import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.ViewGroup;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.ninebox.nineboxapp.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import colorPicker.ColorPicker;
-import colorPicker.ColorPickerDialog;
-import colorPicker.ColorPickerSwatch;
 import databaseOpenHelper.DatabaseOpenHelper;
 import drawables.drawPoint;
-import nineBoxMain.MainActivity;
 
-//
-//  Note:  using icons from:  https://materialdesignicons.com/
-//     using this color for all icons:  #616161
-//
-// What do I lose when we move from AppCompatActivity to FragmentActivity ?
-public class CandidatesEntryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+public class CandidatesUpdateActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Toolbar toolbar;
     private DatabaseOpenHelper dbHelper;
     private String currentColor;
     private String candidateInitials = " ";
+    private long candidateID = 0;
     public ArrayList<appColor> colorList;
     // Spinner element
     Spinner spinner;
@@ -69,8 +53,23 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         dbHelper = new DatabaseOpenHelper(this);
         colorList = dbHelper.getAllColors();
 
-        List<String> labels = getColorLabels(colorList);
+//        List<String> labels = getColorLabels(colorList);
 
+        // get the data on the candidate being updated ...
+        candidateID = Integer.parseInt(getIntent().getStringExtra("candidateId"));
+        String candidateName = getIntent().getStringExtra("candidateName");
+        String candidateNote = getIntent().getStringExtra("candidateNote");
+        String candidateInitialsIncoming = getIntent().getStringExtra("candidateInitials");
+        String candidateColor = getIntent().getStringExtra("candidateColor");
+
+        TextView candidateNameTV = (TextView) findViewById( R.id.EditTextName );
+        candidateNameTV.setText(candidateName);
+
+        TextView candidateNotesTV = (TextView) findViewById( R.id.NotesText );
+        candidateNotesTV.setText(candidateNote);
+
+        currentColor = candidateColor;
+        candidateInitials = candidateInitialsIncoming;
         display_icon();
 
         findViewById(R.id.EditTextName).setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -78,7 +77,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
             public void onFocusChange(View v, boolean hasFocus) {
                 TextView candidateNameTV = (TextView) findViewById( R.id.EditTextName );
                 String candidateName = candidateNameTV.getText().toString();
-                candidateInitials = calculateInitials( candidateName );
+//                candidateInitials = calculateInitials( candidateName );
 
                 display_icon();
             }
@@ -113,7 +112,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
     private void display_icon() {
         // TODO find way to combine this method with the one in  CandidatesListActivity
         // grab the next available color ...
-        currentColor = getNetAvailableColor( colorList );
+//        currentColor = getNetAvailableColor( colorList );
         // convert the String color to an int
         int tmpcolor = Color.parseColor(currentColor);
         // set-up current icon based on the current color for this candidate ...
@@ -139,45 +138,45 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         return labels;
     }
 
-    private String calculateInitials( String candidateName ) {
-        String returnInitials = " ";
+//    private String calculateInitials( String candidateName ) {
+//        String returnInitials = " ";
+//
+//        String tempName = candidateName.trim();
+//        if( tempName.length() > 0 )  {
+//            returnInitials = tempName.substring(0, 1) ;
+//            int firstSpace = tempName.indexOf(" ");
+//
+//            if( firstSpace != -1  ){
+//                returnInitials = returnInitials.concat(tempName.substring((firstSpace+1), (firstSpace + 2)));
+//            }
+//            else if( tempName.length() > 1 ) {
+//                returnInitials = returnInitials.concat(tempName.substring(1, 2));
+//            }
+//        }
+//        return returnInitials;
+//    }
 
-        String tempName = candidateName.trim();
-        if( tempName.length() > 0 )  {
-            returnInitials = tempName.substring(0, 1) ;
-            int firstSpace = tempName.indexOf(" ");
-
-            if( firstSpace != -1  ){
-                returnInitials = returnInitials.concat(tempName.substring((firstSpace+1), (firstSpace + 2)));
-            }
-            else if( tempName.length() > 1 ) {
-                returnInitials = returnInitials.concat(tempName.substring(1, 2));
-            }
-        }
-        return returnInitials;
-    }
-
-    // TODO consider moving this
-    private String getNetAvailableColor(ArrayList<appColor> colorList  ) {
-        String returnval = " ";
-        for (appColor currColor : colorList) {
-            if( currColor.getColor_inuse() == 0 ) {
-                returnval = currColor.getColor_number();
-                break;
-            }
-        }
-        return returnval;
-    }
+//    // TODO consider moving this
+//    private String getNetAvailableColor(ArrayList<appColor> colorList  ) {
+//        String returnval = " ";
+//        for (appColor currColor : colorList) {
+//            if( currColor.getColor_inuse() == 0 ) {
+//                returnval = currColor.getColor_number();
+//                break;
+//            }
+//        }
+//        return returnval;
+//    }
 
     private void showEditInitialsDialog(String currentInitials ) {
 
         // Get the layout inflater
-        LayoutInflater inflater = CandidatesEntryActivity.this.getLayoutInflater();
+        LayoutInflater inflater = CandidatesUpdateActivity.this.getLayoutInflater();
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View dialoglayout = inflater.inflate(R.layout.candidates_edit_initials, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(CandidatesEntryActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(CandidatesUpdateActivity.this);
         builder.setView(dialoglayout);
 
         builder.setTitle(getString(R.string.edit_candidate_initials_hint));
@@ -246,13 +245,12 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         Intent intent = new Intent();
         //add "returnKey" as a key and assign it the value in the textbox...
 
-        intent.putExtra("returnKey",0);
-
+        intent.putExtra("returnKey",Long.toString(candidateID));
         intent.putExtra("returnName",canidateName);
         intent.putExtra("returnNotes",candidateNotes);
         intent.putExtra("returnColor",currentColor);
         intent.putExtra("returnInitials",candidateInitials);
-        intent.putExtra("returnMode","ADD");
+        intent.putExtra("returnMode","UPDATE");
         //get ready to send the result back to the caller (MainActivity)
         //and put our intent into it (RESULT_OK will tell the caller that
         //we have successfully accomplished our task..

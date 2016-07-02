@@ -101,7 +101,6 @@ public class QuestionsListActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 // start new intent to send current Question values to the activity ...
-
                                 Intent intent = new Intent(QuestionsListActivity.this, QuestionsUpdateActivity.class);
                                 intent.putExtra("questionId", Long.toString(questionsList.get(position).getQuestionID()));
                                 intent.putExtra("questionText",questionsList.get(position).getQuestionText());

@@ -10,16 +10,17 @@
 
 #bin files
 *.bin
-`
+
 # Generated files
 bin/
 gen/
-Application/build/
 
 # Gradle files
 .gradle/
 .gradle/2.5/
 build/
+/Application/build/
+Application/build/intermediates/
 
 # Local configuration file (sdk path, etc)
 local.properties
