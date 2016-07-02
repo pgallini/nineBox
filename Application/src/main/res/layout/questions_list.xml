@@ -1,6 +1,7 @@
 <!--
   Copyright 2016 Paul Gallini
 
+    Layout to list current set of Questions
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,14 +12,14 @@
     android:divider="?android:dividerHorizontal"
 
     android:orientation="vertical"
-    tools:context="nineBoxCandidates.CandidatesListActivity">
+    tools:context="nineBoxQuestions.QuestionsListActivity">
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"></include>
 
     <ListView
-        android:id="@+id/candidates_list"
+        android:id="@+id/questions_list"
         style="@style/ScrollList"
         android:layout_width="match_parent"
         android:layout_height="0dp"

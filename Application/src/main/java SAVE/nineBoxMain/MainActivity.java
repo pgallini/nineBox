@@ -61,8 +61,8 @@ public class MainActivity extends Activity {
         displayList.addAll(Arrays.asList(itemList));
 
         // find the ListView so we can work with it ...
-        ListView mainListView = (ListView) findViewById( R.id.list);
-        arrayAdapter =new ArrayAdapter<String>(this, R.layout.list_item, R.id.canidate, displayList);
+        ListView mainListView = (ListView) findViewById( R.id.candidates_list);
+        arrayAdapter = new ArrayAdapter<String>(this, R.layout.questions_list_item, R.id.canidate, displayList);
         mainListView.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
 
@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup container) {
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.list_item, container, false);
+                convertView = getLayoutInflater().inflate(R.layout.questions_list_item, container, false);
             }
 
             // Because the list item contains multiple touch targets, you should not override

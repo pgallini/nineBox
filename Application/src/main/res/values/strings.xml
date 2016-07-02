@@ -58,16 +58,19 @@
     <string name="dialog_no_questions_title">No Questions Found!</string>
     <string name="dialog_no_questions_message">The questions have yet to be set-up.  Please reinstall the app. </string>
     <!-- String to support the entry of Questions-->
+    <string name="title_activity_questions_list">Grid 9: Maintain Questions</string>
     <string name="edit_question_intro">Question Text:</string>
     <string name="edit_question_hint">Add new question here</string>
     <string name="edit_weight_title">Question Weight:</string>
     <string name="edit_weight_hint">Enter whole number between 1 and 100</string>
     <string name="x_axis">X Axis</string>
     <string name="y_axis">Y Axis</string>
+    <string name="confirm_delete_question_message">Are you sure you want to delete this question?</string>
 
     <string name="menu_configure_questions">Configure Questions</string>
     <string name="title_activity_candidates_entry">Grid 9: Enter Candidates</string>
     <string name="title_activity_questions_entry">Grid 9: Enter Questions</string>
+    <string name="title_activity_questions_update">Grid 9: Modify Questions</string>
     <string name="title_activity_evaluation">Grid 9: Evaluate Candidates</string>
     <string name="title_activity_report">Grid 9: See Results</string>
 

@@ -59,6 +59,10 @@ public class Questions {
 
     public String getQuestionText() { return questionText; }
 
+    public String getQuestionText(int maxLength ) {
+        int tempLength = Math.min(maxLength, questionText.length());
+        return questionText.substring(0, tempLength); }
+
     public void setQuestionWeight( int newWeight ) { questionWeight = newWeight; };
 
     public int getQuestionWeight() { return questionWeight; }

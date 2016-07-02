@@ -35,7 +35,31 @@ public class QuestionsOperations {
             dbHelper.close();
         }
 
-        public Questions addQuestion(String questionText, int questionWeight, boolean x_axis) {
+    public Questions addQuestion(String questionText, int questionWeight, boolean x_axis) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseOpenHelper.QUESTIONS_TEXT, questionText);
+        values.put(DatabaseOpenHelper.QUESTIONS_WEIGHT, questionWeight);
+        if(x_axis) {
+            values.put(DatabaseOpenHelper.QUESTIONS_AXIS, "X");
+        } else {
+            values.put(DatabaseOpenHelper.QUESTIONS_AXIS, "Y");
+        }
+        long quesId = database.insert(DatabaseOpenHelper.QUESTIONS, null, values);
+
+        // now that the question is created return it ...
+        Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
+                QUESTIONS_TABLE_COLUMNS, DatabaseOpenHelper.QUESTIONS_ID + " = "
+                        + quesId, null, null, null, null);
+
+        cursor.moveToFirst();
+
+        Questions newQuestion = parseQuestion(cursor);
+        cursor.close();
+
+        return newQuestion;
+    }
+
+        public boolean updateQuestion(long questionID, String questionText, int questionWeight, boolean x_axis) {
             ContentValues values = new ContentValues();
             values.put(DatabaseOpenHelper.QUESTIONS_TEXT, questionText);
             values.put(DatabaseOpenHelper.QUESTIONS_WEIGHT, questionWeight);
@@ -44,19 +68,9 @@ public class QuestionsOperations {
             } else {
                 values.put(DatabaseOpenHelper.QUESTIONS_AXIS, "Y");
             }
-            long quesId = database.insert(DatabaseOpenHelper.QUESTIONS, null, values);
+            long quesId = database.update(DatabaseOpenHelper.QUESTIONS, values, DatabaseOpenHelper.QUESTIONS_ID + "=" + questionID ,null);
 
-            // now that the question is created return it ...
-            Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
-                    QUESTIONS_TABLE_COLUMNS, DatabaseOpenHelper.QUESTIONS_ID + " = "
-                            + quesId, null, null, null, null);
-
-            cursor.moveToFirst();
-
-            Questions newQuestion = parseQuestion(cursor);
-            cursor.close();
-
-            return newQuestion;
+            return (quesId > 0);
         }
 
         public void deleteCQuestion(Questions question) {

@@ -27,8 +27,8 @@ import android.view.View;
 import android.support.v7.widget.Toolbar;
 
 import nineBoxCandidates.CandidatesListActivity;
+import nineBoxQuestions.QuestionsListActivity;
 import nineBoxEvaluation.Evaluation;
-import nineBoxQuestions.QuestionsEntryActivity;
 import nineBoxReport.ReportActivity;
 import com.ninebox.nineboxapp.R;
 
@@ -95,9 +95,11 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_configure_questions:
                 try {
-                    Intent intent = new Intent(this, QuestionsEntryActivity.class);
+                    Intent intent = new Intent(this, QuestionsListActivity.class);
                     this.startActivity(intent);
-                } catch (ActivityNotFoundException ignored) {
+
+                }
+                catch (ActivityNotFoundException ignored) {
                 }
                 return true;
             case R.id.menu_add_people:

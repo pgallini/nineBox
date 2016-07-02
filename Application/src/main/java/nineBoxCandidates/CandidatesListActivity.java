@@ -17,7 +17,6 @@
 //package com.ninebox.nineboxapp;
 package nineBoxCandidates;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -52,7 +51,7 @@ import nineBoxQuestions.QuestionsEntryActivity;
  */
 public class CandidatesListActivity extends AppCompatActivity {
     private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
-    private final int QUESTIONSENTRY_ACTIVITY_REQUEST_CODE = 0;
+
     public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
     private CandidateOperations candidateOperations;
     private ListView mainListView;
@@ -82,16 +81,16 @@ public class CandidatesListActivity extends AppCompatActivity {
         displayList = buildDisplayList( candidatesList );
 
         // find the ListView so we can work with it ...
-        mainListView = (ListView) findViewById(R.id.list);
+        mainListView = (ListView) findViewById(R.id.candidates_list);
 
-        mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.candidate, displayList) {
+        mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.candidates_list_item, R.id.candidate, displayList) {
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
 
-                Context context = parent.getContext();
+//                Context context = parent.getContext();
 
                 if (convertView == null) {
-                    convertView = getLayoutInflater().inflate(R.layout.list_item, parent, false);
+                    convertView = getLayoutInflater().inflate(R.layout.candidates_list_item, parent, false);
                 }
 
                 View view = super.getView(position, convertView, parent);
