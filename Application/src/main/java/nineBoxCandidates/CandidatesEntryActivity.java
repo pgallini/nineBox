@@ -1,28 +1,17 @@
 package nineBoxCandidates;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.view.View;
@@ -32,19 +21,13 @@ import android.widget.Toast;
 import com.ninebox.nineboxapp.R;
 import java.util.ArrayList;
 import java.util.List;
-
-import colorPicker.ColorPicker;
-import colorPicker.ColorPickerDialog;
-import colorPicker.ColorPickerSwatch;
 import databaseOpenHelper.DatabaseOpenHelper;
 import drawables.drawPoint;
-import nineBoxMain.MainActivity;
 
 //
 //  Note:  using icons from:  https://materialdesignicons.com/
 //     using this color for all icons:  #616161
 //
-// What do I lose when we move from AppCompatActivity to FragmentActivity ?
 public class CandidatesEntryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Toolbar toolbar;
     private DatabaseOpenHelper dbHelper;
@@ -71,7 +54,9 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
 
         List<String> labels = getColorLabels(colorList);
 
-        display_icon();
+        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+        currentColor = getNetAvailableColor( colorList );
+        currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
 
         findViewById(R.id.EditTextName).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -79,8 +64,9 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                 TextView candidateNameTV = (TextView) findViewById( R.id.EditTextName );
                 String candidateName = candidateNameTV.getText().toString();
                 candidateInitials = calculateInitials( candidateName );
-
-                display_icon();
+                ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+                currentColor = getNetAvailableColor(colorList);
+                currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
             }
         });
 
@@ -108,26 +94,6 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                                                                         }
                                                                     }
         );
-    }
-
-    private void display_icon() {
-        // TODO find way to combine this method with the one in  CandidatesListActivity
-        // grab the next available color ...
-        currentColor = getNetAvailableColor( colorList );
-        // convert the String color to an int
-        int tmpcolor = Color.parseColor(currentColor);
-        // set-up current icon based on the current color for this candidate ...
-        // TODO look for cleaner way to do this
-        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
-        Drawable[] emptyDrawableLayers = {d1};
-        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
-        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
-        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
-
-        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
-
-        //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
-        currentIcon.setImageDrawable(newPoint);
     }
 
     public List<String> getColorLabels(ArrayList<appColor> colorList ) {
@@ -197,7 +163,9 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                         if(Initialstext != null) {
                             candidateInitials = Initialstext.getText().toString();
 
-                            display_icon();
+                            ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+                            currentColor = getNetAvailableColor( colorList );
+                            currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
                         }
                     }
                 });
@@ -222,11 +190,9 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         currentColor = tmpColorNum;
         int tmpcolor = Color.parseColor(currentColor);
         // refresh current icon based on the current color for this candidate ...
-        // TODO Remove
-        System.out.println(" About to call display_icon ... candidateInitials");
-        System.out.println(candidateInitials);
-
-        display_icon();
+        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+        currentColor = getNetAvailableColor( colorList );
+        currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
     }
 
     @Override

@@ -62,10 +62,6 @@ public class CandidateOperations {
 
         long candId = database.update(DatabaseOpenHelper.CANDIDATES, values, DatabaseOpenHelper.CANDIDATE_ID + "=" + candidateID ,null);
 
-        // TODO remove
-        System.out.print( "candId = ");
-        System.out.println( candId );
-
         return (candId > 0);
     }
 

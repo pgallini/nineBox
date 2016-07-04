@@ -2,4 +2,5 @@
 <resources>
     <integer name="maxResponse">10</integer>
     <integer name="questionTextSubLegth">80</integer>
+    <integer name="iconTextSize">10</integer>
 </resources>

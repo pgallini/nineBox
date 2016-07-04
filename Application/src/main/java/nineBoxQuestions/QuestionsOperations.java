@@ -26,9 +26,6 @@ public class QuestionsOperations {
 
         public void open() throws SQLException {
             database = dbHelper.getWritableDatabase();
-            // TODO remove this
-            System.out.println("database.getVersion() = ");
-            System.out.println(database.getVersion());
         }
 
         public void close() {

@@ -159,7 +159,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     String _Color_Text = _xml.getAttributeValue(null, "color_text");
                     String _Color_Number = _xml.getAttributeValue(null, "color_number");
                     String _Color_InUse = _xml.getAttributeValue(null, "color_inuse");
-                    // TODO - you may need to convert the last two to integers
                     _Values.put(COLOR_TEXT, _Color_Text);
                     _Values.put(COLOR_NUMBER, _Color_Number);
                     _Values.put(COLOR_INUSE, _Color_InUse);
@@ -211,7 +210,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     String _Questions_Text = _xml.getAttributeValue(null, "question_text");
                     String _Questions_Weight = _xml.getAttributeValue(null, "question_weight");
                     String _Questions_Axis = _xml.getAttributeValue(null, "question_axis");
-                    // TODO - you may need to convert the last two to integers
                     _Values.put(QUESTIONS_ID, _Questions_Id);
                     _Values.put(QUESTIONS_TEXT, _Questions_Text);
                     _Values.put(QUESTIONS_WEIGHT, _Questions_Weight);
@@ -225,7 +223,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         //Catch errors
         catch (XmlPullParserException e)
         {
-            // TODO - figure out this LOG thing - is that something I need throughout the app?
 //            Log.e(TAG, e.getMessage(), e);
             System.out.println( e.getMessage() );
         }
