@@ -31,24 +31,12 @@ public class EvaluationOperations {
         }
 
         public boolean addResponse(long candidate_id, long question_id, int response) {
-            // TODO retest everything by dropping the database and make sure the app recreates it
             boolean wasSuccessful = true;
             ContentValues values = new ContentValues();
             values.put(DatabaseOpenHelper.RESP_QUESTIONS_ID, question_id );
             values.put(DatabaseOpenHelper.RESP_CANDIDATE_ID, candidate_id);
             values.put(DatabaseOpenHelper.RESP_RESPONSE, response);
             long respId = database.insert(DatabaseOpenHelper.RESPONSES, null, values);
-
-            // TODO figure out if we need to do something like this for responses...
-            //   why are we returning the Question or Candidate?
-            // now that the question is created return it ...
-//            Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
-//                    QUESTIONS_TABLE_COLUMNS, DatabaseOpenHelper.QUESTIONS_ID + " = "
-//                            + quesId, null, null, null, null);
-//            cursor.moveToFirst();
-
-//            Questions newQuestion = parseQuestion(cursor);
-//            cursor.close();
 
             return wasSuccessful;
         }
@@ -87,7 +75,6 @@ public class EvaluationOperations {
         return respID;
     }
 
-
     public int getResponseValue( long candidate_id, long question_id ) {
         int respVal = -1;
 
@@ -115,30 +102,5 @@ public class EvaluationOperations {
             database.delete(DatabaseOpenHelper.RESPONSES, DatabaseOpenHelper.RESP_ID
                     + " = " + respId, null);
         }
-    // TODO add a get type method to return a set of X responses for a given candidate (and another for Y)
-
-//        public ArrayList<Questions> getAllQuestions() {
-//            ArrayList<Questions> questionsList = new ArrayList();
-//            Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
-//                    QUESTIONS_TABLE_COLUMNS, null, null, null, null, null);
-//
-//            cursor.moveToFirst();
-//            while (!cursor.isAfterLast()) {
-//                Questions question = parseQuestion(cursor);
-//                questionsList.add(question);
-//                cursor.moveToNext();
-//            }
-//            cursor.close();
-//            return questionsList;
-//        }
-
-    // TODO decide if we need a version of this ...
-//        private Questions parseQuestion(Cursor cursor) {
-//            Questions question = new Questions();
-//            question.setQuestionID((cursor.getInt(0)));
-//            question.setQuestionText(cursor.getString(1));
-//            question.setQuestionWeight(cursor.getInt(2));
-//            return question;
-//        }
     }
 

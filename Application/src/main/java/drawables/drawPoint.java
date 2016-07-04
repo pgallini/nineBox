@@ -30,9 +30,6 @@ public class drawPoint extends LayerDrawable {
     private int color;
     private Context context;
     private Resources resources;
-    // TODO - decide if this is needed
-    private Drawable[] layers;
-
 
     public drawPoint(Context context, Drawable[] layers, int width, int height, int tmpcolor) {
         super(layers);
@@ -41,7 +38,6 @@ public class drawPoint extends LayerDrawable {
         setColor(tmpcolor);
         this.context = context;
         resources = this.context.getResources();
-//        oval.setPadding(10, 10, 10, 10); ;
     }
 
     public int getShapeHeight() {
@@ -74,8 +70,10 @@ public class drawPoint extends LayerDrawable {
         oval.setIntrinsicHeight(getShapeHeight());
         oval.setIntrinsicWidth(getShapeWidth());
         oval.getPaint().setColor(getColor());
-        // TODO change this to use "@dimen/icon_padding"
-        oval.setPadding(6, 6, 6, 6);
+        // get icon padding from the dimens file
+        Resources res =  this.context.getResources();
+        int iconPadding = (int) res.getDimension(R.dimen.icon_padding);
+        oval.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
         this.addLayer(oval);
         Drawable textLayer = getDrawable( initials );
         this.addLayer(textLayer);
@@ -92,9 +90,10 @@ public class drawPoint extends LayerDrawable {
             Canvas canvas = new Canvas(bitmap);
             paint.setColor(Color.BLUE);
 
-            // TODO maybe make 14 variable - or from dimens file
-            // text size in pixels
-            paint.setTextSize((int) (10 * scale));
+            // get icon text size from the integers file
+            Resources res =  this.context.getResources();
+            int iconTextSize = (int) res.getInteger(R.integer.iconTextSize);
+            paint.setTextSize((int) (iconTextSize * scale));
             // draw text to the Canvas center
             Rect bounds = new Rect();
             paint.getTextBounds(gText, 0, gText.length(), bounds);
@@ -107,4 +106,5 @@ public class drawPoint extends LayerDrawable {
         }
         catch(Exception ex) {return null;}
     }
+
 }

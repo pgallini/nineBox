@@ -70,16 +70,16 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
 
         currentColor = candidateColor;
         candidateInitials = candidateInitialsIncoming;
-        display_icon();
+        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+        currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
 
         findViewById(R.id.EditTextName).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 TextView candidateNameTV = (TextView) findViewById( R.id.EditTextName );
                 String candidateName = candidateNameTV.getText().toString();
-//                candidateInitials = calculateInitials( candidateName );
-
-                display_icon();
+                ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+                currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
             }
         });
 
@@ -109,26 +109,6 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
         );
     }
 
-    private void display_icon() {
-        // TODO find way to combine this method with the one in  CandidatesListActivity
-        // grab the next available color ...
-//        currentColor = getNetAvailableColor( colorList );
-        // convert the String color to an int
-        int tmpcolor = Color.parseColor(currentColor);
-        // set-up current icon based on the current color for this candidate ...
-        // TODO look for cleaner way to do this
-        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
-        Drawable[] emptyDrawableLayers = {d1};
-        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
-        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
-        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
-
-        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
-
-        //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
-        currentIcon.setImageDrawable(newPoint);
-    }
-
     public List<String> getColorLabels(ArrayList<appColor> colorList ) {
         List<String> labels = new ArrayList<String>();
 
@@ -137,36 +117,6 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
         }
         return labels;
     }
-
-//    private String calculateInitials( String candidateName ) {
-//        String returnInitials = " ";
-//
-//        String tempName = candidateName.trim();
-//        if( tempName.length() > 0 )  {
-//            returnInitials = tempName.substring(0, 1) ;
-//            int firstSpace = tempName.indexOf(" ");
-//
-//            if( firstSpace != -1  ){
-//                returnInitials = returnInitials.concat(tempName.substring((firstSpace+1), (firstSpace + 2)));
-//            }
-//            else if( tempName.length() > 1 ) {
-//                returnInitials = returnInitials.concat(tempName.substring(1, 2));
-//            }
-//        }
-//        return returnInitials;
-//    }
-
-//    // TODO consider moving this
-//    private String getNetAvailableColor(ArrayList<appColor> colorList  ) {
-//        String returnval = " ";
-//        for (appColor currColor : colorList) {
-//            if( currColor.getColor_inuse() == 0 ) {
-//                returnval = currColor.getColor_number();
-//                break;
-//            }
-//        }
-//        return returnval;
-//    }
 
     private void showEditInitialsDialog(String currentInitials ) {
 
@@ -191,12 +141,12 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // grab the initials
-
                         TextView Initialstext = (TextView) dialoglayout.findViewById( R.id.new_initials);
                         if(Initialstext != null) {
                             candidateInitials = Initialstext.getText().toString();
 
-                            display_icon();
+                            ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+                            currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
                         }
                     }
                 });
@@ -219,13 +169,9 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         String tmpColorNum = colorList.get( pos ).getColor_number();
         currentColor = tmpColorNum;
-        int tmpcolor = Color.parseColor(currentColor);
         // refresh current icon based on the current color for this candidate ...
-        // TODO Remove
-        System.out.println(" About to call display_icon ... candidateInitials");
-        System.out.println(candidateInitials);
-
-        display_icon();
+        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+        currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
     }
 
     @Override

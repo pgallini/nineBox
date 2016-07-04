@@ -101,7 +101,7 @@ public class CandidatesListActivity extends AppCompatActivity {
                 ImageView currentIcon = (ImageView) convertView.findViewById(R.id.current_icon);
 
                 //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
-                currentIcon.setImageDrawable(display_icon(cColor, cInitials));
+                currentIcon.setImageDrawable(Candidates.get_icon(this.getContext(), cColor, cInitials));
 
                 TextView candidateText = (TextView) view.findViewById(R.id.candidate);
                 candidateText.setText(candidatesList.get(position).getCandidateName());
@@ -166,22 +166,19 @@ public class CandidatesListActivity extends AppCompatActivity {
         });
     }
 
-    private LayerDrawable display_icon(String currentColor,String candidateInitials ) {
-        // TODO find way to combine this method with the one in CandidatesEntryActivity
-        // grab the next available color ...
-//        currentColor = getNetAvailableColor( colorList );
-        // convert the String color to an int
-        int tmpcolor = Color.parseColor(currentColor);
-        // set-up current icon based on the current color for this candidate ...
-        // TODO look for cleaner way to do this
-        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
-        Drawable[] emptyDrawableLayers = {d1};
-        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
-        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
-        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
-
-        return newPoint;
-    }
+//    private LayerDrawable display_icon(String currentColor,String candidateInitials ) {
+//        // TODO find way to combine this method with the one in CandidatesEntryActivity
+//        // convert the String color to an int
+//        int tmpcolor = Color.parseColor(currentColor);
+//        // set-up current icon based on the current color for this candidate ...
+//        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
+//        Drawable[] emptyDrawableLayers = {d1};
+//        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
+//        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
+//        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
+//
+//        return newPoint;
+//    }
 
     private void delete_candidate( int position ) {
         candidateOperations.deleteCandidate(candidatesList.get(position));
@@ -238,7 +235,6 @@ public class CandidatesListActivity extends AppCompatActivity {
 
             } else {
                 // save updated candidate to the database
-                // TODO code DB update and code update to candidatesList and code update to displayList
                 boolean returnVal = candidateOperations.updateCandidate( returnCandidateId, returnCandidateName, returnCandidateNotes, returnCandidateColor, returnCandidateInitials);
 
                 Toast.makeText(CandidatesListActivity.this,
