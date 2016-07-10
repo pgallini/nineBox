@@ -1,11 +1,15 @@
 package nineBoxReport;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.PictureDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.graphics.BitmapFactory;
@@ -15,11 +19,25 @@ import com.ninebox.nineboxapp.R;
 
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+
+import emailUtility.SendHTMLEmail;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import drawables.drawPoint;
@@ -78,34 +96,33 @@ public class ReportActivity extends AppCompatActivity {
         // Loop through Candidates and add their results to the Grid ...
         // create a list of candidates from what's in the database ...
         // set-up the operations class for Candidates ...
-
         int currLayer = 1;
         candidateOperations = new CandidateOperations(this);
         candidateOperations.open();
         candidatesList = candidateOperations.getAllCandidates();
         // grab the width of the circle ...
         int widget_width = (int) getResources().getDimension(R.dimen.widget_width);
-        for(int i = 0;  i < candidatesList.size(); i++) {
+        for (int i = 0; i < candidatesList.size(); i++) {
 
-            currCandidate = candidatesList.get( i );
+            currCandidate = candidatesList.get(i);
 
             // grab the next available color ...
             String currentColor = currCandidate.getCandidateColor();
             // convert the String color to an int
             int tmpcolor = Color.parseColor(currentColor);
             // TODO - see if there is a cleaner way to do this ...
-            Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
+            Drawable d1 = getResources().getDrawable(R.drawable.empty_drawable, null);
             Drawable[] emptyDrawableLayers = {d1};
 
             drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
-            LayerDrawable newPoint = currDrawPoint.getPoint( currCandidate.getCandidateInitials() );
+            LayerDrawable newPoint = currDrawPoint.getPoint(currCandidate.getCandidateInitials());
 
 //            Drawable tempPoint = getSingleDrawable(newPoint);
 
             Drawable tempPoint = newPoint.mutate();
 
             // TODO figure out the purpose of the last two params - they don't seem to do anything
-            layerDrawable.addLayer(tempPoint, 4 , widget_width, widget_width);
+            layerDrawable.addLayer(tempPoint, 4, widget_width, widget_width);
             // temp X & Y -axis reading from a candidate ...
             double result_X_axis = get_X_ResultForCandiate(currCandidate);
             double result_Y_axis = get_Y_ResultForCandiate(currCandidate);
@@ -130,62 +147,291 @@ public class ReportActivity extends AppCompatActivity {
         layerDrawable.draw(gridCanvas);
         gridImageView.setImageDrawable(layerDrawable);
 
+        // convert the layerDrawable to bitmap so we can save it ...
+        Bitmap bitMapToSave = drawableToBitmap(layerDrawable);
 
-//        findViewById(R.id.save_candidate).setOnClickListener(new View.OnClickListener() {
-//                                                                 @Override
-//                                                                 public void onClick(View view) {
-//                                                                     saveCandidate(view);
-//                                                                 }
-//                                                             }
+        File files_folder = getFilesDir();
+        File created_folder = getDir("custom", MODE_PRIVATE);
+        File dir = new File(created_folder, "custom_child");
+        dir.mkdirs();
 
-//        );
-//
+        boolean doSave = true;
+        if (!dir.exists()) {
+            doSave = dir.mkdirs();
+        }
+        if (doSave) {
+            saveBitmapToFile(dir, "current_report.png", bitMapToSave, Bitmap.CompressFormat.PNG, 100);
+        } else {
+            Log.e("app", "Couldn't create target directory.");
+        }
+
+
+        findViewById(R.id.send_report).setOnClickListener(new View.OnClickListener() {
+                                                              @Override
+                                                              public void onClick(View view) {
+                                                                  try {
+                                                                      sendReport();
+                                                                  } catch (MessagingException e) {
+                                                                      e.printStackTrace();
+                                                                  }
+                                                              }
+                                                          }
+
+        );
+
         findViewById(R.id.cancel_report).setOnClickListener(new View.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(View view) {
-                                                                            finish();
-                                                                        }
-                                                                    }
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    finish();
+                                                                }
+                                                            }
 
         );
 
     }
 
-//    // trying this method to convert from LayerDrawable to Shapedrawable
-//    public Drawable getSingleDrawable(LayerDrawable layerDrawable){
-//
-//        int resourceBitmapHeight = 136, resourceBitmapWidth = 153;
-//
-//        float widthInInches = 0.9f;
-//
-//        int widthInPixels = (int)(widthInInches * getResources().getDisplayMetrics().densityDpi);
-//        int heightInPixels = (int)(widthInPixels * resourceBitmapHeight / resourceBitmapWidth);
-//
-//        int insetLeft = 10, insetTop = 10, insetRight = 10, insetBottom = 10;
-//
-//        layerDrawable.setLayerInset(1, insetLeft, insetTop, insetRight, insetBottom);
-//
-//        Bitmap bitmap = Bitmap.createBitmap(widthInPixels, heightInPixels, Bitmap.Config.ARGB_8888);
-//
-//        Canvas canvas = new Canvas(bitmap);
-//        layerDrawable.setBounds(0, 0, widthInPixels, heightInPixels);
-//        layerDrawable.draw(canvas);
-//
-//        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-//
-////        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-//        bitmapDrawable.setBounds(0, 0, widthInPixels, heightInPixels);
-//
-//        Drawable sDrawable = bitmapDrawable.mutate();
-//
-//        ShapeDrawable tempSD = (ShapeDrawable) sDrawable.draw(canvas);
-//        return sDrawable;
-//    }
-//
-//
+    private void sendReport() throws MessagingException {
+        String host = "smtp.gmail.com";
+        String port = "587";
+        String mailFrom = "funkynetsoftware@gmail.com";
+        String password = "bhorn321";
+
+        // TODO move these constants to a resouce file dude
+        // outgoing message information
+        String mailTo = "pmgallini@gmail.com";
+        String subject = "Results from Promotion Grid";
+
+        MimeMultipart multipart = new MimeMultipart("mixed");
+
+        String introMessage = "<H1>Greetings!</H1><br><H3>   Here are your results from the Promotion Grid app.  ";
+        introMessage += "  We've included the main grid plus details on each person.  </H3> <br><br>";
+        String reportHtmlText = "<H1>Details on each candidate</H1>";
+
+        MimeBodyPart messageBodyPart_details;
+        messageBodyPart_details = buildReportDetails();
+
+        // first part (the html)
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        String htmlText = introMessage + "<img src=\"cid:image\">" + reportHtmlText;
+
+        try {
+            messageBodyPart.setContent(htmlText, "text/html");
+            // add it
+            multipart.addBodyPart(messageBodyPart);
+
+            // second part (the main report image)
+            messageBodyPart = new MimeBodyPart();
+            DataSource fds = new FileDataSource("/data/user/0/com.ninebox.nineboxapp/app_custom/custom_child/current_report.png");
+
+            messageBodyPart.setDataHandler(new DataHandler(fds));
+            messageBodyPart.setHeader("Content-ID", "<image>");
+
+            // add image to the multipart
+            multipart.addBodyPart(messageBodyPart);
+
+            // now, add the candidate details
+            messageBodyPart_details.setHeader("Content-ID", "<details>");
+
+            messageBodyPart_details.setDisposition(MimeBodyPart.INLINE);
+            multipart.addBodyPart(messageBodyPart_details);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        SendHTMLEmail mailer = new SendHTMLEmail();
+
+        try {
+            // here we actually try to send the e-mail
+            mailer.sendHtmlEmail(host, port, mailFrom, password, mailTo,
+                    subject, multipart);
+            Toast.makeText(ReportActivity.this,
+                    R.string.email_sent_success, Toast.LENGTH_LONG).show();
+            System.out.println("Email sent.");
+        } catch (Exception ex) {
+            Toast.makeText(ReportActivity.this,
+                    R.string.email_sent_failure, Toast.LENGTH_LONG).show();
+            System.out.println("Failed to sent email.");
+            ex.printStackTrace();
+        }
+    }
 
 
+    private MimeBodyPart buildReportDetails() throws MessagingException {
+        String detailString = " ";
+        String detailTextString = " ";
+        String currentColor = " ";
+//        MimeBodyPart messageBodyPart_details = new MimeBodyPart();
+        MimeMultipart messageMultipart = new MimeMultipart("alternative");
+        MimeBodyPart returnBodyPart = new MimeBodyPart();
+        MimeMultipart tempMessageMultipart = new MimeMultipart("alternative");
+        MimeBodyPart tempReturnBodyPart = new MimeBodyPart();
+        MimeBodyPart candidateBodyPart = new MimeBodyPart();
 
+        candidateOperations = new CandidateOperations(this);
+        candidateOperations.open();
+        candidatesList = candidateOperations.getAllCandidates();
+        int numCandidates = candidatesList.size();
+        if (numCandidates == 0) {
+            detailString = "No Candidates were entered.";
+            // TODO - add this to SetContent
+        } else {
+
+            // Loop through the candidates to build the details for the e-mail
+            for (int i = 0; i < numCandidates; i++) {
+                currCandidate = candidatesList.get(i);
+                detailTextString = createDetailTextString(currCandidate);
+                // build the candidate icon, save it to storage, and grab the file name
+                String iconBitmapName = buildIconForEmail(currCandidate);
+                // build the name for this candidate's icon image
+                String iconImageID = "image-icon" + Long.toString(currCandidate.getCandidateID());
+                // add onto the detailString with the placeholder for the icon image
+                detailString = detailString + "<img src=\"cid:" + iconImageID + "\">" + detailTextString + "<br>";
+                // TODO remove
+//                System.out.println(" detailString = ");
+//                System.out.println(detailString);
+
+                try {
+
+                    DataSource fds = new FileDataSource(
+                            "/data/user/0/com.ninebox.nineboxapp/app_custom/custom_child/" + iconBitmapName);
+
+                    // create a MIMEBodyPart and add each icon image as we loop
+                    MimeBodyPart candidateIconBodyPart = new MimeBodyPart();
+                    candidateIconBodyPart.setDisposition(MimeBodyPart.INLINE);
+                    candidateIconBodyPart.setDataHandler(new DataHandler(fds));
+                    candidateIconBodyPart.setHeader("Content-ID", "<" + iconImageID + ">");
+
+                    // add BodyPart containing the icon image to the multipart
+                    messageMultipart.addBodyPart(candidateIconBodyPart);
+
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        // Now that we are out of the loop and have assembled the string holding the HTML for the details
+        //   build a MIME Body part to hold it
+        candidateBodyPart.setContent(detailString, "text/html");
+        // now add that body part to the MultiPart
+        messageMultipart.addBodyPart(candidateBodyPart);
+
+        // convert multi to body and add it to another multi
+        // TODO - see if we can just return the candidateBodyPart
+        try {
+            tempReturnBodyPart.setContent(messageMultipart);
+            try {
+                tempMessageMultipart.addBodyPart(tempReturnBodyPart);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        // convert the multipart to a regular body part so we can return it ( and it can be added to the main multipart)
+        try {
+            // trying this to see if the BodyPart can hold on to ALL of the lines
+            returnBodyPart.setDisposition(MimeBodyPart.INLINE);
+            returnBodyPart.setContent(tempMessageMultipart);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return returnBodyPart;
+    }
+
+    private String createDetailTextString(Candidates currCandidate) {
+        String detailString = "<strong>";
+        detailString += currCandidate.getCandidateName();
+        detailString += "</strong>";
+        detailString += "   (initials: ";
+        detailString += currCandidate.getCandidateInitials();
+        detailString += ")   ";
+        detailString += "<br>";
+        detailString += "-            Performance Score (out of 10): ";
+        detailString += currCandidate.getxCoordinate();
+        detailString += "<br>";
+        detailString += "-            Promotability Score (out of 10): ";
+        detailString += currCandidate.getyCoordinate();
+        detailString += "<br>";
+        detailString += "<br>";
+        return detailString;
+    }
+
+    private String buildIconForEmail(Candidates currCandidate) {
+        // build icon for this candidate, save it to storage so it can be included in the e-mail
+        // amnd return a handle for the image
+        String currentColor = currCandidate.getCandidateColor();
+        // convert the String color to an int
+        int tmpcolor = Color.parseColor(currentColor);
+        Drawable d1 = getResources().getDrawable(R.drawable.empty_drawable, null);
+        Drawable[] emptyDrawableLayers = {d1};
+
+        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
+        LayerDrawable newPoint = currDrawPoint.getPoint(currCandidate.getCandidateInitials());
+
+        // convert the layerDrawable to bitmap so we can save it ...
+        Bitmap bitMapToSave = drawableToBitmap(newPoint);
+
+        File created_folder = getDir("custom", MODE_PRIVATE);
+        File dir = new File(created_folder, "custom_child");
+        dir.mkdirs();
+
+        String iconBitmapName = "icon_image_" + Long.toString(currCandidate.getCandidateID()) + ".png";
+        boolean doSave = true;
+        if (!dir.exists()) {
+            doSave = dir.mkdirs();
+        }
+        if (doSave) {
+            saveBitmapToFile(dir, iconBitmapName, bitMapToSave, Bitmap.CompressFormat.PNG, 100);
+        } else {
+            Log.e("app", "Couldn't create target directory for saving icon bitmap.");
+        }
+        String iconImageID = "image-icon" + Long.toString(currCandidate.getCandidateID());
+
+        return iconBitmapName;
+    }
+    //    }
+    /*
+    * Bitmap.CompressFormat can be PNG,JPEG or WEBP.
+    *
+    * quality goes from 1 to 100. (Percentage).
+    *
+    * dir you can get from many places like Environment.getExternalStorageDirectory() or mContext.getFilesDir()
+    * depending on where you want to save the image.
+    */
+    public boolean saveBitmapToFile(File dir, String fileName, Bitmap bm,
+                                    Bitmap.CompressFormat format, int quality) {
+
+        File imageFile = new File(dir, fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(imageFile);
+
+            bm.compress(format, quality, fos);
+
+            fos.close();
+
+            return true;
+        } catch (IOException e) {
+            Log.e("app", e.getMessage());
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+
+    public Bitmap drawableToBitmap(LayerDrawable pd) {
+        Bitmap bm = Bitmap.createBitmap(pd.getIntrinsicWidth(), pd.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        pd.setBounds(0, 0, pd.getIntrinsicWidth(), pd.getIntrinsicHeight());
+        pd.draw(new Canvas(bm));
+        return bm;
+    }
 
     private double get_X_ResultForCandiate(Candidates currCandidate) {
         int currResponse = 1;
@@ -211,19 +457,14 @@ public class ReportActivity extends AppCompatActivity {
                         // add the response multiplied by the weight and add it to the result ...
                         result = result + (currResponse * currWeight);
                     }
-
-                    // TODO remove
-//                    System.out.println( " currWeight & currResponse == ");
-//                    System.out.println( currWeight );
-//                    System.out.println( currResponse );
                 }
             }
         }
         // divide result by 100 and return it.
-        return ( result * 0.01 );
+        return (result * 0.01);
     }
 
-    private double get_Y_ResultForCandiate( Candidates currCandidate ) {
+    private double get_Y_ResultForCandiate(Candidates currCandidate) {
         int currResponse = 1;
         double result = 0.0;
         int currWeight = 0;
@@ -234,17 +475,10 @@ public class ReportActivity extends AppCompatActivity {
 
         for (int i = 0; i < questionsList.size(); i++) {
 
-//            System.out.println( "looping through question list i = " );
-//            System.out.println( i );
-
             questionID = questionsList.get(i).getQuestionID();
 
 
             if (candidateID != -1 && questionID != -1) {
-
-//                System.out.println( "questionsList.get(i).getQuestionAxis() = ");
-//                System.out.println( questionsList.get(i).getQuestionAxis());
-
                 // If the Axis of the current question is not Y, then ignore it ...
                 if (questionsList.get(i).getQuestionAxis().equals("Y")) {
 
@@ -256,18 +490,12 @@ public class ReportActivity extends AppCompatActivity {
                         // add the response multiplied by the weight and add it to the result ...
                         result = result + (currResponse * currWeight);
                     }
-
-                    // TODO remove
-//                    System.out.println( " currWeight & currResponse == ");
-//                    System.out.println( currWeight );
-//                    System.out.println( currResponse );
                 }
             }
         }
         // divide result by 100 and return it.
-        return ( result * 0.01 );
+        return (result * 0.01);
     }
-
 
 }
 

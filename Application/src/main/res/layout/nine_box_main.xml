@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="@dimen/abc_action_bar_default_height_material"
-        android:layout_margin="@dimen/margin_medium">
+        android:layout_margin="@dimen/margin_small">
 
         <ImageView
             android:id="@+id/button_add_people"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/card_image_height"
         android:elevation="@dimen/abc_action_bar_default_height_material"
-        android:layout_margin="@dimen/margin_medium">
+        android:layout_margin="@dimen/margin_small">
 
         <ImageView
             android:id="@+id/button_set_questions"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/abc_action_bar_default_height_material"
-        android:layout_margin="@dimen/margin_medium">
+        android:layout_margin="@dimen/margin_small">
 
         <ImageView
             android:id="@+id/button_see_results"

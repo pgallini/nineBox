@@ -20,6 +20,7 @@ package nineBoxMain;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        // this may be needed to allow us to send email
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         findViewById(R.id.button_add_people).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if (intent != null ) {
             Bundle extras = intent.getExtras();
-//            String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
-//            String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
 
             if (resultCode == RESULT_CANCELED) {
                 System.out.println(" Evaluation was Cancelled");
