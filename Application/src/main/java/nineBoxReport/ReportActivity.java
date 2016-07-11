@@ -194,7 +194,7 @@ public class ReportActivity extends AppCompatActivity {
         String host = "smtp.gmail.com";
         String port = "587";
         String mailFrom = "funkynetsoftware@gmail.com";
-        String password = "bhorn321";
+        String password = "********";
 
         // TODO move these constants to a resouce file dude
         // outgoing message information

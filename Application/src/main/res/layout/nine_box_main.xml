@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/background_main"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:gravity="center_horizontal">
 
     <include
         android:id="@+id/tool_bar"
@@ -15,18 +16,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="@dimen/abc_action_bar_default_height_material"
+
         android:layout_margin="@dimen/margin_small">
 
         <ImageView
             android:id="@+id/button_add_people"
             style="@style/MainButtonCard"
-            android:src="@drawable/add_people_image" />
+            android:src="@drawable/add_people_image"
+            android:layout_marginTop="@dimen/margin_medium" />
 
         <TextView
             android:id="@+id/textView"
             style="@style/MainButtonText"
-            android:layout_alignBottom="@+id/button_add_people"
-            android:text="@string/add_people_title"/>
+            android:layout_alignBottom="@id/button_add_people"
+            android:text="@string/add_people_title"
+            android:layout_alignLeft="@id/button_add_people" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -48,8 +52,8 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/card_image_height"
         android:elevation="@dimen/abc_action_bar_default_height_material"
         android:layout_margin="@dimen/margin_small">
 

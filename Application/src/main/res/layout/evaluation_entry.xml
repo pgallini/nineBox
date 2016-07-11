@@ -99,12 +99,14 @@
             android:layout_weight="3"
             android:background="@color/background_light"
             android:orientation="vertical"
+            android:weightSum="10"
             >
 
             <TextView
                 android:id="@+id/question_text"
                 android:layout_width="fill_parent"
-                android:layout_height="182dp"
+                android:layout_height="0dp"
+                android:layout_weight="6"
                 android:layout_gravity="top"
                 android:layout_margin="@dimen/text_margin"
                 android:padding="@dimen/text_padding"
@@ -114,7 +116,8 @@
             <SeekBar
                 android:id="@+id/responseSeekBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:layout_margin="@dimen/text_margin"
                 android:max="@integer/maxResponse"
                 android:padding="@dimen/text_padding"
@@ -124,7 +127,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:orientation="horizontal"
                 android:layout_gravity="bottom|center">
 
