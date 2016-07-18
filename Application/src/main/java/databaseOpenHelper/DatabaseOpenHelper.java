@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import nineBoxCandidates.appColor;
+import nineBoxMain.User;
 
 /**
  * Steps to access database from terminal ..
@@ -58,6 +59,12 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public static final String COLOR_NUMBER = "_color_number";
     public static final String COLOR_INUSE = "_color_inuse";
 
+    public static final String USER = "User";
+    public static final String USER_ID = "_id";
+    public static final String USER_NUM = "_number";
+    public static final String USER_NAME = "_name";
+    public static final String USER_EMAIL = "_email";
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "ninebox.db";
     private static final String CANDIDATES_TABLE_CREATE =
@@ -89,6 +96,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                     COLOR_NUMBER + " TEXT NOT NULL, " +
                     COLOR_INUSE + " integer NOT NULL);";
 
+    private static final String USER_TABLE_CREATE =
+            "CREATE TABLE " + USER + " (" +
+                    USER_ID  + " integer primary key autoincrement, " +
+                    USER_NUM + " integer NOT NULL, " +
+                    USER_NAME + " TEXT NOT NULL, " +
+                    USER_EMAIL + " TEXT );";
+
     public final Context fContext;
     public ArrayList<appColor> colorList = new ArrayList<appColor>();
 
@@ -104,8 +118,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         db.execSQL(QUESTIONS_TABLE_CREATE);
         db.execSQL(RESPONSES_TABLE_CREATE);
         db.execSQL(COLORS_TABLE_CREATE);
+        db.execSQL(USER_TABLE_CREATE);
         loadColorsTable( db );
         loadQuestionsTable( db );
+        initiateUserTable( db );
     }
 
     @Override
@@ -116,9 +132,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + QUESTIONS);
         db.execSQL("DROP TABLE IF EXISTS " + RESPONSES);
         db.execSQL("DROP TABLE IF EXISTS " + COLORS );
+        db.execSQL("DROP TABLE IF EXISTS " + USER);
         onCreate(db);
     }
-
 
     // TODO consider moving this to a ColorsOperations class
     public static void updateColorsTableToggleInUse(SQLiteDatabase db, String color, boolean inuse ) {
@@ -140,6 +156,19 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
+
+    public void initiateUserTable(SQLiteDatabase db) {
+        //Add default record
+        ContentValues _Values = new ContentValues();
+
+        // TODO - do we need to ensure that the table is empty firsT?
+            _Values.put(USER_NAME, "Unknown User");
+            _Values.put(USER_EMAIL, " ");
+            long userID = db.insert(USER, null, _Values);
+        User currentUser = new User(userID);
+
+    }
+
     public void loadColorsTable(SQLiteDatabase db) {
         //Add default record
         ContentValues _Values = new ContentValues();

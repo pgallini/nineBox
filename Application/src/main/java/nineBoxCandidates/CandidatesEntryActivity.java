@@ -207,12 +207,12 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         EditText Notestext = (EditText) findViewById( R.id.NotesText);
         String candidateNotes = Notestext.getText().toString();
 
+        String returnKeyValue = "0";
         // save to database
         //create a new intent so we can return Candidate Data ...
         Intent intent = new Intent();
         //add "returnKey" as a key and assign it the value in the textbox...
-
-        intent.putExtra("returnKey",0);
+        intent.putExtra("returnKey",returnKeyValue);
 
         intent.putExtra("returnName",canidateName);
         intent.putExtra("returnNotes",candidateNotes);

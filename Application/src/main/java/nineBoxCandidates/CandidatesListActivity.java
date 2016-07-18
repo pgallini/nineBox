@@ -215,6 +215,7 @@ public class CandidatesListActivity extends AppCompatActivity {
         if (intent != null ) {
             Bundle extras = intent.getExtras();
             String returnCandidateIdString = (extras != null ? extras.getString("returnKey") : "nothing returned");
+//            int returnCandidateIdString = (extras != null ? extras.getInt("returnKey") : "nothing returned");
             if(returnCandidateIdString != null ) {
                 returnCandidateId = Long.parseLong(returnCandidateIdString);
             };

@@ -55,22 +55,9 @@ public class SendHTMLEmail {
         msg.setRecipients(Message.RecipientType.TO, toAddresses);
         msg.setSubject(subject);
         msg.setSentDate(new Date());
-        // set plain text message
-//        msg.setContent(message, "text/html");
-
-
-
-
-
-//        // third  part (the html)
-//        BodyPart reportBodyPart = new MimeBodyPart();
-//        String reportHtmlText = "<H1>Details on each candidate</H1>";
-//        reportHtmlText += "<H2>Sally Joe</H2>";
-//        messageBodyPart.setContent(reportHtmlText, "text/html");
 
         // put everything together
         msg.setContent(multipart);
-
 
         // sends the e-mail
         Transport.send(msg);
