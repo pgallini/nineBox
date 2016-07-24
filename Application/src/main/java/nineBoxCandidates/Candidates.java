@@ -6,12 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 
 import com.ninebox.nineboxapp.R;
-
-import java.util.ArrayList;
 import java.util.Scanner;
-
 import drawables.drawPoint;
-import nineBoxQuestions.Questions;
 /**
  * Created by Paul Gallini on 2/22/16.
  */

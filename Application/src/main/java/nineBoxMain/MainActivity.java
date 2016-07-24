@@ -39,6 +39,7 @@ import com.ninebox.nineboxapp.R;
 public class MainActivity extends AppCompatActivity {
 //    public class MainActivity extends Activity {
     private Toolbar toolbar;
+    private UserOperations userOperations;
     static public int candidateIndex = 0;
 
     // TODO consider adding a FunkyNet splash screen
@@ -53,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        // this may be needed to allow us to send email
+        // run init stuff
+        inititateApp();
 
+        // this may be needed to allow us to send email
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -141,5 +144,22 @@ public class MainActivity extends AppCompatActivity {
     static public void incrementCurrentCandidate() {
         // TODO consider adding test to ensure we don't incrment it past candidatesList.size()
             candidateIndex++;
+    }
+    private void inititateApp() {
+        // set-up Evaulations operations ...
+        userOperations = new UserOperations(this);
+        userOperations.open();
+        long resp = userOperations.getUserID( 1 );
+        // TODO remove
+        System.out.println( " resp - " ) ;
+        System.out.println( resp ) ;
+
+        if( resp == -1 ) {
+
+
+            // save basic user record
+            userOperations.addUser(1, "unkonwn user", " ");
+        }
+
     }
 }

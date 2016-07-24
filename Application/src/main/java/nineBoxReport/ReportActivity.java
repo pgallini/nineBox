@@ -1,5 +1,7 @@
 package nineBoxReport;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -20,8 +22,10 @@ import com.ninebox.nineboxapp.R;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -42,6 +46,8 @@ import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import drawables.drawPoint;
 import nineBoxEvaluation.EvaluationOperations;
+import nineBoxMain.User;
+import nineBoxMain.UserOperations;
 import nineBoxQuestions.Questions;
 import nineBoxQuestions.QuestionsOperations;
 
@@ -170,7 +176,7 @@ public class ReportActivity extends AppCompatActivity {
                                                               @Override
                                                               public void onClick(View view) {
                                                                   try {
-                                                                      sendReport();
+                                                                      promptEmailSendReport();
                                                                   } catch (MessagingException e) {
                                                                       e.printStackTrace();
                                                                   }
@@ -190,17 +196,38 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
-    private void sendReport() throws MessagingException {
+    private void promptEmailSendReport() throws MessagingException {
+
+        UserOperations userOperations = new UserOperations(this);
+        userOperations.open();
+        User currentUser = userOperations.getUser(1);
+
+        String currentEmailAddress = currentUser.getUserEmail();
+
+        // TODO remove
+        System.out.println("currentEmailAddress before dialog = ");
+        System.out.println(currentEmailAddress);
+
+        // prompt for email address
+        showEditEmailDialog(currentEmailAddress);
+
+    }
+
+    private void sendReport(String mailTo) throws MessagingException {
         String host = "smtp.gmail.com";
         String port = "587";
         String mailFrom = "funkynetsoftware@gmail.com";
         String password = "********";
 
+//        // TODO remove
+        System.out.println("mailTo = ");
+        System.out.println(mailTo);
+
         // TODO move these constants to a resouce file dude
         // outgoing message information
-        String mailTo = "pmgallini@gmail.com";
+//        String mailTo = currentEmailAddress;
         String subject = "Results from Promotion Grid";
-
+        // outgoing message information
         MimeMultipart multipart = new MimeMultipart("mixed");
 
         String introMessage = "<H1>Greetings!</H1><br><H3>   Here are your results from the Promotion Grid app.  ";
@@ -244,17 +271,86 @@ public class ReportActivity extends AppCompatActivity {
             // here we actually try to send the e-mail
             mailer.sendHtmlEmail(host, port, mailFrom, password, mailTo,
                     subject, multipart);
-            Toast.makeText(ReportActivity.this,
-                    R.string.email_sent_success, Toast.LENGTH_LONG).show();
+//            Toast.makeText(ReportActivity.this,
+//                    R.string.email_sent_success, Toast.LENGTH_LONG).show();
             System.out.println("Email sent.");
         } catch (Exception ex) {
-            Toast.makeText(ReportActivity.this,
-                    R.string.email_sent_failure, Toast.LENGTH_LONG).show();
+//            Toast.makeText(ReportActivity.this,
+//                    R.string.email_sent_failure, Toast.LENGTH_LONG).show();
             System.out.println("Failed to sent email.");
             ex.printStackTrace();
         }
     }
 
+    private void showEditEmailDialog(String currentEmail) {
+
+        // Get the layout inflater
+        LayoutInflater inflater = ReportActivity.this.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        final View dialoglayout = inflater.inflate(R.layout.user_edit_email, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
+        builder.setView(dialoglayout);
+
+        builder.setTitle(getString(R.string.edit_user_email_hint));
+        builder.setMessage(getString(R.string.confirm_edit_email_message));
+
+        TextView emailText = (TextView) dialoglayout.findViewById(R.id.email_address);
+        emailText.setText(currentEmail);
+
+        final UserOperations userOperations = new UserOperations(this);
+        userOperations.open();
+
+        final User currentUser = userOperations.getUser(1);
+//        final String newEmail;
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // grab the initials
+
+                        TextView emailText = (TextView) dialoglayout.findViewById(R.id.email_address);
+                        if (emailText != null) {
+                            // now set the User email address
+                            final String newEmail = emailText.getText().toString();
+                            currentUser.setUserEmail(newEmail);
+                            // save new email to database
+                            userOperations.updateUserEmail(1, newEmail);
+                            // now send the report
+                            // trying to run this as a background thread
+                            Toast.makeText(ReportActivity.this,R.string.email_sent_background, Toast.LENGTH_LONG).show();
+                            new Thread(new Runnable() {
+                                public void run() {
+                                    try {
+                                        sendReport(newEmail);
+                                    } catch (MessagingException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }).start();
+
+                            Toast.makeText(ReportActivity.this,
+                                    R.string.email_save_message,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // negative button logic
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+    }
 
     private MimeBodyPart buildReportDetails() throws MessagingException {
         String detailString = " ";
@@ -390,6 +486,7 @@ public class ReportActivity extends AppCompatActivity {
 
         return iconBitmapName;
     }
+
     //    }
     /*
     * Bitmap.CompressFormat can be PNG,JPEG or WEBP.

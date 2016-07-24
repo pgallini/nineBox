@@ -32,6 +32,10 @@
     <string name="add_people_title">Add People</string>
     <string name="reports_title">See Results</string>
     <string name="evaluate_title">Evaluate People</string>
+    <!-- Strings to support User Entry -->
+    <string name="edit_user_email_hint">Enter e-mail address</string>
+    <string name="confirm_edit_email_message">Enter an e-mail address.</string>
+    <string name="email_save_message">E-Mail address has been successfully saved.</string>
     <!-- Strings to support Candidate Entry -->
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
@@ -73,6 +77,7 @@
 
     <string name="email_sent_success">e-mail was successfully sent</string>
     <string name="email_sent_failure">There was an error sending e-mail</string>
+    <string name="email_sent_background">Sending report in the background.</string>
     <string name="send_button">Send Report</string>
 
     <string name="menu_configure_questions">Configure Questions</string>
