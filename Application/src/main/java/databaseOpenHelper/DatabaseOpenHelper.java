@@ -162,6 +162,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         ContentValues _Values = new ContentValues();
 
         // TODO - do we need to ensure that the table is empty firsT?
+        // TODO - make usr num dynamic somehow
+            _Values.put(USER_NUM, 1);
             _Values.put(USER_NAME, "Unknown User");
             _Values.put(USER_EMAIL, " ");
             long userID = db.insert(USER, null, _Values);

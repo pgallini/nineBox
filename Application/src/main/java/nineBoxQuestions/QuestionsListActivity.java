@@ -6,27 +6,19 @@
 package nineBoxQuestions;
 
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.ninebox.nineboxapp.R;
-
 import java.util.ArrayList;
-
-import nineBoxCandidates.CandidatesEntryActivity;
 
 /**
  * This activity lists out the existing Questions and allows for additions, edits, and deletions.

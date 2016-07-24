@@ -3,7 +3,6 @@ package drawables;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,12 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-
 import com.ninebox.nineboxapp.R;
 
-import java.net.URL;
-
-import nineBoxReport.ReportActivity;
 
 /**
  * Created by Paul Gallini on 5/27/16.
