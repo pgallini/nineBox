@@ -2,46 +2,60 @@
 <items version="2" >
 
     <item
-        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/support-v13/23.0.0/jars/classes.jar"
-        jumboMode="false"
+        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
         revision="23.0.1"
-        sha1="bb0ac3f3ee2d71854501cc28e52cc84a20209b41">
-        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/pre-dexed/debug/classes-ff3f4d7f971ccc67ae8f4da50ed422ab90e173f1.jar" />
-    </item>
-    <item
-        jar="/Users/ase408/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
-        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-ba2c0cb7ff4ceaaa822485efdd36996538f15a07.jar" />
-    </item>
-    <item
-        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1ccbc26be2c465c622a48310e8092241b01abe80">
-        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/pre-dexed/debug/classes-60b0ba64b136c7cfcfa3a854d7be258893ef17fa.jar" />
-    </item>
-    <item
-        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
-        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/pre-dexed/debug/classes-1e9f369f45301548662e9dd9c93e3b62eb38bb21.jar" />
+        sha1="f6bc8381562b18c4f8a0893aa73c37806342282d">
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e83f5315423c1e421ee10bd78ca4d6e28bd56941/classes.dex" />
     </item>
     <item
         jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/libs/internal_impl-23.0.0.jar"
-        jumboMode="false"
+        jumboMode="true"
         revision="23.0.1"
         sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
-        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-edc01dab4fab4331d88754cf28406de6e49762f4.jar" />
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.0_edc01dab4fab4331d88754cf28406de6e49762f4/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="f8cda30e6940635e5dbab55bd2b39d2decf6b38b">
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_315a0bece9dfb5146ac3666eb28892f91f50004f/classes.dex" />
     </item>
     <item
         jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/support-v13/23.0.0/jars/libs/internal_impl-23.0.0.jar"
-        jumboMode="false"
+        jumboMode="true"
         revision="23.0.1"
         sha1="5d4bccb885c8a89d066ecb6c4addb553a99a79a2">
-        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-3512e4f4dcf0a00335059d4d6c7b2f1ba24fe149.jar" />
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.0_3512e4f4dcf0a00335059d4d6c7b2f1ba24fe149/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="1ccbc26be2c465c622a48310e8092241b01abe80">
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-23.0.0_60b0ba64b136c7cfcfa3a854d7be258893ef17fa/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ase408/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.0.0_ba2c0cb7ff4ceaaa822485efdd36996538f15a07/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/support-v13/23.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="bb0ac3f3ee2d71854501cc28e52cc84a20209b41">
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v13-23.0.0_ff3f4d7f971ccc67ae8f4da50ed422ab90e173f1/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="/Users/ase408/Projects/NineBoxMobile/Application/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.0.0_1e9f369f45301548662e9dd9c93e3b62eb38bb21/classes.dex" />
     </item>
 
 </items>
