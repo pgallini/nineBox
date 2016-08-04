@@ -8,6 +8,9 @@
 # Java class files
 *.class
 
+#bin files
+*.bin
+
 # Generated files
 bin/
 gen/
@@ -17,6 +20,8 @@ Application/build/
 .gradle/
 .gradle/2.5/
 build/
+/Application/build/
+Application/build/intermediates/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -33,3 +38,8 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+# my own sandbox area for images
+ImageSandBox
+
+.idea/inspectionProfiles/

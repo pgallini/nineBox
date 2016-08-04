@@ -1,9 +1,13 @@
 package nineBoxCandidates;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 
-import nineBoxQuestions.Questions;
+import com.ninebox.nineboxapp.R;
+import java.util.Scanner;
+import drawables.drawPoint;
 /**
  * Created by Paul Gallini on 2/22/16.
  */
@@ -13,6 +17,8 @@ public class Candidates {
     private int xCoordinate = 0;
     private int yCoordinate = 0;
     private long candidateID = 0;
+    private String candidateColor = " ";
+    private String candidateInitials = " ";
     private Responses responseSet = new Responses();
 
     private int pomptForResponse(String qText, Scanner scanner) {
@@ -50,41 +56,17 @@ public class Candidates {
         int tempResponse = 1;
     }
 
-    public Candidates(String candidateName, Questions questionSet_X_Axis, Questions questionSet_Y_Axis, Scanner scanner) {
-        super();
-        this.candidateName = candidateName;
-        int tempResponse = 1;
+    static public LayerDrawable get_icon(Context context, String currentColor,String candidateInitials ) {
+        // this method generates and returns an icon for a candidate
+        // convert the String color to an int
+        int tmpcolor = Color.parseColor(currentColor);
+        // set-up current icon based on the current color for this candidate ...
+        Drawable d1 =  context.getResources().getDrawable(R.drawable.empty_drawable, null);
+        Drawable[] emptyDrawableLayers = {d1};
+        drawPoint currDrawPoint = new drawPoint(context, emptyDrawableLayers, 6, 6, tmpcolor);
+        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
 
-        ArrayList<String> tmpQuestionText_X_Axis = questionSet_X_Axis.getQuestionText();
-
-        for( String qText : tmpQuestionText_X_Axis) {
-            tempResponse = pomptForResponse(qText, scanner);
-            responseSet.addQuestionResponse(tempResponse);
-        }
-
-        ArrayList<String> tmpQuestionText_Y_Axis = questionSet_Y_Axis.getQuestionText();
-
-        for( String qText : tmpQuestionText_Y_Axis) {
-            tempResponse = pomptForResponse(qText, scanner);
-            responseSet.addQuestionResponse(tempResponse);
-        }
-    }
-
-    public int calcCandidate_Coordinate(Questions questionSet) {
-        ArrayList<Integer> tmpQuestionWeight;
-        tmpQuestionWeight = questionSet.getQuestionWeight();
-        int coordinate = 0;
-        int currResponse = 0;
-        int i = 0;
-
-        for( int qText : tmpQuestionWeight) {
-            currResponse = responseSet.getQuestionResponse(i);
-            i++;
-
-            coordinate = coordinate + ( qText * currResponse);
-            System.out.println("weight = " + qText + "  response = " + currResponse + "  xCoordinate = " + coordinate);
-        }
-        return coordinate;
+        return newPoint;
     }
 
     public int getxCoordinate() {
@@ -117,6 +99,12 @@ public class Candidates {
 
     public long getCandidateID() { return candidateID; }
 
+    public String getCandidateColor() { return candidateColor; }
 
+    public void setCandidateColor(String candidateColor) { this.candidateColor = candidateColor; }
+
+    public String getCandidateInitials() { return candidateInitials; }
+
+    public void setCandidateInitials(String candidateInitials) { this.candidateInitials = candidateInitials; }
 
 }

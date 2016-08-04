@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<colors_data>
+    <record color_text="light green"    color_number="#CDFF92" color_inuse="0" />
+    <record color_text="tomatoe"        color_number="#ef9a9a" color_inuse="0" />
+    <record color_text="teal"           color_number="#1DE9B6" color_inuse="0" />
+    <record color_text="purple"         color_number="#BA68C8" color_inuse="0" />
+    <record color_text="yellow"         color_number="#FBEF4B" color_inuse="0" />
+    <record color_text="light blue"     color_number="#29B6F6" color_inuse="0" />
+    <record color_text="peach"          color_number="#FF8A54" color_inuse="0" />
+    <record color_text="blue"           color_number="#3A86CB" color_inuse="0" />
+    <record color_text="odd lime"       color_number="#9DA83E" color_inuse="0" />
+    <record color_text="deep orange"    color_number="#FF6E40" color_inuse="0" />
+    <record color_text="amber"          color_number="#FFD54F" color_inuse="0" />
+    <record color_text="blue grey"      color_number="#78909C" color_inuse="0" />
+    <record color_text="pink purple"    color_number="#FE7BE8" color_inuse="0" />
+    <record color_text="green"          color_number="#7FED61" color_inuse="0" />
+    <record color_text="brown"          color_number="#CBA46E" color_inuse="0" />
+    <record color_text="light purple"   color_number="#B3A9E6" color_inuse="0" />
+    <record color_text="vry lght green" color_number="#CBE6D7" color_inuse="0" />
+    <record color_text="light tan"      color_number="#CBBF9E" color_inuse="0" />
+    <record color_text="odd green"      color_number="#73734D" color_inuse="0" />
+    <record color_text="pale peach"     color_number="#FFBC87" color_inuse="0" />
+    <record color_text="pale blue"      color_number="#7DF1FF" color_inuse="0" />
+</colors_data>

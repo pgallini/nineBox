@@ -11,42 +11,39 @@ public class Questions {
     //    - Question Text - the question itself
     //    - Question Weight - how much weight does the question carry?
     //
-    private ArrayList<String> questionText = new ArrayList<String>();
-    private ArrayList<Integer> questionWeight = new ArrayList<Integer>();
+    private long questionID = 0;
+    private String questionText;
+    private Integer questionWeight;
+    private String questionAxis;
+    private ArrayList<String> questionTextList = new ArrayList<String>();
+    private ArrayList<Integer> questionWeightList = new ArrayList<Integer>();
 
-    public void addQuestionText(String newText) {
-        questionText.add(newText);
+    public ArrayList<String> getQuestionTextList() {
+        return questionTextList;
     }
 
-    public void addQuestionText(int ord, String newText) {
-        if( ord <= questionText.size()) {
-            questionText.add(ord, newText);
-        }
-        else
-        {
-            System.out.println("Cannot insert Question Text at given position, it does not exist.  Position = " + ord);
-        }
+    public ArrayList<Integer> getQuestionWeightList() {
+        return questionWeightList;
     }
 
-    public void addQuestionWeight(int newResponse) {
-        questionWeight.add(newResponse);
-    }
+    public void setQuestionText( String text ) { questionText = text; }
 
-    public void addQuestionWeight(int ord, int newText) {
-        if( ord <= questionWeight.size()) {
-            questionWeight.add(ord, newText);
-        }
-        else
-        {
-            System.out.println("Cannot insert Question Weight at given position, it does not exist.  Position = " + ord);
-        }
-    }
+    public String getQuestionText() { return questionText; }
 
-    public ArrayList<String> getQuestionText() {
-        return questionText;
-    }
+    public String getQuestionText(int maxLength ) {
+        int tempLength = Math.min(maxLength, questionText.length());
+        return questionText.substring(0, tempLength); }
 
-    public ArrayList<Integer> getQuestionWeight() {
-        return questionWeight;
-    }
+    public void setQuestionWeight( int newWeight ) { questionWeight = newWeight; };
+
+    public int getQuestionWeight() { return questionWeight; }
+
+    public void setQuestionID( long id ) { questionID = id; }
+
+    public long getQuestionID() { return questionID; }
+
+    public String getQuestionAxis() { return questionAxis; }
+
+    public void setQuestionAxis(String questionAxis) { this.questionAxis = questionAxis; }
+
 }

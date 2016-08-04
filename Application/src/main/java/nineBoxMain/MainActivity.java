@@ -17,243 +17,79 @@
 //package com.ninebox.nineboxapp;
 package nineBoxMain;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
-import android.widget.Toast;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-import android.widget.BaseAdapter;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.ninebox.nineboxapp.CandidatesEntryActivity;
+import nineBoxCandidates.CandidatesListActivity;
+import nineBoxQuestions.QuestionsListActivity;
+import nineBoxEvaluation.Evaluation;
+import nineBoxReport.ReportActivity;
 import com.ninebox.nineboxapp.R;
-
-import nineBoxCandidates.Candidates;
-import nineBoxCandidates.CandidateOperations;
-import nineBoxQuestions.Questions;
 
 /**
  * This activity is the main activity for the NineBoxMobile app.
  */
-public class MainActivity extends Activity {
-    //    TODO  get rid of this or change it to something useful
-    private static final Uri DOCS_URI = Uri.parse(
-            "http://developer.android.com/design/building-blocks/buttons.html#borderless");
-    private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
-    public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
+public class MainActivity extends AppCompatActivity {
+//    public class MainActivity extends Activity {
+    private Toolbar toolbar;
+    private UserOperations userOperations;
+    static public int candidateIndex = 0;
 
-    private CandidateOperations candidateOperations;
-    private ListView mainListView;
-    private ArrayAdapter<String> mainArrayAdapter;
-    Context context = MainActivity.this;
-    private ArrayList<String> displayList;
-
+    // TODO consider adding a FunkyNet splash screen
+    // https://www.bignerdranch.com/blog/splash-screens-the-right-way/
+    // 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sample_main);
+        setContentView(R.layout.nine_box_main);
 
-        // TODO add display informative graphic when list is empty
+        // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
-        // set-up the operations class for Candidates ...
-        candidateOperations = new CandidateOperations(this);
-        candidateOperations.open();
+        // run init stuff
+        inititateApp();
 
-        // create a list of candidates from what's in the database ...
-        candidatesList = candidateOperations.getAllCandidates();
-        // make an array of just the Names for the purpose of displaying ...
-        displayList = buildDisplayList( candidatesList );
+        // this may be needed to allow us to send email
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-        // find the ListView so we can work with it ...
-        mainListView = (ListView) findViewById(R.id.list);
-
-        mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.candidate, displayList) {
+        findViewById(R.id.button_add_people).setOnClickListener(new View.OnClickListener() {
             @Override
-            public View getView(final int position, View convertView, ViewGroup parent) {
-                // TODO remove this
-                System.out.println("inside getView ");
-
-                Context context = parent.getContext();
-
-                if (convertView == null) {
-                    convertView = getLayoutInflater().inflate(R.layout.list_item, parent, false);
-                }
-
-                View view = super.getView(position, convertView, parent);
-
-                TextView candidateText = (TextView) view.findViewById(R.id.candidate);
-                candidateText.setText(displayList.get(position).toString());
-
-                // Because the list item contains multiple touch targets, you should not override
-                // onListItemClick. Instead, set a click listener for each target individually.
-                convertView.findViewById(R.id.primary_target).setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(MainActivity.this,
-                                        R.string.touched_primary_message,
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                convertView.findViewById(R.id.delete_action).setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                // TODO add confirmation
-                                // Delete icon selected - delete the current Candidate
-                                candidateOperations.deleteCandidate(candidatesList.get(position));
-                                candidatesList.remove(candidatesList.get(position));
-                                displayList.remove(position);
-                                // notify mainArrayAdapter that things have changed and a refresh is needed ...
-                                mainArrayAdapter.notifyDataSetChanged();
-                            }
-                        });
-                convertView.findViewById(R.id.config_action).setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(MainActivity.this,
-                                        R.string.touched_config_message,
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                return convertView;
-
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CandidatesListActivity.class);
+                startActivity(intent);
             }
-        };
+        });
 
-        mainListView.setAdapter(mainArrayAdapter);
-        mainArrayAdapter.notifyDataSetChanged();
+        findViewById(R.id.button_set_questions).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Evaluation.class);
+                startActivity(intent);
+            }
+        });
 
-        findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_see_results).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.exit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
-        findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(view.getContext(), CandidatesEntryActivity.class);
-                intent.putExtra("myKey", "sampleText");
-                startActivityForResult(intent, CANDIDATESENTRY_ACTIVITY_REQUEST_CODE);
-            }
-        });
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        mainArrayAdapter.notifyDataSetChanged();
-    }
-
-    private ArrayList<String> buildDisplayList( ArrayList<Candidates> candidatesList ) {
-        ArrayList<String> returnList = new ArrayList();
-        for(int i = 0; i <  candidatesList.size(); i++ ) {
-            returnList.add( candidatesList.get(i).getCandidateName() );
-        }
-        return returnList;
-    }
-
-    //we need a handler for when the secondary activity (add new candidate) finishes it's work
-    //and returns control to this activity...
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (intent != null ) {
-            Bundle extras = intent.getExtras();
-            String returnCandidateName = (extras != null ? extras.getString("returnKey") : "nothing returned");
-            String returnCandidateNotes = (extras != null ? extras.getString("returnNotes") : " ");
-            System.out.println("returned name = " + returnCandidateName);
-//            mainArrayAdapter.add(returnCandidateName);
-            // save to database
-            Candidates candidate = candidateOperations.addCandidate(returnCandidateName, returnCandidateNotes);
-
-            // TODO  should we add Notes?
-            candidatesList.add(candidate);
-            displayList.add(candidate.getCandidateName());
-            // notify mainArrayAdapter that things have changed and a refresh is needed ...
-            mainArrayAdapter.notifyDataSetChanged();
-        }
-    }
-
-    //    TODO - this is temporary set-up code ... get rid of it
-    private void setUpQuestions() {
-        Questions questionSet_X_Axis = new Questions();
-        Questions questionSet_Y_Axis = new Questions();
-        ArrayList<String> tmpQuestionText;
-        ArrayList<String> tmpQuestionResp;
-        ArrayList<Integer> tmpQuestionWeight;
-        String newCandidateName = " ";
-
-        // Set up X Axis questions ...
-        questionSet_X_Axis.addQuestionText("X Question 1");
-        questionSet_X_Axis.addQuestionText("X Question 2");
-        questionSet_X_Axis.addQuestionText("X Question 3");
-        questionSet_X_Axis.addQuestionText("X Question 4");
-
-        questionSet_X_Axis.addQuestionWeight(1);
-        questionSet_X_Axis.addQuestionWeight(3);
-        questionSet_X_Axis.addQuestionWeight(5);
-        questionSet_X_Axis.addQuestionWeight(1);
-
-        System.out.println("========== Question Text ==========");
-        tmpQuestionText = questionSet_X_Axis.getQuestionText();
-        for (String qText : tmpQuestionText) {
-            System.out.println(qText.toString());
-        }
-
-        System.out.println("========== Question Weight ==========");
-        tmpQuestionWeight = questionSet_X_Axis.getQuestionWeight();
-        for (int qText : tmpQuestionWeight) {
-            System.out.println(qText);
-        }
-
-        // Set up Y Axis questions ...
-        questionSet_Y_Axis.addQuestionText("Y Question 1");
-        questionSet_Y_Axis.addQuestionText("Y Question 2");
-//		questionSet_Y_Axis.addQuestionText("Y Question 3");
-//		questionSet_Y_Axis.addQuestionText("Y Question 4");
-
-        questionSet_Y_Axis.addQuestionWeight(6);
-        questionSet_Y_Axis.addQuestionWeight(4);
-//		questionSet_Y_Axis.addQuestionWeight(5);
-//		questionSet_Y_Axis.addQuestionWeight(1);
-
-        System.out.println("========== Question Text ==========");
-        tmpQuestionText = questionSet_Y_Axis.getQuestionText();
-        for (String qText : tmpQuestionText) {
-            System.out.println(qText.toString());
-        }
-
-        System.out.println("========== Question Weight ==========");
-        tmpQuestionWeight = questionSet_Y_Axis.getQuestionWeight();
-        for (int qText : tmpQuestionWeight) {
-            System.out.println(qText);
-        }
-    }
-
-    //    TODO - this is temporary set-up code ... get rid of it
-    private ArrayList<Candidates> setUpCandidates() {
-        ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
-        candidatesList.add(new Candidates("Bob"));
-        candidatesList.add(new Candidates("Suresh"));
-        candidatesList.add(new Candidates("Kathy"));
-
-        return candidatesList;
     }
 
     @Override
@@ -266,29 +102,64 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.docs_link:
+            case R.id.menu_configure_questions:
                 try {
-//                    startActivity(new Intent(Intent.ACTION_VIEW, DOCS_URI));
-//                    TODO replace this with something real...
-//                    candidatesList = setUpCandidates();
-//
-//                    System.out.println("=== Candidate Info ===");
-//                    for (int i = 0; i < candidatesList.size(); i++) {
-//
-//                        // add each Candidates name to our listAdapter ...
-//                        arrayAdapter.add(candidatesList.get(i).getCandidateName());
-//                        arrayAdapter.notifyDataSetChanged();
-//                        System.out.println("name = " + candidatesList.get(i).getCandidateName());
-//                    }
+                    Intent intent = new Intent(this, QuestionsListActivity.class);
+                    this.startActivity(intent);
 
-                    //    TODO remove this ...
-                    setUpQuestions();
-
-
-                } catch (ActivityNotFoundException ignored) {
+                }
+                catch (ActivityNotFoundException ignored) {
+                }
+                return true;
+            case R.id.menu_add_people:
+                try {
+                    Intent intent = new Intent(this, CandidatesListActivity.class);
+                    startActivity(intent);
+                    } catch (ActivityNotFoundException ignored) {
                 }
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //we need a handler for when the secondary activity (add new candidate) finishes it's work
+    //and returns control to this activity...
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (intent != null ) {
+            Bundle extras = intent.getExtras();
+
+            if (resultCode == RESULT_CANCELED) {
+                System.out.println(" Evaluation was Cancelled");
+            }
+        }
+    }
+    static public int getCurrentCandidate() {
+        return candidateIndex;
+    }
+    static public void setCurrentCandidate(int newIndex) {
+        candidateIndex = newIndex;
+    }
+    static public void incrementCurrentCandidate() {
+        // TODO consider adding test to ensure we don't incrment it past candidatesList.size()
+            candidateIndex++;
+    }
+    private void inititateApp() {
+        // set-up Evaulations operations ...
+        userOperations = new UserOperations(this);
+        userOperations.open();
+        long resp = userOperations.getUserID( 1 );
+        // TODO remove
+        System.out.println( " resp - " ) ;
+        System.out.println( resp ) ;
+
+        if( resp == -1 ) {
+
+
+            // save basic user record
+            userOperations.addUser(1, "unkonwn user", " ");
+        }
+
     }
 }

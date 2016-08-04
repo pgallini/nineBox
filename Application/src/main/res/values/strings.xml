@@ -1,27 +1,26 @@
 <!--
-  Copyright 2013 The Android Open Source Project
+  Possible Names:
+  Grid 9
+  Evaluation Station
+  Eval Grid
+  Evaluation Grid
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
   -->
 
 <resources>
-    <string name="cancel">Cancel</string>
+    <string name="appname">Grid 9</string>
+    <string name="add_people_btn">Add People</string>
+    <string name="answer_questions_btn">Answer Questions</string>
+    <string name="see_results_btn">See Results</string>
+
+    <string name="cancel_button">Cancel</string>
     <string name="ok">OK</string>
     <string name="newbtn">New</string>
-    <string name="button_save">Save</string>
-
-    <string name="dummy_title">Dummy title</string>
-    <string name="dummy_subtitle">Dummy subtitle</string>
+    <string name="save_button">Save</string>
+    <string name="done_button">Done</string>
+    <string name="exit_button">Exit</string>
+    <string name="rate_app_button">Rate App</string>
 
     <string name="delete_content_description">Delete</string>
     <string name="config_content_description">Configure</string>
@@ -30,12 +29,67 @@
     <string name="touched_secondary_message">Touched secondary list item target (delete).</string>
     <string name="touched_config_message">Touched config list item target.</string>
 
+    <string name="add_people_title">Add People</string>
+    <string name="reports_title">See Results</string>
+    <string name="evaluate_title">Evaluate People</string>
+    <!-- Strings to support User Entry -->
+    <string name="edit_user_email_hint">Enter e-mail address</string>
+    <string name="confirm_edit_email_message">Enter an e-mail address.</string>
+    <string name="email_save_message">E-Mail address has been successfully saved.</string>
+    <!-- Strings to support Candidate Entry -->
     <string name="edit_candidate_intro">Enter new candidate here.</string>
     <string name="edit_candidate_hint">Enter new candidate Name.</string>
+    <string name="edit_candidate_icon_label">Icon</string>
+    <string name="edit_candidate_initials_label">Icon Initials</string>
+    <string name="edit_candidate_initials_hint">Edit Initials.</string>
+    <string name="confirm_edit_initials_message">Enter new initials for this candidate (limit 2 characters).</string>
+    <string name="edit_candidate_color_label">Icon Color</string>
+    <string name="candidate_saved">Candidate has been saved.</string>
+    <string name="intro_message">Enter candidates here .... </string>
+    <string name="edit">EDIT</string>
     <string name="edit_candidate_notes_title">Notes</string>
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this candidate?</string>
+    <string name="candidate_save_message">Candidate has been successfully saved.</string>
+    <string name="candidate_delete_message">Candidate has been successfully deleted.</string>
+    <!-- Strings to support the Evaluation activity-->
+    <string name="evaluation_for_prompt">Evaluating:</string>
+    <string name="question_x_of_x_prompt">Question:   </string>
+    <string name="question_x_of_x_of">of </string>
+    <string name="next_question_button">Next Question</string>
+    <string name="next_question_button_alt">Next Candidate</string>
+    <string name="dialog_no_candidates_title">No Candidiates Found!</string>
+    <string name="dialog_no_candidates_message">You haven\'t added any candidates yet.  Please select Add People and add candidates. </string>
+    <string name="dialog_no_questions_title">No Questions Found!</string>
+    <string name="dialog_no_questions_message">The questions have yet to be set-up.  Please reinstall the app. </string>
+    <!-- String to support the entry of Questions-->
+    <string name="title_activity_questions_list">Grid 9: Maintain Questions</string>
+    <string name="edit_question_intro">Question Text:</string>
+    <string name="edit_question_hint">Add new question here</string>
+    <string name="edit_weight_title">Question Weight:</string>
+    <string name="edit_weight_hint">Enter whole number between 1 and 100</string>
+    <string name="x_axis">X Axis</string>
+    <string name="y_axis">Y Axis</string>
+    <string name="confirm_delete_question_message">Are you sure you want to delete this question?</string>
 
-    <string name="docs_link_title">Design docs: tbd</string>
-    <string name="title_activity_candidates_entry">Enter Candidates</string>
-    <string name="title_activity_candidates_entry2">Enter Candidates</string>
+    <!--String to support Report Activity-->
+
+    <string name="email_sent_success">e-mail was successfully sent</string>
+    <string name="email_sent_failure">There was an error sending e-mail</string>
+    <string name="email_sent_background">Sending report in the background.</string>
+    <string name="send_button">Send Report</string>
+
+    <string name="menu_configure_questions">Configure Questions</string>
+    <string name="title_activity_candidates_entry">Grid 9: Enter Candidates</string>
+    <string name="title_activity_candidates_update">Grid 9: Maintain Candidates</string>
+    <string name="title_activity_questions_entry">Grid 9: Enter Questions</string>
+    <string name="title_activity_questions_update">Grid 9: Modify Questions</string>
+    <string name="title_activity_evaluation">Grid 9: Evaluate Candidates</string>
+    <string name="title_activity_report">Grid 9: See Results</string>
+
+    <string name="color_select_title">Please select a new color</string>
+    <string name="color_swatch_description">Color %1$d</string>
+    <string name="color_swatch_description_selected">Color %1$d selected</string>
+    <string name="color_picker_default_title">Select a Color</string>
 </resources>
