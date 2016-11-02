@@ -78,13 +78,17 @@ public class CandidateOperations {
             Cursor cursor = database.query(DatabaseOpenHelper.CANDIDATES,
                     CANDIDATE_TABLE_COLUMNS, null, null, null, null, null);
 
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                Candidates candidate = parseCandidate(cursor);
-                candidates.add(candidate);
-                cursor.moveToNext();
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    Candidates candidate = parseCandidate(cursor);
+                    candidates.add(candidate);
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
             }
-            cursor.close();
+
             return candidates;
         }
 
