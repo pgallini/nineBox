@@ -31,10 +31,10 @@
             android:text="@string/cancel_button" />
 
         <Button
-            android:id="@+id/send_report"
+            android:id="@+id/save_report"
             style="@style/MainButton"
             android:layout_below="@+id/EditTextName"
-            android:text="@string/send_button" />
+            android:text="@string/save_rpt_button" />
 
     </LinearLayout>
 </LinearLayout>

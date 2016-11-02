@@ -78,7 +78,7 @@
     <string name="email_sent_success">e-mail was successfully sent</string>
     <string name="email_sent_failure">There was an error sending e-mail</string>
     <string name="email_sent_background">Sending report in the background.</string>
-    <string name="send_button">Send Report</string>
+    <string name="save_rpt_button">Save Report</string>
 
     <string name="menu_configure_questions">Configure Questions</string>
     <string name="title_activity_candidates_entry">Grid 9: Enter Candidates</string>
