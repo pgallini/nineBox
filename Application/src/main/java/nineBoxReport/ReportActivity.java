@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
+import android.os.SystemClock;
 import android.print.PageRange;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -64,7 +65,7 @@ import nineBoxQuestions.QuestionsOperations;
 
 /**
  * Created by Paul Gallini on 5/11/16.
- * <p>
+ * <p/>
  * This activity drives the generation and presentation of the results grid.
  */
 public class ReportActivity extends AppCompatActivity {
@@ -118,7 +119,9 @@ public class ReportActivity extends AppCompatActivity {
         candidatesList = candidateOperations.getAllCandidates();
         // grab the width of the circle ...
         int widget_width = (int) getResources().getDimension(R.dimen.widget_width);
-        for (int i = 0; i < candidatesList.size(); i++) {
+        // grab the number of candidates ....
+        int numberOfCandidates = candidatesList.size();
+        for (int i = 0; i < numberOfCandidates; i++) {
 
             currCandidate = candidatesList.get(i);
 
@@ -190,7 +193,6 @@ public class ReportActivity extends AppCompatActivity {
                                                                   printDocument(view);
                                                               }
                                                           }
-
         );
 
         findViewById(R.id.cancel_report).setOnClickListener(new View.OnClickListener() {
@@ -199,11 +201,8 @@ public class ReportActivity extends AppCompatActivity {
                                                                     finish();
                                                                 }
                                                             }
-
         );
-
     }
-
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void printDocument(View view) {
@@ -212,291 +211,6 @@ public class ReportActivity extends AppCompatActivity {
         String jobName = "Promotion_Grid_Results";
         printManager.print(jobName, new MyPrintDocumentAdapter(this),
                 null);
-    }
-
-    private void promptEmailSendReport() throws MessagingException {
-
-        UserOperations userOperations = new UserOperations(this);
-        userOperations.open();
-        User currentUser = userOperations.getUser(1);
-
-        String currentEmailAddress = currentUser.getUserEmail();
-
-        // TODO remove
-        System.out.println("currentEmailAddress before dialog = ");
-        System.out.println(currentEmailAddress);
-
-        // prompt for email address
-        showEditEmailDialog(currentEmailAddress);
-
-    }
-
-    private void sendReport(String mailTo) throws MessagingException {
-
-
-        // TODO move these constants to a resouce file dude
-        // outgoing message information
-//        String mailTo = currentEmailAddress;
-        String subject = "Results from Promotion Grid";
-        // outgoing message information
-        MimeMultipart multipart = new MimeMultipart("mixed");
-
-        String fileLocation = "/data/user/0/com.ninebox.nineboxapp/app_custom/custom_child/current_report.png";
-        String introMessage = "<H1>Greetings!</H1><br><H3>   Here are your results from the Promotion Grid app.  ";
-        introMessage += "  We've included the main grid plus details on each person.  </H3> <br><br>";
-        String reportHtmlText = "<H1>Details on each candidate</H1>";
-
-        MimeBodyPart messageBodyPart_details;
-        messageBodyPart_details = buildReportDetails();
-
-        // first part (the html)
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-        String htmlText = introMessage + "<img src=\"cid:image\">" + reportHtmlText;
-
-        try {
-            messageBodyPart.setContent(htmlText, "text/html");
-            // add it
-            multipart.addBodyPart(messageBodyPart);
-
-            // second part (the main report image)
-            messageBodyPart = new MimeBodyPart();
-            DataSource fds = new FileDataSource(fileLocation);
-
-            messageBodyPart.setDataHandler(new DataHandler(fds));
-            messageBodyPart.setHeader("Content-ID", "<image>");
-
-            // add image to the multipart
-            multipart.addBodyPart(messageBodyPart);
-
-            // now, add the candidate details
-            messageBodyPart_details.setHeader("Content-ID", "<details>");
-
-            messageBodyPart_details.setDisposition(MimeBodyPart.INLINE);
-            multipart.addBodyPart(messageBodyPart_details);
-
-            writeFile(fileLocation, multipart);
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-
-        }
-    }
-
-    private void writeFile(String fileLocation, MimeMultipart multipart) {
-
-        FileOutputStream fop = null;
-        File file;
-
-        try {
-
-            file = new File(fileLocation);
-            fop = new FileOutputStream(file);
-
-            // if file doesnt exists, then create it
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            try {
-                multipart.writeTo(baos);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-
-            baos.writeTo(fop);
-
-            System.out.println("Done");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fop != null) {
-                    fop.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void showEditEmailDialog(String currentEmail) {
-
-        // Get the layout inflater
-        LayoutInflater inflater = ReportActivity.this.getLayoutInflater();
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        final View dialoglayout = inflater.inflate(R.layout.user_edit_email, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
-        builder.setView(dialoglayout);
-
-        builder.setTitle(getString(R.string.edit_user_email_hint));
-        builder.setMessage(getString(R.string.confirm_edit_email_message));
-
-        TextView emailText = (TextView) dialoglayout.findViewById(R.id.email_address);
-        emailText.setText(currentEmail);
-
-        final UserOperations userOperations = new UserOperations(this);
-        userOperations.open();
-
-        final User currentUser = userOperations.getUser(1);
-//        final String newEmail;
-        String positiveText = getString(android.R.string.ok);
-        builder.setPositiveButton(positiveText,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // grab the initials
-
-                        TextView emailText = (TextView) dialoglayout.findViewById(R.id.email_address);
-                        if (emailText != null) {
-                            // now set the User email address
-                            final String newEmail = emailText.getText().toString();
-                            currentUser.setUserEmail(newEmail);
-                            // save new email to database
-                            userOperations.updateUserEmail(1, newEmail);
-                            // now send the report
-                            // trying to run this as a background thread
-                            Toast.makeText(ReportActivity.this, R.string.email_sent_background, Toast.LENGTH_LONG).show();
-                            new Thread(new Runnable() {
-                                public void run() {
-                                    try {
-                                        sendReport(newEmail);
-                                    } catch (MessagingException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }).start();
-
-                            Toast.makeText(ReportActivity.this,
-                                    R.string.email_save_message,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
-        String negativeText = getString(android.R.string.cancel);
-        builder.setNegativeButton(negativeText,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // negative button logic
-                    }
-                });
-
-        AlertDialog dialog = builder.create();
-        // display dialog
-        dialog.show();
-    }
-
-    private MimeBodyPart buildReportDetails() throws MessagingException {
-        String detailString = " ";
-        String detailTextString = " ";
-        String currentColor = " ";
-        MimeBodyPart messageBodyPart_details = new MimeBodyPart();
-        MimeMultipart messageMultipart = new MimeMultipart("alternative");
-        MimeBodyPart returnBodyPart = new MimeBodyPart();
-        MimeMultipart tempMessageMultipart = new MimeMultipart("alternative");
-        MimeBodyPart tempReturnBodyPart = new MimeBodyPart();
-        MimeBodyPart candidateBodyPart = new MimeBodyPart();
-        // create a new document
-        PdfDocument document = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            document = new PdfDocument();
-
-            // crate a page description
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(100, 100, 1).create();
-
-            // start a page
-            PdfDocument.Page page = document.startPage(pageInfo);
-
-//            else
-            // TODO add dialog that report can't be saved with pre-KitKat version
-        }
-
-
-        candidateOperations = new CandidateOperations(this);
-        candidateOperations.open();
-        candidatesList = candidateOperations.getAllCandidates();
-        int numCandidates = candidatesList.size();
-        if (numCandidates == 0) {
-            detailString = "No Candidates were entered.";
-            // TODO - add this to SetContent
-        } else {
-
-            // Loop through the candidates to build the details for the PDF File
-            for (int i = 0; i < numCandidates; i++) {
-                currCandidate = candidatesList.get(i);
-                detailTextString = createDetailTextString(currCandidate);
-                // build the candidate icon, save it to storage, and grab the file name
-                String iconBitmapName = buildIconForEmail(currCandidate);
-                // build the name for this candidate's icon image
-                String iconImageID = "image-icon" + Long.toString(currCandidate.getCandidateID());
-                // add onto the detailString with the placeholder for the icon image
-                detailString = detailString + "<img src=\"cid:" + iconImageID + "\">" + detailTextString + "<br>";
-
-                try {
-
-                    DataSource fds = new FileDataSource(
-                            "/data/user/0/com.ninebox.nineboxapp/app_custom/custom_child/" + iconBitmapName);
-
-                    // create a MIMEBodyPart and add each icon image as we loop
-                    MimeBodyPart candidateIconBodyPart = new MimeBodyPart();
-                    candidateIconBodyPart.setDisposition(MimeBodyPart.INLINE);
-                    candidateIconBodyPart.setDataHandler(new DataHandler(fds));
-                    candidateIconBodyPart.setHeader("Content-ID", "<" + iconImageID + ">");
-
-                    // add BodyPart containing the icon image to the multipart
-                    messageMultipart.addBodyPart(candidateIconBodyPart);
-
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        // Now that we are out of the loop and have assembled the string holding the HTML for the details
-        //   build a MIME Body part to hold it
-        candidateBodyPart.setContent(detailString, "text/html");
-        // now add that body part to the MultiPart
-        messageMultipart.addBodyPart(candidateBodyPart);
-
-        // convert multi to body and add it to another multi
-        // TODO - see if we can just return the candidateBodyPart
-        try {
-            tempReturnBodyPart.setContent(messageMultipart);
-            try {
-                tempMessageMultipart.addBodyPart(tempReturnBodyPart);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-
-        // convert the multipart to a regular body part so we can return it ( and it can be added to the main multipart)
-        try {
-            // trying this to see if the BodyPart can hold on to ALL of the lines
-            returnBodyPart.setDisposition(MimeBodyPart.INLINE);
-            returnBodyPart.setContent(tempMessageMultipart);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-        return returnBodyPart;
-    }
-
-
-    private String createDetailTextString(Candidates currCandidate) {
-        String detailString = currCandidate.getCandidateName();
-        detailString += "   (initials: ";
-        detailString += currCandidate.getCandidateInitials();
-        detailString += ")   ";
-        detailString += "-            Performance Score (out of 10): ";
-        detailString += currCandidate.getxCoordinate();
-        detailString += "-            Promotability Score (out of 10): ";
-        detailString += currCandidate.getyCoordinate();
-        return detailString;
     }
 
 
@@ -552,9 +266,7 @@ public class ReportActivity extends AppCompatActivity {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(imageFile);
-
             bm.compress(format, quality, fos);
-
             fos.close();
 
             return true;
@@ -570,21 +282,22 @@ public class ReportActivity extends AppCompatActivity {
         }
         return false;
     }
-    public Bitmap readBitmapFromFile( File dir, String fileName ) {
+
+    public Bitmap readBitmapFromFile(File dir, String fileName) {
 
         FileInputStream fis = null;
 
         Bitmap tmpBitMap = null;
         // TODO get rid of one of these
-        File file = new File( dir + "/" +  fileName);
-        String fileString = dir + "/" +  fileName;
+        File file = new File(dir + "/" + fileName);
+        String fileString = dir + "/" + fileName;
 
         try {
             fis = new FileInputStream(file);
 
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
-                tmpBitMap = BitmapFactory.decodeFile(fileString, options);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 8;
+            tmpBitMap = BitmapFactory.decodeFile(fileString, options);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -672,12 +385,16 @@ public class ReportActivity extends AppCompatActivity {
         private int pageHeight;
         private int pageWidth;
         public PdfDocument myPdfDocument;
-        public int totalpages = 4;  // start pages at 0 - always increment before adding
+        public int totalpages = 0;  // start pages at 0 - always increment before adding
+
+        public int numCandidates = candidatesList.size();
+        public int totalPageSize = 750; // number of pixels available on a single page
+        public int canidateDetailHeight = 220;  // number of pixels taken-up by each Candidate details
 
         public MyPrintDocumentAdapter(Context context) {
             this.context = context;
             // TODO Remove
-            System.out.println( "in constructor MyPrintDocumentAdapter ") ;
+            System.out.println("in constructor MyPrintDocumentAdapter ");
         }
 
         @Override
@@ -699,14 +416,29 @@ public class ReportActivity extends AppCompatActivity {
             // NOTE:  the user’s color selection can be obtained via a call to the getColorMode() method
             // of the PrintAttributes object which will return a value of either COLOR_MODE_COLOR or COLOR_MODE_MONOCHROME.
 
-
             if (cancellationSignal.isCanceled()) {
                 callback.onLayoutCancelled();
                 return;
             }
 
+            // calculate the number of pages needed ...
+            double spaceNeededPerPage = ( numCandidates * canidateDetailHeight );
+
             // TODO Remove
-            System.out.println( "in onLayout ") ;
+            System.out.println( "( spaceNeededPerPage / (double) totalPageSize ) +  0.5))= " );
+            System.out.println( ( spaceNeededPerPage / (double) totalPageSize ) +  0.5);
+
+            totalpages = (int) (Math.round(( spaceNeededPerPage / (double) totalPageSize ) +  0.5));
+            // TODO Remove
+            System.out.println("totalpages =  ");
+            System.out.println(totalpages);
+
+            totalpages = totalpages + 1; // add one for first page
+            // TODO Remove
+            System.out.println("totalpages =  ");
+            System.out.println(totalpages);
+            System.out.println("numCandidates =  ");
+            System.out.println(numCandidates);
 
             if (totalpages > 0) {
                 PrintDocumentInfo.Builder builder = new PrintDocumentInfo
@@ -748,17 +480,22 @@ public class ReportActivity extends AppCompatActivity {
             candidateOperations = new CandidateOperations(this.context);
             candidateOperations.open();
             candidatesList = candidateOperations.getAllCandidates();
-            int numCandidates = candidatesList.size();
+
             if (numCandidates == 0) {
-                String detailString = "No Candidates were entered.";
-                // TODO - add this to SetContent
+                // start the second page ...
+                newPage = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+                page = myPdfDocument.startPage(newPage);
+                drawDetailPageNoCanidates( page, 1 );
+                myPdfDocument.finishPage(page);
+
             } else {
 
+                int drawLine = 60;
+                // start the next page ...
+                newPage = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+                page = myPdfDocument.startPage(newPage);
                 // Loop through the candidates to build the details for the PDF File
                 for (int i = 0; i < numCandidates; i++) {
-                    newPage = new PdfDocument.PageInfo.Builder(pageWidth,pageHeight, i).create();
-
-                    page = myPdfDocument.startPage(newPage);
 
                     if (cancellationSignal.isCanceled()) {
                         callback.onWriteCancelled();
@@ -766,9 +503,33 @@ public class ReportActivity extends AppCompatActivity {
                         myPdfDocument = null;
                         return;
                     }
-                    drawDetailPage(page, i);
-                    myPdfDocument.finishPage(page);
+
+                    // Add the details for the current Candidate to the current page
+                    drawDetailPage(page, i, drawLine);
+                    drawLine = drawLine + canidateDetailHeight;
+
+                    // TODO Remove
+                    System.out.println("after call to drawrDetailPage - i =  ");
+                    System.out.println(i);
+                    System.out.println("after call to drawrDetailPage - drawLine =  ");
+                    System.out.println(drawLine);
+                    System.out.println("after call to drawrDetailPage - canidateDetailHeight =  ");
+                    System.out.println(canidateDetailHeight);
+                    System.out.println("after call to drawrDetailPage - (totalPageSize - canidateDetailHeight) =  ");
+                    System.out.println((totalPageSize - canidateDetailHeight));
+
+                    if( drawLine > (totalPageSize - canidateDetailHeight)) {
+                        // TODO Remove
+                        System.out.println("about to star a new page  ");
+                        // if we can't fit any more canidates on the current page, finish it and start a new one
+                        myPdfDocument.finishPage(page);
+                        newPage = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, i).create();
+                        page = myPdfDocument.startPage(newPage);
+                        drawLine = 60;
+                    }
+
                 }
+                myPdfDocument.finishPage(page);
             }
 
             try {
@@ -785,16 +546,24 @@ public class ReportActivity extends AppCompatActivity {
             callback.onWriteFinished(pageRanges);
         }
 
-        private void drawDetailPage( PdfDocument.Page page,
-                                     int candidateNum ) {
+        private void drawDetailPage(PdfDocument.Page page,
+                                    int candidateNum, int drawLine) {
 
             // variables to control placement and size of text ....
             int drawTabH1 = 48;
+            int drawTabH2 = 82;
+            int drawTabH3 = 120;
             int drawTabPara = 64;
-            int drawLine = 60;
+            int lineSpacingBig = 42;
             int lineSpacing = 36;
             int headingMain = 32;
             int headingPara = 24;
+            int lineLength = 480;
+            int lineStrokeThick = 8;
+            int lineStrokeThin = 6;
+            int iconWidth = 80;
+            int iconTab = 440;
+            int iconAdjustment = 24;
 
             Canvas canvas = page.getCanvas();
 
@@ -805,25 +574,15 @@ public class ReportActivity extends AppCompatActivity {
             paint.setTextSize(headingMain);
             paint.setFakeBoldText(true);
 
+            paint.setColor(Color.BLUE);
+            paint.setStrokeWidth(lineStrokeThick);
+            canvas.drawLine( drawTabH1, drawLine, (drawTabH1 + lineLength), drawLine, paint);
+
+            drawLine = drawLine + lineSpacingBig;
+
             detailString = currCandidate.getCandidateName();
-            canvas.drawText(detailString, drawTabH1, drawLine,  paint);
-
-            paint.setTextSize(headingPara);
-            detailString = "   (initials: ";
-            detailString += currCandidate.getCandidateInitials();
-            detailString += ")   ";
-            drawLine = drawLine + lineSpacing;
-            canvas.drawText(detailString, drawTabH1, drawLine,  paint);
-
-            detailString = "     Performance Score (out of 10): ";
-            detailString += get_X_ResultForCandiate(currCandidate);
-            drawLine = drawLine + lineSpacing;
-            canvas.drawText(detailString, drawTabH1, drawLine,  paint);
-
-            detailString = "     Promotability Score (out of 10): ";
-            detailString += get_Y_ResultForCandiate(currCandidate);
-            drawLine = drawLine + lineSpacing;
-            canvas.drawText(detailString, drawTabH1, drawLine,  paint);
+            paint.setColor(Color.BLACK);
+            canvas.drawText(detailString, drawTabH1, drawLine, paint);
 
             // grab candidate ICON from file system and draw it on the PDF page
             File created_folder = getDir("custom", MODE_PRIVATE);
@@ -837,13 +596,71 @@ public class ReportActivity extends AppCompatActivity {
             Bitmap candIcon = BitmapFactory.decodeFile(fullUrl);
 
             //scale bitmap to desired size
-            int h = 100; // height in pixels
-            int w = 100; // width in pixels
-            Bitmap finalIconScalled = Bitmap.createScaledBitmap(candIcon, w, h, true); // Make sure w and h are in the correct order
+            Bitmap finalIconScalled = Bitmap.createScaledBitmap(candIcon, iconWidth, iconWidth, true); // Make sure w and h are in the correct order
 
             // TODO fix the placement of this
-            canvas.drawBitmap(finalIconScalled, drawLine, 200, paint);
+            canvas.drawBitmap(finalIconScalled, iconTab, drawLine - iconAdjustment , paint);
+
+            paint.setTextSize(headingPara);
+            detailString = "(initials: ";
+            detailString += currCandidate.getCandidateInitials();
+            detailString += ")   ";
+            drawLine = drawLine + lineSpacing;
+            canvas.drawText(detailString, drawTabH1, drawLine, paint);
+
+            detailString = "Scores (out of 10): ";
+            drawLine = drawLine + lineSpacing;
+            canvas.drawText(detailString, drawTabH2, drawLine, paint);
+
+            detailString = "Performance:  ";
+            detailString += get_X_ResultForCandiate(currCandidate);
+            drawLine = drawLine + lineSpacing;
+            canvas.drawText(detailString, drawTabH3, drawLine, paint);
+
+            detailString = "Promotability:  ";
+            detailString += get_Y_ResultForCandiate(currCandidate);
+            drawLine = drawLine + lineSpacing;
+            canvas.drawText(detailString, drawTabH3, drawLine, paint);
         }
+
+
+        private void drawDetailPageNoCanidates(PdfDocument.Page page, int drawLine) {
+
+            // variables to control placement and size of text ....
+            int drawTabH1 = 48;
+            int drawTabH2 = 82;
+            int lineSpacingBig = 42;
+            int lineSpacing = 36;
+            int headingMain = 32;
+            int headingPara = 24;
+            int lineLength = 480;
+            int lineStrokeThick = 8;
+
+            Canvas canvas = page.getCanvas();
+
+            String detailString = "No Candidates were entered. ";
+
+            Paint paint = new Paint();
+            paint.setColor(Color.BLACK);
+            paint.setTextSize(headingMain);
+            paint.setFakeBoldText(true);
+
+            paint.setColor(Color.BLUE);
+            paint.setStrokeWidth(lineStrokeThick);
+            canvas.drawLine( drawTabH1, drawLine, (drawTabH1 + lineLength), drawLine, paint);
+
+            drawLine = drawLine + lineSpacingBig;
+
+            paint.setColor(Color.BLACK);
+            canvas.drawText(detailString, drawTabH1, drawLine, paint);
+
+            paint.setTextSize(headingPara);
+
+            detailString = "Please select Add People from the main menu. ";
+            drawLine = drawLine + lineSpacing;
+            canvas.drawText(detailString, drawTabH2, drawLine, paint);
+        }
+
 
         private void drawMainPage(PdfDocument.Page page,
                                   int pagenumber) {
@@ -868,7 +685,7 @@ public class ReportActivity extends AppCompatActivity {
             paint.setColor(Color.BLACK);
             paint.setTextSize(headingMain);
             paint.setFakeBoldText(true);
-            canvas.drawText(Message, drawTabH1, drawLine,  paint);
+            canvas.drawText(Message, drawTabH1, drawLine, paint);
             Message = "Here are your results from the Promotion Grid  ";
             paint.setTextSize(headingPara);
             paint.setFakeBoldText(false);
@@ -877,17 +694,17 @@ public class ReportActivity extends AppCompatActivity {
 
             drawLine = drawLine + lineSpacing; // increment the line on which the text will be drawned
             Message = "app.  We've included the main grid plus details";
-            canvas.drawText(Message, drawTabPara, drawLine,  paint);
+            canvas.drawText(Message, drawTabPara, drawLine, paint);
 
             drawLine = drawLine + lineSpacing; // increment the line on which the text will be drawned
             Message = "on each person. ";
-            canvas.drawText(Message, drawTabPara, drawLine,  paint);
+            canvas.drawText(Message, drawTabPara, drawLine, paint);
 
             // grab grid from file system and draw it on the PDF page
             File created_folder = getDir("custom", MODE_PRIVATE);
             File dir = new File(created_folder, "custom_child");
 
-            Bitmap finalGrid = readBitmapFromFile( dir, "current_report.png" );
+            Bitmap finalGrid = readBitmapFromFile(dir, "current_report.png");
 
             Paint paint2 = new Paint();
             paint2.setAntiAlias(true);
@@ -900,11 +717,8 @@ public class ReportActivity extends AppCompatActivity {
             Bitmap finalGridScalled = Bitmap.createScaledBitmap(finalGrid, w, h, true); // Make sure w and h are in the correct order
 
             canvas.drawBitmap(finalGridScalled, 120, 220, paint2);
-
         }
-
     }
-
 }
 
 
