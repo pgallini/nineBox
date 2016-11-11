@@ -482,12 +482,16 @@ public class ReportActivity extends AppCompatActivity {
             candidatesList = candidateOperations.getAllCandidates();
 
             if (numCandidates == 0) {
-                String detailString = "No Candidates were entered.";
-                // TODO - add this to SetContent
+                // start the second page ...
+                newPage = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+                page = myPdfDocument.startPage(newPage);
+                drawDetailPageNoCanidates( page, 1 );
+                myPdfDocument.finishPage(page);
+
             } else {
 
                 int drawLine = 60;
-                // start the first page ...
+                // start the next page ...
                 newPage = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
                 page = myPdfDocument.startPage(newPage);
                 // Loop through the candidates to build the details for the PDF File
@@ -525,8 +529,8 @@ public class ReportActivity extends AppCompatActivity {
                     }
 
                 }
+                myPdfDocument.finishPage(page);
             }
-            myPdfDocument.finishPage(page);
 
             try {
                 myPdfDocument.writeTo(new FileOutputStream(
@@ -617,14 +621,46 @@ public class ReportActivity extends AppCompatActivity {
             detailString += get_Y_ResultForCandiate(currCandidate);
             drawLine = drawLine + lineSpacing;
             canvas.drawText(detailString, drawTabH3, drawLine, paint);
-
-
-            // TODO Remove
-            System.out.println("drawLine =  ");
-            System.out.println(drawLine);
-
-
         }
+
+
+        private void drawDetailPageNoCanidates(PdfDocument.Page page, int drawLine) {
+
+            // variables to control placement and size of text ....
+            int drawTabH1 = 48;
+            int drawTabH2 = 82;
+            int lineSpacingBig = 42;
+            int lineSpacing = 36;
+            int headingMain = 32;
+            int headingPara = 24;
+            int lineLength = 480;
+            int lineStrokeThick = 8;
+
+            Canvas canvas = page.getCanvas();
+
+            String detailString = "No Candidates were entered. ";
+
+            Paint paint = new Paint();
+            paint.setColor(Color.BLACK);
+            paint.setTextSize(headingMain);
+            paint.setFakeBoldText(true);
+
+            paint.setColor(Color.BLUE);
+            paint.setStrokeWidth(lineStrokeThick);
+            canvas.drawLine( drawTabH1, drawLine, (drawTabH1 + lineLength), drawLine, paint);
+
+            drawLine = drawLine + lineSpacingBig;
+
+            paint.setColor(Color.BLACK);
+            canvas.drawText(detailString, drawTabH1, drawLine, paint);
+
+            paint.setTextSize(headingPara);
+
+            detailString = "Please select Add People from the main menu. ";
+            drawLine = drawLine + lineSpacing;
+            canvas.drawText(detailString, drawTabH2, drawLine, paint);
+        }
+
 
         private void drawMainPage(PdfDocument.Page page,
                                   int pagenumber) {
