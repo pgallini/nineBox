@@ -17,16 +17,6 @@
         android:orientation="horizontal"
         android:showDividers="middle">
 
-        <!--
-            Any view or view group can become interactive by simply setting the
-            android:clickable and android:focusable attributes to true.
-
-            When doing this, make sure to provide adequate touch feedback by also
-            setting the view background to ?android:selectableItemBackground. When
-            using the Holo theme, this drawable is transparent by default, but
-            changes to a translucent color overlay when the view is pressed or
-            focused.
-        -->
         <LinearLayout
             android:id="@+id/primary_target"
             android:layout_width="0dp"
@@ -56,11 +46,6 @@
 
         </LinearLayout>
 
-        <!--
-            When using the Holo theme, setting a Button or ImageButton to
-            ?android:borderlessButtonStyle removes its border and sets the
-            background to ?android:selectableItemBackground, as described above.
-        -->
         <ImageButton
             android:id="@+id/delete_action"
             style="?android:borderlessButtonStyle"

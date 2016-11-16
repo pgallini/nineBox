@@ -94,14 +94,26 @@
         <item name="android:textColor">@color/ColorPrimaryDark</item>
     </style>
 
+    <!--This is the original style - title left aligned, dark color-->
     <style name="MainButtonText" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/card_title_height</item>
-        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:gravity">center</item>
         <item name="android:layout_marginLeft">@dimen/md_keylines</item>
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:textColor">@color/ColorPrimaryDark</item>
     </style>
+
+    <!--<style name="MainButtonText" >-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">@dimen/card_title_height</item>-->
+        <!--<item name="android:layout_gravity">center_horizontal|center_vertical</item>-->
+        <!--<item name="android:gravity">center</item>-->
+        <!--<item name="android:layout_centerInParent">true</item>-->
+        <!--<item name="android:textSize">@dimen/text_size_big</item>-->
+        <!--<item name="android:textColor">@color/ColorPrimaryDark</item>-->
+    <!--</style>-->
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
