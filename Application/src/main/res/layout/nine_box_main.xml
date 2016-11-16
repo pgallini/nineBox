@@ -28,10 +28,15 @@
         <TextView
             android:id="@+id/textView"
             style="@style/MainButtonText"
-            android:layout_alignBottom="@id/button_add_people"
             android:text="@string/add_people_title"
-            android:layout_alignLeft="@id/button_add_people" />
+            android:layout_alignLeft="@id/button_add_people"
+            android:layout_alignBottom="@id/button_add_people"
+            />
     </RelativeLayout>
+
+
+    <!--android:layout_alignBottom="@id/button_add_people"-->
+    <!--android:layout_alignLeft="@id/button_add_people"-->
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -51,6 +56,8 @@
             android:text="@string/evaluate_title"/>
     </RelativeLayout>
 
+    <!--android:layout_alignBottom="@+id/button_set_questions"-->
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/card_image_height"
@@ -68,6 +75,8 @@
             android:layout_alignBottom="@+id/button_see_results"
             android:text="@string/reports_title" />
     </RelativeLayout>
+
+    <!--android:layout_alignBottom="@+id/button_see_results"-->
 
     <LinearLayout
         style="@style/MainButtonLayout"

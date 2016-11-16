@@ -4,12 +4,13 @@
   Evaluation Station
   Eval Grid
   Evaluation Grid
+  Promo Grid
 
 
   -->
 
 <resources>
-    <string name="appname">Grid 9</string>
+    <string name="appname">Promo Grid</string>
     <string name="add_people_btn">Add People</string>
     <string name="answer_questions_btn">Answer Questions</string>
     <string name="see_results_btn">See Results</string>
@@ -64,7 +65,7 @@
     <string name="dialog_no_questions_title">No Questions Found!</string>
     <string name="dialog_no_questions_message">The questions have yet to be set-up.  Please reinstall the app. </string>
     <!-- String to support the entry of Questions-->
-    <string name="title_activity_questions_list">Grid 9: Maintain Questions</string>
+    <string name="title_activity_questions_list">Promo Grid: Maintain Questions</string>
     <string name="edit_question_intro">Question Text:</string>
     <string name="edit_question_hint">Add new question here</string>
     <string name="edit_weight_title">Question Weight:</string>
@@ -81,12 +82,12 @@
     <string name="save_rpt_button">Save Report</string>
 
     <string name="menu_configure_questions">Configure Questions</string>
-    <string name="title_activity_candidates_entry">Grid 9: Enter Candidates</string>
-    <string name="title_activity_candidates_update">Grid 9: Maintain Candidates</string>
-    <string name="title_activity_questions_entry">Grid 9: Enter Questions</string>
-    <string name="title_activity_questions_update">Grid 9: Modify Questions</string>
-    <string name="title_activity_evaluation">Grid 9: Evaluate Candidates</string>
-    <string name="title_activity_report">Grid 9: See Results</string>
+    <string name="title_activity_candidates_entry">Promo Grid: Enter Candidates</string>
+    <string name="title_activity_candidates_update">Promo Grid: Maintain Candidates</string>
+    <string name="title_activity_questions_entry">Promo Grid: Enter Questions</string>
+    <string name="title_activity_questions_update">Promo Grid: Modify Questions</string>
+    <string name="title_activity_evaluation">Promo Grid: Evaluate Candidates</string>
+    <string name="title_activity_report">Promo Grid: See Results</string>
 
     <string name="color_select_title">Please select a new color</string>
     <string name="color_swatch_description">Color %1$d</string>
