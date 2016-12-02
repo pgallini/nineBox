@@ -93,4 +93,14 @@
     <string name="color_swatch_description">Color %1$d</string>
     <string name="color_swatch_description_selected">Color %1$d selected</string>
     <string name="color_picker_default_title">Select a Color</string>
+
+    // for preferences
+    <string name="pref_tutorial">Display tutorial</string>
+    <string name="pref_tutorial_summ">Display the tutorial to learn how to use the app</string>
+
+    // for tutorial/showcase
+    <string name="showcase_main_title">Promo Grid Tutorial</string>
+    <string name="showcase_message1">First, add people using the Add People button.</string>
+    <string name="showcase_message2">Next, establish ratings for each one using the Evaluate People button.</string>
+    <string name="showcase_message3">Finally, see which ones are ready for promotion using the See Reports button.</string>
 </resources>
