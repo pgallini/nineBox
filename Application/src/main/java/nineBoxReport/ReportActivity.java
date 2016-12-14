@@ -45,20 +45,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
-
 //import emailUtility.SendHTMLEmail;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import drawables.drawPoint;
 import nineBoxEvaluation.EvaluationOperations;
-import nineBoxMain.User;
-import nineBoxMain.UserOperations;
 import nineBoxQuestions.Questions;
 import nineBoxQuestions.QuestionsOperations;
 

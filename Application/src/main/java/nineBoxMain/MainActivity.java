@@ -52,10 +52,13 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 //import com.github.amlcurran.showcaseview.sample.animations.AnimationSampleActivity;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-
+import common.common.Utilities;
 import com.ninebox.nineboxapp.R;
 
 /**
+ *
+ * created by Paul Gallini, 2016
+ *
  * This activity is the main activity for the Promo Grid app.
  */
 public class MainActivity extends AppCompatActivity implements OnShowcaseEventListener {
@@ -130,16 +133,13 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     }
 
     private void runTutorial() {
-        // todo determine best way to track this preference
-        boolean tutorialShown = getTutorialShown();
-
         // set-up Layout Parameters for the tutorial
         final RelativeLayout.LayoutParams lps = getLayoutParms();
         // locate the target for the tutorial
         ViewTarget target = new ViewTarget(R.id.button_add_people, this) {
             @Override
             public Point getPoint() {
-                return getPointTarget(R.id.button_add_people,6);
+                return Utilities.getPointTarget(findViewById(R.id.button_add_people), 6);
             }
         };
 
@@ -149,7 +149,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 ViewTarget target2 = new ViewTarget(R.id.button_set_questions, MainActivity.this) {
                     @Override
                     public Point getPoint() {
-                        return getPointTarget(R.id.button_set_questions,6);
+//                        return getPointTarget(R.id.button_set_questions,6);
+                        return Utilities.getPointTarget(findViewById(R.id.button_set_questions), 6);
                     }
                 };
 
@@ -161,7 +162,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                         ViewTarget target3 = new ViewTarget(R.id.button_see_results, MainActivity.this) {
                             @Override
                             public Point getPoint() {
-                                return getPointTarget(R.id.button_see_results,6);
+//                                return getPointTarget(R.id.button_see_results,6);
+                                return Utilities.getPointTarget(findViewById(R.id.button_see_results), 6 );
                             }
                         };
 
@@ -173,7 +175,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                                 ViewTarget target4 = new ViewTarget(R.id.tool_bar, MainActivity.this) {
                                     @Override
                                     public Point getPoint() {
-                                        return getPointTarget(R.id.tool_bar, 1);
+//                                        return getPointTarget(R.id.tool_bar, 1);
+                                        return Utilities.getPointTarget(findViewById(R.id.tool_bar), 1 );
                                     }
                                 };
                                 // hide the previous view
@@ -213,18 +216,16 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 .build();
     }
 
-    private Point getPointTarget(int buttonId, int x_divisor) {
-        // given a resource id, return a point to use for the tutorial
-        // note that this is set-up to alighn to the right
-        // change the / 6 to / 2 to center it
-        View targetView = findViewById(buttonId);
-
-        int[] location = new int[2];
-        targetView.getLocationInWindow(location);
-        int x = location[0] + targetView.getWidth() / x_divisor;
-        int y = location[1] + targetView.getHeight() / 2;
-        return new Point(x, y);
-    }
+//    private Point getPointTarget(View targetView,  int x_divisor ) {
+//        // given a resource id, return a point to use for the tutorial
+//        // note that this is set-up to alighn to the right
+//        // change the / 6 to / 2 to center it
+//        int[] location = new int[2];
+//        targetView.getLocationInWindow(location);
+//        int x = location[0] + targetView.getWidth() / x_divisor;
+//        int y = location[1] + targetView.getHeight() / 2;
+//        return new Point(x, y);
+//    }
 
     private RelativeLayout.LayoutParams getLayoutParms() {
         // set-up Layout parameters for the Tutorial
@@ -282,13 +283,9 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(getString(R.string.confirm_tutorial_toggle_title));
         if (getTutorialShown()) {
-            // TODO Remove
-            System.out.println("switching dialog text to say OFF  ");
             builder.setMessage(getString(R.string.confirm_tutorial_toggle_message_off));
 
         } else {
-            // TODO Remove
-            System.out.println("switching dialog text to say ON  ");
             builder.setMessage(getString(R.string.confirm_tutorial_toggle_message_on));
 
         }
@@ -358,26 +355,18 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
 
     @Override
     public void onShowcaseViewHide(ShowcaseView showcaseView) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//            listView.setAlpha(1f);
-//        }
-//        buttonBlocked.setText(R.string.button_show);
-        //buttonBlocked.setEnabled(false);
     }
 
     @Override
     public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
-
     }
 
     @Override
     public void onShowcaseViewShow(ShowcaseView showcaseView) {
-
     }
 
     @Override
     public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
-
     }
 
     // used for managing Preferences

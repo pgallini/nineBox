@@ -21,6 +21,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -28,15 +29,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.ninebox.nineboxapp.R;
 
 import java.util.ArrayList;
@@ -47,9 +54,12 @@ import nineBoxMain.MainActivity;
 import nineBoxQuestions.QuestionsEntryActivity;
 
 /**
+ *
+ * Created by Paul Gallini, 2016
+ *
  * This activity lists out the existing candidates and allows for additions, deletions, and evaluation .
  */
-public class CandidatesListActivity extends AppCompatActivity {
+public class CandidatesListActivity extends AppCompatActivity implements OnShowcaseEventListener {
     private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
     private final int CANDIDATESUPDATE_ACTIVITY_REQUEST_CODE = 0;
 
@@ -60,11 +70,14 @@ public class CandidatesListActivity extends AppCompatActivity {
     Context context = CandidatesListActivity.this;
     private ArrayList<String> displayList;
     private Toolbar toolbar;
+    // for the showcase (hint) screen:
+    ShowcaseView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.candidates_list);
+
 
         // TODO add display informative graphic when list is empty
 
@@ -84,6 +97,10 @@ public class CandidatesListActivity extends AppCompatActivity {
         // find the ListView so we can work with it ...
         mainListView = (ListView) findViewById(R.id.candidates_list);
 
+        // todo add if !suppress hints
+        if(displayList.size() < 1 ) {
+            displayHint();
+        }
         mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.candidates_list_item, R.id.candidate, displayList) {
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
@@ -166,6 +183,75 @@ public class CandidatesListActivity extends AppCompatActivity {
         });
     }
 
+    private void displayHint() {
+        // set-up Layout Parameters for the tutorial
+        final RelativeLayout.LayoutParams lps = getLayoutParms();
+        // locate the target for the hint
+        ViewTarget target = new ViewTarget(R.id.ok_button, this) {
+            @Override
+            public Point getPoint() {
+                return getPointTarget(R.id.ok_button,2);
+            }
+        };
+        // Create an OnClickListener to use with Tutorial and to display the next page ...
+        View.OnClickListener tutBtnListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                ViewTarget target = new ViewTarget(R.id.ok_button, CandidatesListActivity.this) {
+                    @Override
+                    public Point getPoint() {
+                        return getPointTarget(R.id.ok_button, 1);
+                    }
+                };
+                // hide the previous view
+                sv.hide();
+            }
+        };
+        // instantiate a new view for the the tutorial ...
+        sv = buildTutorialView(target, R.string.showcase_hint1, tutBtnListener);
+        sv.setButtonText(getResources().getString(R.string.showcase_btn_last));
+        sv.setButtonPosition(lps);
+    }
+
+    private ShowcaseView buildTutorialView(ViewTarget target, int tutorialText, View.OnClickListener tutBtnListener) {
+        return new ShowcaseView.Builder(CandidatesListActivity.this)
+                .withHoloShowcase()    // other options:  withHoloShowcase, withNewStyleShowcase, withMaterialShowcase,
+                .setTarget(target)
+                .setContentTitle(R.string.showcase_hint_title)
+                .setContentText(tutorialText)
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setShowcaseEventListener(CandidatesListActivity.this)
+                .replaceEndButton(R.layout.view_custom_button)
+                .setOnClickListener(tutBtnListener)
+                .build();
+    }
+
+    // TODO find a way to combine this with the same method in MainActivity
+    private RelativeLayout.LayoutParams getLayoutParms() {
+        // set-up Layout parameters for the Tutorial
+        //   Some more ideas on targets:
+        //        http://stackoverflow.com/questions/33379121/using-showcaseview-to-target-action-bar-menu-item
+        //
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+        return lps;
+    }
+
+    // TODO find a way to combine this with the same method in MainActivity
+    private Point getPointTarget(int buttonId, int x_divisor) {
+        // given a resource id, return a point to use for the tutorial
+        // note that this is set-up to alighn to the right
+        // change the / 6 to / 2 to center it
+        View targetView = findViewById(buttonId);
+
+        int[] location = new int[2];
+        targetView.getLocationInWindow(location);
+        int x = location[0] + targetView.getWidth() / x_divisor;
+        int y = location[1] + targetView.getHeight() / 2;
+        return new Point(x, y);
+    }
 //    private LayerDrawable display_icon(String currentColor,String candidateInitials ) {
 //        // TODO find way to combine this method with the one in CandidatesEntryActivity
 //        // convert the String color to an int
@@ -310,4 +396,23 @@ public class CandidatesListActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    @Override
+    public void onShowcaseViewHide(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewShow(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
+
+    }
 }

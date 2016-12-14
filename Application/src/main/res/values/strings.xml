@@ -105,10 +105,14 @@
 
     // for tutorial/showcase
     <string name="showcase_main_title">Promo Grid Tutorial</string>
+    <string name="showcase_hint_title">Promo Grid Hints</string>
     <string name="showcase_message1">First, add people using the Add People button.</string>
     <string name="showcase_message2">Next, establish ratings for each one using the Evaluate People button.</string>
     <string name="showcase_message3">Finally, see which ones are ready for promotion using the See Results button.</string>
     <string name="showcase_message4">When this tutorial is over, it will be toggled off.  Use the options menu to turn it back on.</string>
+    <string name="showcase_hint1">Add people using the New button here.  A screen will be presented allowing you to enter basic info for
+        that person.  You can evaluate them one at a time using the check box icon on this screen, or return to the
+    main menu and use the Evaluate People button to go through them all. </string>
     <string name="showcase_btn_next">Next</string>
     <string name="showcase_btn_last">Got It</string>
 </resources>
