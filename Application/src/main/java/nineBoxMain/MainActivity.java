@@ -17,8 +17,12 @@
 //package com.ninebox.nineboxapp;
 package nineBoxMain;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,18 +56,20 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.ninebox.nineboxapp.R;
 
 /**
- * This activity is the main activity for the NineBoxMobile app.
+ * This activity is the main activity for the Promo Grid app.
  */
 public class MainActivity extends AppCompatActivity implements OnShowcaseEventListener {
     //    public class MainActivity extends Activity {
     private Toolbar toolbar;
     private UserOperations userOperations;
     static public int candidateIndex = 0;
+    private Menu menu;
 
     // for the showcase (tutorial) screen:
     ShowcaseView sv;
     ShowcaseView sv2;
     ShowcaseView sv3;
+    ShowcaseView sv4;
 
     // TODO consider adding a FunkyNet splash screen
     // https://www.bignerdranch.com/blog/splash-screens-the-right-way/
@@ -87,63 +93,10 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
-        // todo determine best way to track this preference
-        boolean tutorialShown = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getBoolean("pref_sync", false);
-        // TODO Remove
-        System.out.println("tutorialShown =  ");
-        System.out.println(tutorialShown);
-
-        // set-up Layout Parameters for the tutorial
-        final RelativeLayout.LayoutParams lps = getLayoutParms();
-
-
-        // locate the target for the tutorial
-        ViewTarget target = new ViewTarget(R.id.button_add_people, this) {
-            @Override
-            public Point getPoint() {
-                return getPointTarget(R.id.button_add_people);
-            }
-        };
-
-        // Create an OnClickListener to use with Tutorial and to display the next page ...
-        View.OnClickListener tutBtnListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                ViewTarget target2 = new ViewTarget(R.id.button_set_questions, MainActivity.this) {
-                    @Override
-                    public Point getPoint() {
-                        return getPointTarget(R.id.button_set_questions);
-                    }
-                };
-
-                // hide the previous view
-                sv.hide();
-                // Create an OnClickListener to use with Tutorial and to display the next page ...
-                View.OnClickListener tutBtnListener3 = new View.OnClickListener() {
-                    public void onClick(View v) {
-                        ViewTarget target3 = new ViewTarget(R.id.button_see_results, MainActivity.this) {
-                            @Override
-                            public Point getPoint() {
-                                return getPointTarget(R.id.button_see_results);
-                            }
-                        };
-
-                        // hide the previous view
-                        sv2.hide();
-                        // build and display the next view in the tutorial
-                        sv3 = buildTutorialView(target3, R.string.showcase_message3, null);
-                        sv3.setButtonPosition(lps);
-                    }
-                };
-                // build and display the next view in the tutorial
-                sv2 = buildTutorialView(target2, R.string.showcase_message2, tutBtnListener3);
-                sv2.setButtonPosition(lps);
-            }
-        };
-        // instantiate a new view for the the tutorial ...
-        sv = buildTutorialView(target, R.string.showcase_message1, tutBtnListener);
-        sv.setButtonPosition(lps);
-
+        // start with running the Tutorial - if that option is selected
+        if( getTutorialShown() ) {
+            runTutorial();
+        }
 
         findViewById(R.id.button_add_people).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +129,77 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         });
     }
 
+    private void runTutorial() {
+        // todo determine best way to track this preference
+        boolean tutorialShown = getTutorialShown();
+
+        // set-up Layout Parameters for the tutorial
+        final RelativeLayout.LayoutParams lps = getLayoutParms();
+        // locate the target for the tutorial
+        ViewTarget target = new ViewTarget(R.id.button_add_people, this) {
+            @Override
+            public Point getPoint() {
+                return getPointTarget(R.id.button_add_people,6);
+            }
+        };
+
+        // Create an OnClickListener to use with Tutorial and to display the next page ...
+        View.OnClickListener tutBtnListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                ViewTarget target2 = new ViewTarget(R.id.button_set_questions, MainActivity.this) {
+                    @Override
+                    public Point getPoint() {
+                        return getPointTarget(R.id.button_set_questions,6);
+                    }
+                };
+
+                // hide the previous view
+                sv.hide();
+                // Create an OnClickListener to use with Tutorial and to display the next page ...
+                View.OnClickListener tutBtnListener3 = new View.OnClickListener() {
+                    public void onClick(View v) {
+                        ViewTarget target3 = new ViewTarget(R.id.button_see_results, MainActivity.this) {
+                            @Override
+                            public Point getPoint() {
+                                return getPointTarget(R.id.button_see_results,6);
+                            }
+                        };
+
+                        // hide the previous view
+                        sv2.hide();
+                        // Create an OnClickListener to use with Tutorial and to display the next page ...
+                        View.OnClickListener tutBtnListener4 = new View.OnClickListener() {
+                            public void onClick(View v) {
+                                ViewTarget target4 = new ViewTarget(R.id.tool_bar, MainActivity.this) {
+                                    @Override
+                                    public Point getPoint() {
+                                        return getPointTarget(R.id.tool_bar, 1);
+                                    }
+                                };
+                                // hide the previous view
+                                sv3.hide();
+                                // build and display the next view in the tutorial
+                                sv4 = buildTutorialView(target4, R.string.showcase_message4, null);
+                                // change button text for last
+                                sv4.setButtonText(getResources().getString(R.string.showcase_btn_last));
+                                sv4.setButtonPosition(lps);
+                            }
+                        };
+                        // build and display the next view in the tutorial
+                        sv3 = buildTutorialView(target3, R.string.showcase_message3, tutBtnListener4);
+                        sv3.setButtonPosition(lps);
+                    }
+                };
+                // build and display the next view in the tutorial
+                sv2 = buildTutorialView(target2, R.string.showcase_message2, tutBtnListener3);
+                sv2.setButtonPosition(lps);
+            }
+        };
+        // instantiate a new view for the the tutorial ...
+        sv = buildTutorialView(target, R.string.showcase_message1, tutBtnListener);
+        sv.setButtonPosition(lps);
+
+    }
     private ShowcaseView buildTutorialView(ViewTarget target, int tutorialText, View.OnClickListener tutBtnListener) {
         return new ShowcaseView.Builder(MainActivity.this)
                 .withHoloShowcase()    // other options:  withHoloShowcase, withNewStyleShowcase, withMaterialShowcase,
@@ -189,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 .build();
     }
 
-    private Point getPointTarget(int buttonId) {
+    private Point getPointTarget(int buttonId, int x_divisor) {
         // given a resource id, return a point to use for the tutorial
         // note that this is set-up to alighn to the right
         // change the / 6 to / 2 to center it
@@ -197,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
 
         int[] location = new int[2];
         targetView.getLocationInWindow(location);
-        int x = location[0] + targetView.getWidth() / 6;
+        int x = location[0] + targetView.getWidth() / x_divisor;
         int y = location[1] + targetView.getHeight() / 2;
         return new Point(x, y);
     }
@@ -219,6 +243,17 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
+
+        String title_on = getResources().getString(R.string.title_toggle_tutorial_on);
+        String title_off = getResources().getString(R.string.title_toggle_tutorial_off);
+        System.out.println(getTutorialShown());
+        MenuItem tutMenuItem = menu.findItem(R.id.toggle_tutorial);
+        if (getTutorialShown()) {
+            tutMenuItem.setTitle(title_off);
+        } else {
+            tutMenuItem.setTitle(title_on);
+        }
         return true;
     }
 
@@ -233,15 +268,92 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 } catch (ActivityNotFoundException ignored) {
                 }
                 return true;
-            case R.id.menu_add_people:
+            case R.id.toggle_tutorial:
                 try {
-                    Intent intent = new Intent(this, CandidatesListActivity.class);
-                    startActivity(intent);
+                    showTutorialDialog(MainActivity.this);
                 } catch (ActivityNotFoundException ignored) {
                 }
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showTutorialDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(getString(R.string.confirm_tutorial_toggle_title));
+        if (getTutorialShown()) {
+            // TODO Remove
+            System.out.println("switching dialog text to say OFF  ");
+            builder.setMessage(getString(R.string.confirm_tutorial_toggle_message_off));
+
+        } else {
+            // TODO Remove
+            System.out.println("switching dialog text to say ON  ");
+            builder.setMessage(getString(R.string.confirm_tutorial_toggle_message_on));
+
+        }
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences sharedpreferences;
+                        String title_on = getResources().getString(R.string.title_toggle_tutorial_on);
+                        String title_off = getResources().getString(R.string.title_toggle_tutorial_off);
+
+                        sharedpreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                        if (getTutorialShown()) {
+                            editor.putBoolean("pref_sync", false);
+                            editor.apply();
+                            editor.commit();
+                            // TODO Remove
+                            System.out.println("Turning OFF  ");
+                            MenuItem toggleMenuItem = menu.findItem(R.id.toggle_tutorial);
+                            toggleMenuItem.setTitle(title_off);
+                            // TODO Remove
+                            System.out.println("switching title to say ON  ");
+
+                        } else {
+                            editor.putBoolean("pref_sync", true);
+                            editor.apply();
+                            editor.commit();
+                            // TODO Remove
+                            System.out.println("Turning ON ");
+
+                            MenuItem toggleMenuItem = menu.findItem(R.id.toggle_tutorial);
+                            toggleMenuItem.setTitle(title_on);
+                            // TODO Remove
+                            System.out.println("switching title to say ON  ");
+
+                            }
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // negative button logic
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+    }
+
+    private boolean getTutorialShown() {
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
+//        return settings.getBoolean("pref_sync", true);
+        Boolean showTutorial = settings.getBoolean("pref_sync", true);
+        // TODO Remove
+        System.out.println("########showTutorial =  ");
+        System.out.println(showTutorial);
+        return showTutorial;
     }
 
     @Override
@@ -290,6 +402,9 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
             if (resultCode == RESULT_CANCELED) {
                 System.out.println(" Evaluation was Cancelled");
             }
+        }
+        if(getTutorialShown()){
+            runTutorial();
         }
     }
 

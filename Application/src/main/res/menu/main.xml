@@ -19,8 +19,12 @@
         android:id="@+id/menu_configure_questions"
         android:title="@string/menu_configure_questions"/>
         <!--android:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/menu_add_people"-->
+        <!--android:title="@string/title_activity_candidates_entry"/>-->
+    <!--android:showAsAction="never" />-->
     <item
-        android:id="@+id/menu_add_people"
-        android:title="@string/title_activity_candidates_entry"/>
-        <!--android:showAsAction="never" />-->
+        android:id="@+id/toggle_tutorial"
+        android:title="@string/title_toggle_tutorial_off"/>
+    <!--android:showAsAction="never" />-->
 </menu>

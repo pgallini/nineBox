@@ -50,6 +50,9 @@
     <string name="edit">EDIT</string>
     <string name="edit_candidate_notes_title">Notes</string>
     <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
+    <string name="confirm_tutorial_toggle_title">Confirm Tutorial Toggle</string>
+    <string name="confirm_tutorial_toggle_message_on">Are you sure you want to turn the Tutorial ON?</string>
+    <string name="confirm_tutorial_toggle_message_off">Are you sure you want to turn the Tutorial OFF?</string>
     <string name="confirm_delete_title">Confirm Delete</string>
     <string name="confirm_delete_message">Are you sure you want to delete this candidate?</string>
     <string name="candidate_save_message">Candidate has been successfully saved.</string>
@@ -82,6 +85,8 @@
     <string name="save_rpt_button">Save Report</string>
 
     <string name="menu_configure_questions">Configure Questions</string>
+    <string name="title_toggle_tutorial_off">Turn Tutorial OFF</string>
+    <string name="title_toggle_tutorial_on">Turn Tutorial ON</string>
     <string name="title_activity_candidates_entry">Promo Grid: Enter Candidates</string>
     <string name="title_activity_candidates_update">Promo Grid: Maintain Candidates</string>
     <string name="title_activity_questions_entry">Promo Grid: Enter Questions</string>
@@ -102,5 +107,8 @@
     <string name="showcase_main_title">Promo Grid Tutorial</string>
     <string name="showcase_message1">First, add people using the Add People button.</string>
     <string name="showcase_message2">Next, establish ratings for each one using the Evaluate People button.</string>
-    <string name="showcase_message3">Finally, see which ones are ready for promotion using the See Reports button.</string>
+    <string name="showcase_message3">Finally, see which ones are ready for promotion using the See Results button.</string>
+    <string name="showcase_message4">When this tutorial is over, it will be toggled off.  Use the options menu to turn it back on.</string>
+    <string name="showcase_btn_next">Next</string>
+    <string name="showcase_btn_last">Got It</string>
 </resources>
