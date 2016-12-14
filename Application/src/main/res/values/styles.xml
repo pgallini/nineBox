@@ -244,4 +244,46 @@
         <item name="android:textColor">@color/text_dark</item>
     </style>
 
+    <!--// Adjust the opactity in the background color as follows
+    In the example, CC is the hex number for 255 * 0.8 = 204. Note that the first two hex digits are for the alpha channel.
+    The format is #AARRGGBB, where AA is the alpha channel, RR is the red channel, GG is the green channel and BB is the blue channel.
+
+    I'm assuming that 20% transparent means 80% opaque. If you meant the other way, instead of CC use 33 which is the hex for 255 * 0.2 = 51.
+
+    In order to calculate the proper value for an alpha transparency value you can follow this procedure:
+
+    Given a transparency percentage, for example 20%, you know the opaque percentage value is 80% (this is 100-20=80)
+    The range for the alpha channel is 8 bits (2^8=256), meaning the range goes from 0 to 255.
+    Project the opaque percentage into the alpha range, that is multiple the range (255) by the percentage. In this example 255 * 0.8 =  204. Round to the nearest integer if needed.
+    Convert the value obtained in 3., which is in base 10, to hexadecimal (base 16). You can use Google for this or any calculator. Using Google, type "204 to hexa" and it will give you the hexadecimal value, in this case is 0xCC.
+    Prepend the value obtained in 4. to the desired color. For example, for red, which is FF0000, you will have CCFF0000.
+
+    60% -> 99
+    70% -> B4
+    80% -> CC
+    -->
+    <style name="CustomShowcaseTheme" parent="ShowcaseView">
+        <item name="sv_backgroundColor">#B41249d9</item>
+        <item name="sv_showcaseColor">#25467A</item>
+        <item name="sv_buttonText">Close</item>
+        <item name="sv_titleTextAppearance">@style/CustomTitle</item>
+        <item name="sv_detailTextAppearance">@style/CustomText2</item>
+    </style>
+
+    <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CustomTitle2" parent="TextAppearance.ShowcaseView.Title.Light">
+        <item name="android:textColor">@color/ColorPrimary</item>
+    </style>
+
+    <style name="CustomText2" parent="TextAppearance.ShowcaseView.Detail.Light">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
+
 </resources>

@@ -60,7 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nineBoxMain.MainActivity" />
         </activity>
-        <!--TODO adding as a poc ... may need to remove-->
         <activity
             android:name="nineBoxReport.CustomPrintActivity"
             android:label="@string/title_activity_report"
