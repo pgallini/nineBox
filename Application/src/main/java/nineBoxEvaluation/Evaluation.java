@@ -4,18 +4,27 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.ninebox.nineboxapp.R;
 
 import java.util.ArrayList;
 
+import common.common.Utilities;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import nineBoxMain.MainActivity;
@@ -27,15 +36,19 @@ import nineBoxQuestions.QuestionsOperations;
  *
  * The slider drawables are generated from here:  http://android-holo-colors.com/
  */
-public class Evaluation extends AppCompatActivity {
+public class Evaluation extends AppCompatActivity implements OnShowcaseEventListener {
     TextView cName;
     private final int EVALUATION_ACTIVITY_REQUEST_CODE = 0;
     public ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
     public ArrayList<Questions> questionsList = new ArrayList<>();
     public int currentQuestionNo = 1;
     public int maxQuestionNo = 0;
+//    public boolean displayHintEval = true;
     private Toolbar toolbar;
     private int currentResponse = 0;
+    // for the showcase (hint) screen:
+    ShowcaseView sv;
+    ShowcaseView sv2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +63,6 @@ public class Evaluation extends AppCompatActivity {
         candidateOperations.open();
         // create a list of candidates from what's in the database ...
         candidatesList = candidateOperations.getAllCandidates();
-
 
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -108,7 +120,6 @@ public class Evaluation extends AppCompatActivity {
                             onResume();
                         } else {
                             // increment the index for the next candidate ...
-//                    candidateIndex++;
                             MainActivity.incrementCurrentCandidate();
                             // reset the Questions
                             currentQuestionNo = 1;
@@ -120,7 +131,6 @@ public class Evaluation extends AppCompatActivity {
                                 // unless we are on the last candidate
                                 MainActivity.setCurrentCandidate(0);
                                 finish();
-                                ;
                             }
                         }
                     }
@@ -179,10 +189,18 @@ public class Evaluation extends AppCompatActivity {
                 quesitonTextView.setText(questionsList.get((currentQuestionNo - 1)).getQuestionText());
                 questionID = questionsList.get((currentQuestionNo - 1)).getQuestionID();
             }
+
             // See if there is already a response for this combo of candidate and question ..
             if (candidateID != -1 && questionID != -1) {
                 EvaluationOperations evaluationOperations = new EvaluationOperations(this);
                 evaluationOperations.open();
+
+//                if(displayHintEval && evaluationOperations.isResponseTableEmpty()) {
+                if(getShowTutorial_Eval()) {
+                    displayHint();
+                    MainActivity.displayTutorialEval = false;
+                }
+
                 long foundRespID = evaluationOperations.getResponseID(candidateID, questionID);
                 if (foundRespID != -1) {
                     // if there is a response in the DB, then set the seekbar to that value ...
@@ -201,6 +219,15 @@ public class Evaluation extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    private boolean getShowTutorial_Eval() {
+        // returns value for whether to show tutorial for Main screen or not
+        Boolean returnBool = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
+        Boolean showTutorial = settings.getBoolean("pref_sync", true);
+        if(showTutorial & MainActivity.displayTutorialEval) { returnBool = true; }
+        return returnBool;
     }
 
     public void CancelSave(View view) {
@@ -258,5 +285,91 @@ public class Evaluation extends AppCompatActivity {
         dialog.setCancelable(false);
         // display dialog
         dialog.show();
+    }
+
+    private void displayHint() {
+        // set-up Layout Parameters for the tutorial
+        final RelativeLayout.LayoutParams lps = getLayoutParms();
+
+        // locate the target for the hint
+        ViewTarget target = new ViewTarget(R.id.responseSeekBar, this) {
+            @Override
+            public Point getPoint() {
+                return Utilities.getPointTarget(findViewById(R.id.responseSeekBar), 6);
+            }
+        };
+
+        // Create an OnClickListener to use with Tutorial and to display the next page ...
+        View.OnClickListener tutBtnListener2 = new View.OnClickListener() {
+            public void onClick(View v) {
+                ViewTarget target2 = new ViewTarget(R.id.next_question_button, Evaluation.this) {
+                    @Override
+                    public Point getPoint() {
+                        return Utilities.getPointTarget(findViewById(R.id.next_question_button), 2);
+                    }
+                };
+                // hide the previous view
+                sv.hide();
+                // instantiate a new view for the the tutorial ...
+                sv2 = buildTutorialView(target2, R.string.showcase_eval_message2, null);
+                sv2.setButtonText(getResources().getString(R.string.showcase_btn_last));
+                sv2.setButtonPosition(lps);
+            }
+        };
+        // instantiate a new view for the the tutorial ...
+        sv = buildTutorialView(target, R.string.showcase_eval_message1, tutBtnListener2);
+        sv.setButtonPosition(lps);
+        MainActivity.displayTutorialEval = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Utilities.evalTutorialToggles(editor);
+    }
+
+    // TODO see if we can combine this with others
+    private ShowcaseView buildTutorialView(ViewTarget target, int tutorialText, View.OnClickListener tutBtnListener) {
+        return new ShowcaseView.Builder(Evaluation.this)
+                .withHoloShowcase()    // other options:  withHoloShowcase, withNewStyleShowcase, withMaterialShowcase,
+                .setTarget(target)
+                .setContentTitle(R.string.showcase_main_title)
+                .setContentText(tutorialText)
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setShowcaseEventListener(Evaluation.this)
+                .replaceEndButton(R.layout.view_custom_button)
+                .setOnClickListener(tutBtnListener)
+                .build();
+    }
+
+    // TODO find a way to combine this with the same method in MainActivity
+    private RelativeLayout.LayoutParams getLayoutParms() {
+        // set-up Layout parameters for the Tutorial
+        //   Some more ideas on targets:
+        //        http://stackoverflow.com/questions/33379121/using-showcaseview-to-target-action-bar-menu-item
+        //
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+        return lps;
+    }
+
+    @Override
+    public void onShowcaseViewHide(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewShow(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
+
     }
 }

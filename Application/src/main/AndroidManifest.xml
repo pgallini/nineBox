@@ -101,6 +101,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nineBoxMain.MainActivity" />
         </activity>
+        <activity
+            android:name="common.common.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

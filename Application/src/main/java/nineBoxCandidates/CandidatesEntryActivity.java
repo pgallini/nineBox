@@ -3,8 +3,6 @@ package nineBoxCandidates;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +20,6 @@ import com.ninebox.nineboxapp.R;
 import java.util.ArrayList;
 import java.util.List;
 import databaseOpenHelper.DatabaseOpenHelper;
-import drawables.drawPoint;
 
 //
 //  Note:  using icons from:  https://materialdesignicons.com/
@@ -47,7 +44,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        // load colols from DB for spinner ...
+        // load colors from DB for spinner ...
         // Spinner Drop down elements
         dbHelper = new DatabaseOpenHelper(this);
         colorList = dbHelper.getAllColors();
@@ -61,12 +58,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         findViewById(R.id.EditTextName).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                TextView candidateNameTV = (TextView) findViewById( R.id.EditTextName );
-                String candidateName = candidateNameTV.getText().toString();
-                candidateInitials = calculateInitials( candidateName );
-                ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
-                currentColor = getNetAvailableColor(colorList);
-                currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
+                setCandidateIcon();
             }
         });
 
@@ -94,6 +86,15 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                                                                         }
                                                                     }
         );
+    }
+
+    private void setCandidateIcon() {
+        TextView candidateNameTV = (TextView) findViewById( R.id.EditTextName );
+        String candidateName = candidateNameTV.getText().toString();
+        candidateInitials = calculateInitials( candidateName );
+        ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
+        currentColor = getNetAvailableColor(colorList);
+        currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
     }
 
     public List<String> getColorLabels(ArrayList<appColor> colorList ) {
@@ -206,6 +207,11 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         String canidateName = Nametext.getText().toString();
         EditText Notestext = (EditText) findViewById( R.id.NotesText);
         String candidateNotes = Notestext.getText().toString();
+
+        // if the initials have yet to be set, set them now
+        if(candidateInitials.trim().length() == 0 ) {
+            setCandidateIcon();
+        }
 
         String returnKeyValue = "0";
         // save to database

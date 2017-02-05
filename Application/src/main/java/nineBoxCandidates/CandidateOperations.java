@@ -71,6 +71,9 @@ public class CandidateOperations {
                     + " = " + id, null);
             // update the color table to mark this color as in-use ...
             DatabaseOpenHelper.updateColorsTableToggleInUse(database, candidate.getCandidateColor(), false);
+            // delete all of their responses too
+            database.delete(DatabaseOpenHelper.RESPONSES, DatabaseOpenHelper.RESP_CANDIDATE_ID
+                    + " = " + id, null);
         }
 
         public ArrayList<Candidates> getAllCandidates() {

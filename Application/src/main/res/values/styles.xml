@@ -17,6 +17,10 @@
 
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
     <style name="WindowTitleBackground" >
         <item name="android:background">@android:color/transparent
         </item>
@@ -268,13 +272,19 @@
         <item name="sv_buttonText">Close</item>
         <item name="sv_titleTextAppearance">@style/CustomTitle</item>
         <item name="sv_detailTextAppearance">@style/CustomText2</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+
+        <item name="android:layout_margin">8dp</item>
     </style>
 
     <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
         <item name="android:textColor">@color/text_light</item>
-        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center</item>
+        <!--<item name="android:gravity">center</item>-->
     </style>
 
     <style name="CustomTitle2" parent="TextAppearance.ShowcaseView.Title.Light">
@@ -283,7 +293,9 @@
 
     <style name="CustomText2" parent="TextAppearance.ShowcaseView.Detail.Light">
         <item name="android:textColor">@color/text_light</item>
-        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+        <item name="android:padding">@dimen/text_padding</item>
     </style>
 
 </resources>

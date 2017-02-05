@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-//package com.ninebox.nineboxapp;
 package nineBoxMain;
 
 import android.app.AlertDialog;
@@ -24,12 +23,10 @@ import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.content.SharedPreferences;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,20 +34,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
-import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import nineBoxCandidates.CandidatesListActivity;
 import nineBoxQuestions.QuestionsListActivity;
 import nineBoxEvaluation.Evaluation;
 import nineBoxReport.ReportActivity;
-import preferences.SettingsActivity;
 
 // for the Showcase Library ..
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 //import com.github.amlcurran.showcaseview.sample.animations.AnimationSampleActivity;
-import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import common.common.Utilities;
 import com.ninebox.nineboxapp.R;
@@ -66,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     private Toolbar toolbar;
     private UserOperations userOperations;
     static public int candidateIndex = 0;
+    static public boolean displayTutorialMain = true;
+    static public boolean displayTutorialAdd = true;
+    static public boolean displayTutorialEval = true;
+    static public boolean displayTutorialRpt = true;
+
     private Menu menu;
 
     // for the showcase (tutorial) screen:
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         StrictMode.setThreadPolicy(policy);
 
         // start with running the Tutorial - if that option is selected
-        if( getTutorialShown() ) {
+        if( getShowTutorial_Main() ) {
             runTutorial();
         }
 
@@ -134,7 +134,14 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
 
     private void runTutorial() {
         // set-up Layout Parameters for the tutorial
-        final RelativeLayout.LayoutParams lps = getLayoutParms();
+        final RelativeLayout.LayoutParams lpsBtn = getLayoutParmsBtn();
+
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        // set layout params for the frame that will contain the text (and title?)  this Does NOT work - it effects the entire page
+//        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layoutParams.setMargins(4,40,4,40);
+//        int margin = ((Number) (this.getResources().getDisplayMetrics().density * 12)).intValue();
+//        layoutParams.setMargins(margin, margin, margin, 120);
         // locate the target for the tutorial
         ViewTarget target = new ViewTarget(R.id.button_add_people, this) {
             @Override
@@ -185,23 +192,33 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                                 sv4 = buildTutorialView(target4, R.string.showcase_message4, null);
                                 // change button text for last
                                 sv4.setButtonText(getResources().getString(R.string.showcase_btn_last));
-                                sv4.setButtonPosition(lps);
+                                sv4.setButtonPosition(lpsBtn);
+
                             }
                         };
                         // build and display the next view in the tutorial
                         sv3 = buildTutorialView(target3, R.string.showcase_message3, tutBtnListener4);
-                        sv3.setButtonPosition(lps);
+                        sv3.setButtonPosition(lpsBtn);
+
+                        // forcing text to be above the target because otherwise it goes to the left and is squished
+                        sv3.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
                     }
                 };
                 // build and display the next view in the tutorial
                 sv2 = buildTutorialView(target2, R.string.showcase_message2, tutBtnListener3);
-                sv2.setButtonPosition(lps);
+                sv2.setButtonPosition(lpsBtn);
+                // forcing text to be below the target because otherwise it goes to the left and is squished
+                sv2.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
             }
         };
         // instantiate a new view for the the tutorial ...
         sv = buildTutorialView(target, R.string.showcase_message1, tutBtnListener);
-        sv.setButtonPosition(lps);
-
+        sv.setButtonPosition(lpsBtn);
+//        sv.setLayoutParams(layoutParams);   // not working
+        MainActivity.displayTutorialMain = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Utilities.evalTutorialToggles(editor);
     }
     private ShowcaseView buildTutorialView(ViewTarget target, int tutorialText, View.OnClickListener tutBtnListener) {
         return new ShowcaseView.Builder(MainActivity.this)
@@ -216,18 +233,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 .build();
     }
 
-//    private Point getPointTarget(View targetView,  int x_divisor ) {
-//        // given a resource id, return a point to use for the tutorial
-//        // note that this is set-up to alighn to the right
-//        // change the / 6 to / 2 to center it
-//        int[] location = new int[2];
-//        targetView.getLocationInWindow(location);
-//        int x = location[0] + targetView.getWidth() / x_divisor;
-//        int y = location[1] + targetView.getHeight() / 2;
-//        return new Point(x, y);
-//    }
-
-    private RelativeLayout.LayoutParams getLayoutParms() {
+    private RelativeLayout.LayoutParams getLayoutParmsBtn() {
         // set-up Layout parameters for the Tutorial
         //   Some more ideas on targets:
         //        http://stackoverflow.com/questions/33379121/using-showcaseview-to-target-action-bar-menu-item
@@ -235,10 +241,13 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+
+//        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 6)).intValue();
         lps.setMargins(margin, margin, margin, margin);
         return lps;
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -248,9 +257,11 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
 
         String title_on = getResources().getString(R.string.title_toggle_tutorial_on);
         String title_off = getResources().getString(R.string.title_toggle_tutorial_off);
-        System.out.println(getTutorialShown());
+        // TODO remove
+        System.out.println(" inside onCreateOptionsMenu ....getShowTutorial_All() = ");
+        System.out.println(getShowTutorial_All());
         MenuItem tutMenuItem = menu.findItem(R.id.toggle_tutorial);
-        if (getTutorialShown()) {
+        if (getShowTutorial_All()) {
             tutMenuItem.setTitle(title_off);
         } else {
             tutMenuItem.setTitle(title_on);
@@ -258,6 +269,24 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         return true;
     }
 
+    // use on onPrepareMenuOptions to dynamicaly change the menu items (because onCreate only gets called once)
+    @Override
+    public boolean onPrepareOptionsMenu( Menu menu ){
+        this.menu = menu;
+
+        String title_on = getResources().getString(R.string.title_toggle_tutorial_on);
+        String title_off = getResources().getString(R.string.title_toggle_tutorial_off);
+        // TODO remove
+        System.out.println(" inside onPrepareOptionsMenu ....getShowTutorial_All() = ");
+        System.out.println(getShowTutorial_All());
+        MenuItem tutMenuItem = menu.findItem(R.id.toggle_tutorial);
+        if (getShowTutorial_All()) {
+            tutMenuItem.setTitle(title_off);
+        } else {
+            tutMenuItem.setTitle(title_on);
+        }
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -279,10 +308,11 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         return super.onOptionsItemSelected(item);
     }
 
+    // TODO = test this ... if you hit cancel on the pop-up, it looks like the menu item is still getting switched
     private void showTutorialDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(getString(R.string.confirm_tutorial_toggle_title));
-        if (getTutorialShown()) {
+        if (getShowTutorial_All()) {
             builder.setMessage(getString(R.string.confirm_tutorial_toggle_message_off));
 
         } else {
@@ -302,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                         sharedpreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                        if (getTutorialShown()) {
+                        if (getShowTutorial_All()) {
                             editor.putBoolean("pref_sync", false);
                             editor.apply();
                             editor.commit();
@@ -319,6 +349,12 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                             editor.commit();
                             // TODO Remove
                             System.out.println("Turning ON ");
+
+                            // set all of the indivudal toggles back on as well ...
+                            displayTutorialMain = true;
+                            displayTutorialAdd = true;
+                            displayTutorialEval = true;
+                            displayTutorialRpt = true;
 
                             MenuItem toggleMenuItem = menu.findItem(R.id.toggle_tutorial);
                             toggleMenuItem.setTitle(title_on);
@@ -339,18 +375,41 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 });
 
         AlertDialog dialog = builder.create();
+
+        // we're using onDismissListener here to determine if the user just turned on the tutorial.
+        //  if they did, then we need to display it after the confirmation dialog is dismissed.
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                // TODO Remove
+                System.out.println("inside setOnDismissListener ");
+                if( getShowTutorial_Main() ) {
+                    runTutorial();
+                }
+            }
+        });
         // display dialog
         dialog.show();
     }
 
-    private boolean getTutorialShown() {
+
+    public boolean getShowTutorial_All() {
+        // returns value for overall preference on whether to show Tutorial or not
         SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
-//        return settings.getBoolean("pref_sync", true);
+        Boolean showTutorial = settings.getBoolean("pref_sync", true);
+        return showTutorial;
+    }
+
+    private boolean getShowTutorial_Main() {
+        // returns value for whether to show tutorial for Main screen or not
+        Boolean returnBool = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
         Boolean showTutorial = settings.getBoolean("pref_sync", true);
         // TODO Remove
         System.out.println("########showTutorial =  ");
         System.out.println(showTutorial);
-        return showTutorial;
+        if(showTutorial & displayTutorialMain) { returnBool = true; }
+        return returnBool;
     }
 
     @Override
@@ -392,7 +451,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 System.out.println(" Evaluation was Cancelled");
             }
         }
-        if(getTutorialShown()){
+        // TODO get this to work - display tutorial if the user just turned it on
+        if(getShowTutorial_Main()){
             runTutorial();
         }
     }
