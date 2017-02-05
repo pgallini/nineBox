@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
@@ -26,14 +28,20 @@ import android.support.v7.widget.Toolbar;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.ninebox.nineboxapp.R;
 
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,10 +54,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 //import emailUtility.SendHTMLEmail;
+import common.common.Utilities;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import drawables.drawPoint;
 import nineBoxEvaluation.EvaluationOperations;
+import nineBoxMain.MainActivity;
 import nineBoxQuestions.Questions;
 import nineBoxQuestions.QuestionsOperations;
 
@@ -59,7 +69,7 @@ import nineBoxQuestions.QuestionsOperations;
  * <p/>
  * This activity drives the generation and presentation of the results grid.
  */
-public class ReportActivity extends AppCompatActivity {
+public class ReportActivity extends AppCompatActivity implements OnShowcaseEventListener {
     private Toolbar toolbar;
     private CandidateOperations candidateOperations;
     private ArrayList<Candidates> candidatesList = new ArrayList<Candidates>();
@@ -68,6 +78,8 @@ public class ReportActivity extends AppCompatActivity {
     private EvaluationOperations evaluationOperations;
     private Candidates currCandidate;
     CustomDrawableView mCustomDrawableView;
+    ShowcaseView sv;   // for the showcase (tutorial) screen:
+    ShowcaseView sv2;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -160,6 +172,12 @@ public class ReportActivity extends AppCompatActivity {
         layerDrawable.draw(gridCanvas);
         gridImageView.setImageDrawable(layerDrawable);
 
+        // see if we should show the Tutorial ....
+        if( getShowTutorial_Rpt()) {
+            displayTutorialRpt();
+            // Now that it's been displayed, lets turn it off
+            MainActivity.displayTutorialRpt = false;
+        }
         // convert the layerDrawable to bitmap so we can save it ...
         Bitmap bitMapToSave = drawableToBitmap(layerDrawable);
 
@@ -193,6 +211,79 @@ public class ReportActivity extends AppCompatActivity {
                                                                 }
                                                             }
         );
+    }
+
+    private boolean getShowTutorial_Rpt() {
+        // returns value for whether to show tutorial for Report screen or not
+        Boolean returnBool = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
+        Boolean showTutorial = settings.getBoolean("pref_sync", true);
+        if(showTutorial & MainActivity.displayTutorialRpt) { returnBool = true; }
+        return returnBool;
+    }
+
+    private void displayTutorialRpt() {
+        // set-up Layout Parameters for the tutorial
+        final RelativeLayout.LayoutParams lps = getLayoutParms();
+        // locate the target for the hint
+        ViewTarget target = new ViewTarget(R.id.grid_background, this) {
+            @Override
+            public Point getPoint() {
+                return Utilities.getPointTarget(findViewById(R.id.grid_background),1.2,4);
+            }
+        };
+        // Create an OnClickListener to use with Tutorial and to display the next page ...
+        View.OnClickListener tutBtnListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                ViewTarget target2 = new ViewTarget(R.id.save_report, ReportActivity.this) {
+                    @Override
+                    public Point getPoint() {
+                        return Utilities.getPointTarget(findViewById(R.id.save_report), 2);
+                    }
+                };
+                // hide the previous view
+                sv.hide();
+                sv2 = buildTutorialView(target2, R.string.showcase_rpt_message2, null);
+                sv2.setButtonText(getResources().getString(R.string.showcase_btn_last));
+                sv2.setButtonPosition(lps);
+            }
+        };
+        // instantiate a new view for the the tutorial ...
+        sv = buildTutorialView(target, R.string.showcase_rpt_message1, tutBtnListener);
+//        sv.setButtonText(getResources().getString(R.string.showcase_btn_last));
+        sv.setButtonPosition(lps);
+        MainActivity.displayTutorialRpt = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Utilities.evalTutorialToggles(editor);
+    }
+
+    // TODO see if we can combine this with others
+    private ShowcaseView buildTutorialView(ViewTarget target, int tutorialText, View.OnClickListener tutBtnListener) {
+        return new ShowcaseView.Builder(ReportActivity.this)
+                .withHoloShowcase()    // other options:  withHoloShowcase, withNewStyleShowcase, withMaterialShowcase,
+                .setTarget(target)
+                .setContentTitle(R.string.showcase_main_title)
+                .setContentText(tutorialText)
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setShowcaseEventListener(ReportActivity.this)
+                .replaceEndButton(R.layout.view_custom_button)
+                .setOnClickListener(tutBtnListener)
+                .build();
+    }
+
+    // TODO find a way to combine this with the same method in MainActivity
+    private RelativeLayout.LayoutParams getLayoutParms() {
+        // set-up Layout parameters for the Tutorial
+        //   Some more ideas on targets:
+        //        http://stackoverflow.com/questions/33379121/using-showcaseview-to-target-action-bar-menu-item
+        //
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+        return lps;
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -366,6 +457,26 @@ public class ReportActivity extends AppCompatActivity {
         }
         // divide result by 100 and return it.
         return (result * 0.01);
+    }
+
+    @Override
+    public void onShowcaseViewHide(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewShow(ShowcaseView showcaseView) {
+
+    }
+
+    @Override
+    public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
+
     }
 
 

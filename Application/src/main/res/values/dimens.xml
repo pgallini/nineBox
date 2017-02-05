@@ -59,4 +59,13 @@
     <dimen name="color_swatch_small">48.0dip</dimen>
     <dimen name="color_swatch_margins_large">8.0dip</dimen>
     <dimen name="color_swatch_margins_small">4.0dip</dimen>
+
+    <!-- used to control the ShowcaseView (tutorial) -->
+    <!--<dimen name="button_margin">12dp</dimen>-->
+    <!--<dimen name="text_padding">24dp</dimen>-->
+    <dimen name="action_bar_offset">66dp</dimen>
+    <dimen name="showcase_radius">72dp</dimen>
+    <dimen name="showcase_radius_inner">82dp</dimen>
+    <dimen name="showcase_radius_outer">100dp</dimen>
+    <dimen name="showcase_radius_material">42dip</dimen>
 </resources>

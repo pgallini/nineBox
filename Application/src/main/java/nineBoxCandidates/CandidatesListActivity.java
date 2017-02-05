@@ -20,10 +20,8 @@ package nineBoxCandidates;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -48,7 +46,7 @@ import com.ninebox.nineboxapp.R;
 
 import java.util.ArrayList;
 
-import drawables.drawPoint;
+import common.common.Utilities;
 import nineBoxEvaluation.Evaluation;
 import nineBoxMain.MainActivity;
 import nineBoxQuestions.QuestionsEntryActivity;
@@ -58,6 +56,7 @@ import nineBoxQuestions.QuestionsEntryActivity;
  * Created by Paul Gallini, 2016
  *
  * This activity lists out the existing candidates and allows for additions, deletions, and evaluation .
+ *
  */
 public class CandidatesListActivity extends AppCompatActivity implements OnShowcaseEventListener {
     private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
@@ -70,16 +69,12 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
     Context context = CandidatesListActivity.this;
     private ArrayList<String> displayList;
     private Toolbar toolbar;
-    // for the showcase (hint) screen:
-    ShowcaseView sv;
+    ShowcaseView sv;   // for the showcase (tutorial) screen:
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.candidates_list);
-
-
-        // TODO add display informative graphic when list is empty
 
         // set-up the operations class for Candidates ...
         candidateOperations = new CandidateOperations(this);
@@ -97,9 +92,10 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
         // find the ListView so we can work with it ...
         mainListView = (ListView) findViewById(R.id.candidates_list);
 
-        // todo add if !suppress hints
-        if(displayList.size() < 1 ) {
-            displayHint();
+        if(getShowTutorial_Add()) {
+            displayTutorialAdd();
+            // Now that it's been displayed, lets turn it off
+            MainActivity.displayTutorialAdd = false;
         }
         mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.candidates_list_item, R.id.candidate, displayList) {
             @Override
@@ -183,14 +179,26 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
         });
     }
 
-    private void displayHint() {
+    private boolean getShowTutorial_Add() {
+        // returns value for whether to show tutorial for Add Candidates screen or not
+        Boolean returnBool = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
+        Boolean showTutorial = settings.getBoolean("pref_sync", true);
+        // TODO Remove
+        System.out.println("########showTutorial =  ");
+        System.out.println(showTutorial);
+        if(showTutorial & MainActivity.displayTutorialAdd) { returnBool = true; }
+        return returnBool;
+    }
+
+    private void displayTutorialAdd() {
         // set-up Layout Parameters for the tutorial
         final RelativeLayout.LayoutParams lps = getLayoutParms();
         // locate the target for the hint
         ViewTarget target = new ViewTarget(R.id.ok_button, this) {
             @Override
             public Point getPoint() {
-                return getPointTarget(R.id.ok_button,2);
+                return Utilities.getPointTarget(findViewById(R.id.ok_button),2);
             }
         };
         // Create an OnClickListener to use with Tutorial and to display the next page ...
@@ -199,7 +207,7 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
                 ViewTarget target = new ViewTarget(R.id.ok_button, CandidatesListActivity.this) {
                     @Override
                     public Point getPoint() {
-                        return getPointTarget(R.id.ok_button, 1);
+                        return Utilities.getPointTarget(findViewById(R.id.ok_button), 1);
                     }
                 };
                 // hide the previous view
@@ -207,16 +215,21 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
             }
         };
         // instantiate a new view for the the tutorial ...
-        sv = buildTutorialView(target, R.string.showcase_hint1, tutBtnListener);
+        sv = buildTutorialView(target, R.string.showcase_add_message1, tutBtnListener);
         sv.setButtonText(getResources().getString(R.string.showcase_btn_last));
         sv.setButtonPosition(lps);
+        MainActivity.displayTutorialAdd = false;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Utilities.evalTutorialToggles(editor);
     }
 
+    // TODO see if we can combine this with others
     private ShowcaseView buildTutorialView(ViewTarget target, int tutorialText, View.OnClickListener tutBtnListener) {
         return new ShowcaseView.Builder(CandidatesListActivity.this)
                 .withHoloShowcase()    // other options:  withHoloShowcase, withNewStyleShowcase, withMaterialShowcase,
                 .setTarget(target)
-                .setContentTitle(R.string.showcase_hint_title)
+                .setContentTitle(R.string.showcase_main_title)
                 .setContentText(tutorialText)
                 .setStyle(R.style.CustomShowcaseTheme)
                 .setShowcaseEventListener(CandidatesListActivity.this)
@@ -238,33 +251,6 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
         lps.setMargins(margin, margin, margin, margin);
         return lps;
     }
-
-    // TODO find a way to combine this with the same method in MainActivity
-    private Point getPointTarget(int buttonId, int x_divisor) {
-        // given a resource id, return a point to use for the tutorial
-        // note that this is set-up to alighn to the right
-        // change the / 6 to / 2 to center it
-        View targetView = findViewById(buttonId);
-
-        int[] location = new int[2];
-        targetView.getLocationInWindow(location);
-        int x = location[0] + targetView.getWidth() / x_divisor;
-        int y = location[1] + targetView.getHeight() / 2;
-        return new Point(x, y);
-    }
-//    private LayerDrawable display_icon(String currentColor,String candidateInitials ) {
-//        // TODO find way to combine this method with the one in CandidatesEntryActivity
-//        // convert the String color to an int
-//        int tmpcolor = Color.parseColor(currentColor);
-//        // set-up current icon based on the current color for this candidate ...
-//        Drawable d1 =  getResources().getDrawable(R.drawable.empty_drawable, null);
-//        Drawable[] emptyDrawableLayers = {d1};
-//        // TODO make this an attribute of candidate - assign it as such and, in reports, grab it using a get
-//        drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
-//        LayerDrawable newPoint = currDrawPoint.getPoint( candidateInitials );
-//
-//        return newPoint;
-//    }
 
     private void delete_candidate( int position ) {
         candidateOperations.deleteCandidate(candidatesList.get(position));
@@ -301,7 +287,6 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
         if (intent != null ) {
             Bundle extras = intent.getExtras();
             String returnCandidateIdString = (extras != null ? extras.getString("returnKey") : "nothing returned");
-//            int returnCandidateIdString = (extras != null ? extras.getInt("returnKey") : "nothing returned");
             if(returnCandidateIdString != null ) {
                 returnCandidateId = Long.parseLong(returnCandidateIdString);
             };
