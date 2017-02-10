@@ -471,6 +471,12 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     }
 
     private void inititateApp() {
+        // turn on app icon - Decided NOT to include it.  It appears that having an icon on the Action Bar is no longer
+        // the thing to do
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.ic_pg_icon);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         // set-up Evaulations operations ...
         userOperations = new UserOperations(this);
         userOperations.open();

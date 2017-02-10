@@ -136,7 +136,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // TODO consider moving this to a ColorsOperations class
     public static void updateColorsTableToggleInUse(SQLiteDatabase db, String color, boolean inuse ) {
         int inuseVal = 1;
         if( inuse ) { inuseVal = 1; } else { inuseVal = 0; };
@@ -160,8 +159,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public void initiateUserTable(SQLiteDatabase db) {
         //Add default record
         ContentValues _Values = new ContentValues();
-
-        // TODO - do we need to ensure that the table is empty firsT?
         // TODO - make usr num dynamic somehow
             _Values.put(USER_NUM, 1);
             _Values.put(USER_NAME, "Unknown User");

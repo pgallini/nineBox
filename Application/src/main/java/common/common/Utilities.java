@@ -52,12 +52,6 @@ public class Utilities extends AppCompatActivity {
             editor.putBoolean("pref_sync", false);
             editor.apply();
             editor.commit();
-            // TODO Remove
-            System.out.println("turning Tutorial preference OFF");
-        }
-        else {
-            // TODO Remove
-            System.out.println("NOT turning Tutorial preference OFF");
         }
     }
 //
