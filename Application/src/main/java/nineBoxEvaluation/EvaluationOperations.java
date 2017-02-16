@@ -83,26 +83,15 @@ public class EvaluationOperations {
         String[] tableColumns = new String[] {
                 DatabaseOpenHelper.RESP_ID
         };
-//        String whereClause = DatabaseOpenHelper.RESP_CANDIDATE_ID + " = ? AND "+  DatabaseOpenHelper.RESP_QUESTIONS_ID + " = ?";
-//        String[] whereArgs = new String[] {
-//                Long.toString(candidate_id) ,
-//                Long.toString(question_id)
-//        };
+
         Cursor c = database.query(DatabaseOpenHelper.RESPONSES, tableColumns, null, null,
                 null, null, null);
 
         if( c.getCount() > 0 ) {
             recsFound = true;
-            // TODO remove
-            System.out.println( "Setting recFound to TRUE - c.getCount() = ");
-            System.out.println( c.getCount() ) ;
+
         }
-//        if( c != null ) {
-//            recsFound = true;
-//            // TODO remove
-//            System.out.println( "Setting recFound to TRUE");
-//            c.close();
-//        };
+
         return !recsFound;
     }
 

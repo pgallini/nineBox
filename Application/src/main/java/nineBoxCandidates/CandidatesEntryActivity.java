@@ -124,7 +124,6 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         return returnInitials;
     }
 
-    // TODO consider moving this
     private String getNetAvailableColor(ArrayList<appColor> colorList  ) {
         String returnval = " ";
         for (appColor currColor : colorList) {
