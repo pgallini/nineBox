@@ -44,10 +44,6 @@ public class SpinnerArrayAdapter extends ArrayAdapter<String> {
         TextView tv = (TextView) convertView
                 .findViewById(R.id.textview);
 
-        // TODO Remove
-        System.out.println( " items.get(position) =" );
-        System.out.println( items.get(position) );
-
         tv.setText(items.get(position));
         int tmpcolor = Color.parseColor(color);
         tv.setTextColor(tmpcolor);
@@ -59,8 +55,6 @@ public class SpinnerArrayAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            // TODO Remove
-            System.out.println( "in getView, convertView was null ") ;
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(
                     R.layout.spinner_item, parent, false);
@@ -85,14 +79,9 @@ public class SpinnerArrayAdapter extends ArrayAdapter<String> {
         return convertView;
 //        View view = super.getView(position, convertView, parent);
 //        int color = getLabelColor(position);
-//        // TODO Remove
-//        System.out.println( "color = ") ;
-//        System.out.println(color) ;
+
 //        view.setBackgroundColor(color);
-//
-//        // TODO Remove
-//        System.out.println("parent.getChildCount() =");
-//        System.out.println(parent.getChildCount());
+
 //        return view;
     }
 

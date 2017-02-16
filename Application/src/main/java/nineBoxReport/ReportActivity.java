@@ -155,12 +155,6 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             layerDrawable.setLayerSize(currLayer, widget_width, widget_width);
             // set the position of the circle
 
-            // TODO remove
-            System.out.println("result_X_axis = ");
-            System.out.println(result_X_axis);
-            System.out.println("result_Y_axis = ");
-            System.out.println(result_Y_axis);
-
             layerDrawable.setWidgetPosition(currLayer, result_X_axis, result_Y_axis, widget_width);
 
             currLayer++;
@@ -495,8 +489,6 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
 
         public MyPrintDocumentAdapter(Context context) {
             this.context = context;
-            // TODO Remove
-            System.out.println("in constructor MyPrintDocumentAdapter ");
         }
 
         @Override
@@ -526,21 +518,9 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             // calculate the number of pages needed ...
             double spaceNeededPerPage = ( numCandidates * canidateDetailHeight );
 
-            // TODO Remove
-            System.out.println( "( spaceNeededPerPage / (double) totalPageSize ) +  0.5))= " );
-            System.out.println( ( spaceNeededPerPage / (double) totalPageSize ) +  0.5);
-
             totalpages = (int) (Math.round(( spaceNeededPerPage / (double) totalPageSize ) +  0.5));
-            // TODO Remove
-            System.out.println("totalpages =  ");
-            System.out.println(totalpages);
 
             totalpages = totalpages + 1; // add one for first page
-            // TODO Remove
-            System.out.println("totalpages =  ");
-            System.out.println(totalpages);
-            System.out.println("numCandidates =  ");
-            System.out.println(numCandidates);
 
             if (totalpages > 0) {
                 PrintDocumentInfo.Builder builder = new PrintDocumentInfo
@@ -610,19 +590,7 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
                     drawDetailPage(page, i, drawLine);
                     drawLine = drawLine + canidateDetailHeight;
 
-                    // TODO Remove
-                    System.out.println("after call to drawrDetailPage - i =  ");
-                    System.out.println(i);
-                    System.out.println("after call to drawrDetailPage - drawLine =  ");
-                    System.out.println(drawLine);
-                    System.out.println("after call to drawrDetailPage - canidateDetailHeight =  ");
-                    System.out.println(canidateDetailHeight);
-                    System.out.println("after call to drawrDetailPage - (totalPageSize - canidateDetailHeight) =  ");
-                    System.out.println((totalPageSize - canidateDetailHeight));
-
                     if( drawLine > (totalPageSize - canidateDetailHeight)) {
-                        // TODO Remove
-                        System.out.println("about to star a new page  ");
                         // if we can't fit any more canidates on the current page, finish it and start a new one
                         myPdfDocument.finishPage(page);
                         newPage = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, i).create();

@@ -184,9 +184,6 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
         Boolean returnBool = false;
         SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
         Boolean showTutorial = settings.getBoolean("pref_sync", true);
-        // TODO Remove
-        System.out.println("########showTutorial =  ");
-        System.out.println(showTutorial);
         if(showTutorial & MainActivity.displayTutorialAdd) { returnBool = true; }
         return returnBool;
     }

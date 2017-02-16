@@ -74,9 +74,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     ShowcaseView sv3;
     ShowcaseView sv4;
 
-    // TODO consider adding a FunkyNet splash screen
-    // https://www.bignerdranch.com/blog/splash-screens-the-right-way/
-    // 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -257,9 +254,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
 
         String title_on = getResources().getString(R.string.title_toggle_tutorial_on);
         String title_off = getResources().getString(R.string.title_toggle_tutorial_off);
-        // TODO remove
-        System.out.println(" inside onCreateOptionsMenu ....getShowTutorial_All() = ");
-        System.out.println(getShowTutorial_All());
         MenuItem tutMenuItem = menu.findItem(R.id.toggle_tutorial);
         if (getShowTutorial_All()) {
             tutMenuItem.setTitle(title_off);
@@ -276,9 +270,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
 
         String title_on = getResources().getString(R.string.title_toggle_tutorial_on);
         String title_off = getResources().getString(R.string.title_toggle_tutorial_off);
-        // TODO remove
-        System.out.println(" inside onPrepareOptionsMenu ....getShowTutorial_All() = ");
-        System.out.println(getShowTutorial_All());
+
         MenuItem tutMenuItem = menu.findItem(R.id.toggle_tutorial);
         if (getShowTutorial_All()) {
             tutMenuItem.setTitle(title_off);
@@ -336,19 +328,14 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                             editor.putBoolean("pref_sync", false);
                             editor.apply();
                             editor.commit();
-                            // TODO Remove
-                            System.out.println("Turning OFF  ");
                             MenuItem toggleMenuItem = menu.findItem(R.id.toggle_tutorial);
                             toggleMenuItem.setTitle(title_off);
-                            // TODO Remove
-                            System.out.println("switching title to say ON  ");
+
 
                         } else {
                             editor.putBoolean("pref_sync", true);
                             editor.apply();
                             editor.commit();
-                            // TODO Remove
-                            System.out.println("Turning ON ");
 
                             // set all of the indivudal toggles back on as well ...
                             displayTutorialMain = true;
@@ -358,9 +345,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
 
                             MenuItem toggleMenuItem = menu.findItem(R.id.toggle_tutorial);
                             toggleMenuItem.setTitle(title_on);
-                            // TODO Remove
-                            System.out.println("switching title to say ON  ");
-
                             }
                     }
                 });
@@ -381,8 +365,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // TODO Remove
-                System.out.println("inside setOnDismissListener ");
                 if( getShowTutorial_Main() ) {
                     runTutorial();
                 }
@@ -405,9 +387,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         Boolean returnBool = false;
         SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
         Boolean showTutorial = settings.getBoolean("pref_sync", true);
-        // TODO Remove
-        System.out.println("########showTutorial =  ");
-        System.out.println(showTutorial);
         if(showTutorial & displayTutorialMain) { returnBool = true; }
         return returnBool;
     }
