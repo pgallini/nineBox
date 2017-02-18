@@ -43,7 +43,6 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
     public ArrayList<Questions> questionsList = new ArrayList<>();
     public int currentQuestionNo = 1;
     public int maxQuestionNo = 0;
-//    public boolean displayHintEval = true;
     private Toolbar toolbar;
     private int currentResponse = 0;
     // for the showcase (hint) screen:
@@ -195,7 +194,6 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
                 EvaluationOperations evaluationOperations = new EvaluationOperations(this);
                 evaluationOperations.open();
 
-//                if(displayHintEval && evaluationOperations.isResponseTableEmpty()) {
                 if(getShowTutorial_Eval()) {
                     displayHint();
                     MainActivity.displayTutorialEval = false;
