@@ -14,6 +14,7 @@
     <dimen name="hint_text_size">12dp</dimen>
     <dimen name="text_size_extra_small">14dp</dimen>
     <dimen name="text_size_small">20dp</dimen>
+    <dimen name="text_size_medium">24dp</dimen>
     <dimen name="text_size">26dp</dimen>
     <dimen name="text_size_big">32dp</dimen>
     <dimen name="text_size_button">16dp</dimen>
@@ -21,6 +22,7 @@
     <dimen name="question_view_height">210dp</dimen>
     <dimen name="text_padding">2dp</dimen>
     <dimen name="text_margin">6dp</dimen>
+    <dimen name="text_margin_small">3dp</dimen>
     <dimen name="border_height">13dp</dimen>
 
     <dimen name="slidder_padding">4dp</dimen>
