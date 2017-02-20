@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.promogird.funkynetsoftware"
+    android:installLocation="preferExternal">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:name="common.AnalyticsApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_pg_icon"
+        android:label="@string/appname"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity
+            android:name="nineBoxMain.MainActivity"
+            android:label="@string/appname"
+            >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="nineBoxCandidates.CandidatesListActivity"
+            android:label="@string/title_activity_candidates_entry"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxCandidates.CandidatesEntryActivity"
+            android:label="@string/title_activity_candidates_entry"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxCandidates.CandidatesUpdateActivity"
+            android:label="@string/title_activity_candidates_update"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxEvaluation.Evaluation"
+            android:label="@string/title_activity_evaluation"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxReport.CustomPrintActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="nineBoxReport.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxQuestions.QuestionsListActivity"
+            android:label="@string/title_activity_questions_list"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxQuestions.QuestionsEntryActivity"
+            android:label="@string/title_activity_questions_entry"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="nineBoxQuestions.QuestionsUpdateActivity"
+            android:label="@string/title_activity_questions_update"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
+            android:name="common.common.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
