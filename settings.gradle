@@ -1,1 +1,1 @@
-include 'Application', ':javax.mail', ':activation-1.1.1'
+include 'com.promogird.funkynetsoftware', ':javax.mail', ':activation-1.1.1'
