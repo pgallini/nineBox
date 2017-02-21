@@ -1,14 +1,3 @@
-<!--
-  Possible Names:
-  Grid 9
-  Evaluation Station
-  Eval Grid
-  Evaluation Grid
-  Promo Grid
-
-
-  -->
-
 <resources>
     <string name="appname">Promo Grid</string>
     <string name="add_people_btn">Add People</string>
@@ -120,4 +109,15 @@
     <string name="showcase_rpt_message2">Use the Save Report button to save (or print) the report to your device.  Note the directory and file name so you can e-mail it to yourself or others.  </string>
     <string name="showcase_btn_next">Next</string>
     <string name="showcase_btn_last">Got It</string>
+
+    <!--Strings to support Google Analytics -->
+    <string name="anal_tag_main">PG01-01-01-main</string>
+    <string name="anal_tag_candidates_list">PG01-02-01-CANDIDATES-LIST</string>
+    <string name="anal_tag_candidates_add">PG01-02-02-CANDIDATES-ADD</string>
+    <string name="anal_tag_candidates_edit">PG01-02-03-CANDIDATES-EDIT</string>
+    <string name="anal_tag_candidates_delete">PG01-02-04-CANDIDATES-DELETE</string>
+    <string name="anal_tag_candidates_initials">PG01-02-05-CANDIDATES-EDIT-INITIALS</string>
+    <string name="anal_tag_eval">PG01-03-01-EVALUATE</string>
+    <string name="anal_tag_report">PG01-04-01-REPORT</string>
+    <string name="anal_tag_rpt_save">PG01-04-02-SAVE-REPORT</string>
 </resources>
