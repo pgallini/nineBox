@@ -16,6 +16,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.R; ;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
     public ArrayList<appColor> colorList;
     // Spinner element
     Spinner spinner;
+    private Tracker mTracker;  // used for Google Analytics
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,11 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
         currentColor = getNetAvailableColor( colorList );
         currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        sendScreenImageName(); // send tag to Google Analytics
 
         findViewById(R.id.EditTextName).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -136,7 +145,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
     }
 
     private void showEditInitialsDialog(String currentInitials ) {
-
+        Tracker mTracker;  // used for Google Analytics
         // Get the layout inflater
         LayoutInflater inflater = CandidatesEntryActivity.this.getLayoutInflater();
 
@@ -180,6 +189,14 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                 });
 
         AlertDialog dialog = builder.create();
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        // send tag to Google Analytics
+        mTracker.setScreenName("Image~" + getResources().getString(R.string.anal_tag_candidates_initials));
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         // display dialog
         dialog.show();
     }
@@ -229,6 +246,17 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         //we have successfully accomplished our task..
         setResult(RESULT_OK,intent);
         finish();
+    }
+
+    /**
+     * Record a screen view hit for this activity
+     */
+    private void sendScreenImageName() {
+        // TODO see how to diffrentiate between adding and editing a candidate
+        String name = getResources().getString(R.string.anal_tag_candidates_add);
+
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void CancelSave(View view) {

@@ -31,6 +31,8 @@ import android.graphics.drawable.Drawable;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.R; ;
 
 import android.graphics.drawable.LayerDrawable;
@@ -66,7 +68,7 @@ import nineBoxQuestions.QuestionsOperations;
 
 /**
  * Created by Paul Gallini on 5/11/16.
- * <p/>
+ *
  * This activity drives the generation and presentation of the results grid.
  */
 public class ReportActivity extends AppCompatActivity implements OnShowcaseEventListener {
@@ -80,6 +82,7 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
     CustomDrawableView mCustomDrawableView;
     ShowcaseView sv;   // for the showcase (tutorial) screen:
     ShowcaseView sv2;
+    private Tracker mTracker;  // used for Google Analytics
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -190,6 +193,12 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             Log.e("app", "Couldn't create target directory.");
         }
 
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        sendScreenImageName(); // send tag to Google Analytics
+
         findViewById(R.id.save_report).setOnClickListener(new View.OnClickListener() {
                                                               @Override
                                                               public void onClick(View view) {
@@ -282,6 +291,14 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void printDocument(View view) {
+        Tracker mTracker;  // used for Google Analytics
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        // send tag to Google Analytics
+        mTracker.setScreenName("Image~" + getResources().getString(R.string.anal_tag_rpt_save));
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
         String jobName = "Promotion_Grid_Results";
@@ -451,6 +468,16 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         }
         // divide result by 100 and return it.
         return (result * 0.01);
+    }
+
+    /**
+     * Record a screen view hit for the this activity
+     */
+    private void sendScreenImageName() {
+        String name = getResources().getString(R.string.anal_tag_report);
+
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

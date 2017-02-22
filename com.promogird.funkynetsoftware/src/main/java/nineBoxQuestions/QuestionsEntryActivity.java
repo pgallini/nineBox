@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.R; ;
 
 /**
@@ -16,6 +19,7 @@ import com.promogird.funkynetsoftware.R; ;
 public class QuestionsEntryActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private boolean x_axis_selected = true;
+    private Tracker mTracker;  // used for Google Analytics
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,11 @@ public class QuestionsEntryActivity extends AppCompatActivity {
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        sendScreenImageName(); // send tag to Google Analytics
 
         x_axis_radio_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +100,17 @@ public class QuestionsEntryActivity extends AppCompatActivity {
 
             finish();
         }
+    }
+
+    /**
+     * Record a screen view hit for this activity
+     */
+    private void sendScreenImageName() {
+        // TODO see how to diffrentiate between adding and editing a candidate
+        String name = getResources().getString(R.string.anal_tag_questions_add);
+
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void CancelSave(View view) {

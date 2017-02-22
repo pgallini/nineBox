@@ -62,11 +62,8 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
     private ArrayList<String> displayList;
     private Toolbar toolbar;
     ShowcaseView sv;   // for the showcase (tutorial) screen:
+    private Tracker mTracker;  // used for Google Analytics
 
-    /**
-     * The {@link Tracker} used to record screen views.
-     */
-    private Tracker mTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -358,6 +355,7 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
         builder.setMessage(getString(R.string.confirm_delete_message));
         boolean returnBool = false;
         final int curr_postion = position;
+        Tracker mTracker;  // used for Google Analytics
 
         String positiveText = getString(android.R.string.ok);
         builder.setPositiveButton(positiveText,
@@ -377,13 +375,21 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
                     }
                 });
 
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        // send tag to Google Analytics
+        mTracker.setScreenName("Image~" + getResources().getString(R.string.anal_tag_candidates_delete));
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+
         AlertDialog dialog = builder.create();
         // display dialog
         dialog.show();
     }
     /**
-     * Record a screen view hit for the visible {@link ImageFragment} displayed
-     * inside {@link FragmentPagerAdapter}.
+     * Record a screen view hit for the this activity
      */
     private void sendScreenImageName() {
         String name = getResources().getString(R.string.anal_tag_candidates_list);

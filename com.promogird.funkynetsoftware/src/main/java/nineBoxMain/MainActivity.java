@@ -52,6 +52,9 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 //import com.github.amlcurran.showcaseview.sample.animations.AnimationSampleActivity;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import common.common.Utilities;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.R; ;
 
 /**
@@ -69,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     static public boolean displayTutorialAdd = true;
     static public boolean displayTutorialEval = true;
     static public boolean displayTutorialRpt = true;
-
     private Menu menu;
+    private Tracker mTracker;  // used for Google Analytics
 
     // for the showcase (tutorial) screen:
     ShowcaseView sv;
@@ -96,6 +99,13 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         // this may be needed to allow us to send email
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        sendScreenImageName(); // send tag to Google Analytics
+
 
         // start with running the Tutorial - if that option is selected
         if( getShowTutorial_Main() ) {
@@ -304,14 +314,14 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         return super.onOptionsItemSelected(item);
     }
 
-    private class MyBrowser extends WebViewClient {
-        @Override
-        // TODO - decide if we really want to allow the clicking on a link within the displayed page
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    }
+//    private class MyBrowser extends WebViewClient {
+//        @Override
+//        // TODO - decide if we really want to allow the clicking on a link within the displayed page
+//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//            view.loadUrl(url);
+//            return true;
+//        }
+//    }
 
     private void showTutorialDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -386,7 +396,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         dialog.show();
     }
 
-
     public boolean getShowTutorial_All() {
         // returns value for overall preference on whether to show Tutorial or not
         SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
@@ -446,6 +455,16 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         if(getShowTutorial_Main()){
             runTutorial();
         }
+    }
+
+    /**
+     * Record a screen view hit for the this activity
+     */
+    private void sendScreenImageName() {
+        String name = getResources().getString(R.string.anal_tag_main);
+
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     static public int getCurrentCandidate() {
