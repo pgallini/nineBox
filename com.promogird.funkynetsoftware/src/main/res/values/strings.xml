@@ -120,4 +120,8 @@
     <string name="anal_tag_eval">PG01-03-01-EVALUATE</string>
     <string name="anal_tag_report">PG01-04-01-REPORT</string>
     <string name="anal_tag_rpt_save">PG01-04-02-SAVE-REPORT</string>
+    <string name="anal_tag_questions_list">PG01-05-01-QUESTIONS-LIST</string>
+    <string name="anal_tag_questions_add">PG01-05-02-QUESTIONS-ADD</string>
+    <string name="anal_tag_questions_edit">PG01-05-03-QUESTIONS-EDIT</string>
+    <string name="anal_tag_questions_delete">PG01-05-04-QUESTIONS-DELETE</string>
 </resources>

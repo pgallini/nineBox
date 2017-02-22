@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.R; ;
 import java.util.ArrayList;
 
@@ -34,6 +37,7 @@ public class QuestionsListActivity extends AppCompatActivity {
     //    Context context = QuestionsListActivity.this;
     private ArrayList<String> displayList;
     private Toolbar toolbar;
+    private Tracker mTracker;  // used for Google Analytics
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,11 @@ public class QuestionsListActivity extends AppCompatActivity {
         // attach the layout to the toolbar object and then set the toolbar as the ActionBar ...
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        sendScreenImageName(); // send tag to Google Analytics
 
         // find the ListView so we can work with it ...
         mainListView = (ListView) findViewById(R.id.questions_list);
@@ -138,6 +147,7 @@ public class QuestionsListActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        sendScreenImageName(); // send tag to Google Analytics
         mainArrayAdapter.notifyDataSetChanged();
     }
 
@@ -242,6 +252,7 @@ public class QuestionsListActivity extends AppCompatActivity {
         builder.setMessage(getString(R.string.confirm_delete_question_message));
         boolean returnBool = false;
         final int curr_postion = position;
+        Tracker mTracker;  // used for Google Analytics
 
         String positiveText = getString(android.R.string.ok);
         builder.setPositiveButton(positiveText,
@@ -261,8 +272,26 @@ public class QuestionsListActivity extends AppCompatActivity {
                     }
                 });
 
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        // send tag to Google Analytics
+        mTracker.setScreenName("Image~" + getResources().getString(R.string.anal_tag_questions_delete));
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         AlertDialog dialog = builder.create();
         // display dialog
         dialog.show();
+    }
+
+    /**
+     * Record a screen view hit for this activity
+     */
+    private void sendScreenImageName() {
+        // TODO see how to diffrentiate between adding and editing a candidate
+        String name = getResources().getString(R.string.anal_tag_questions_list);
+
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }

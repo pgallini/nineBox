@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.R; ;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
     public ArrayList<appColor> colorList;
     // Spinner element
     Spinner spinner;
+    private Tracker mTracker;  // used for Google Analytics
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,13 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
         candidateInitials = candidateInitialsIncoming;
         ImageView currentIcon = (ImageView) findViewById(R.id.current_icon);
         currentIcon.setImageDrawable(Candidates.get_icon(getApplicationContext(), currentColor, candidateInitials));
+
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        sendScreenImageName(); // send tag to Google Analytics
+
 
         findViewById(R.id.EditTextName).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -202,6 +212,15 @@ public class CandidatesUpdateActivity extends AppCompatActivity implements Adapt
         //we have successfully accomplished our task..
         setResult(RESULT_OK,intent);
         finish();
+    }
+    /**
+     * Record a screen view hit for the this activity
+     */
+    private void sendScreenImageName() {
+        String name = getResources().getString(R.string.anal_tag_candidates_edit);
+
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void CancelSave(View view) {

@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.R; ;
 
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
     // for the showcase (hint) screen:
     ShowcaseView sv;
     ShowcaseView sv2;
+    private Tracker mTracker;  // used for Google Analytics
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,11 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
         }
 
         final TextView nextQuestionButtonView = (TextView) findViewById(R.id.next_question_button);
+        // Obtain the shared Tracker instance.
+        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        sendScreenImageName(); // send tag to Google Analytics
 
         SeekBar seek = (SeekBar) findViewById(R.id.responseSeekBar);
         seek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -178,6 +186,8 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
 
         currQuestionNoView.setText(Integer.toString(currentQuestionNo));
         maxQuestionNoView.setText(Integer.toString(maxQuestionNo));
+
+        sendScreenImageName(); // send tag to Google Analytics
 
         if (candidateIndex < candidatesList.size()) {
             displayName.setText(candidatesList.get(candidateIndex).getCandidateName());
@@ -349,6 +359,15 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
         int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
         lps.setMargins(margin, margin, margin, margin);
         return lps;
+    }
+    /**
+     * Record a screen view hit for the this activity
+     */
+    private void sendScreenImageName() {
+        String name = getResources().getString(R.string.anal_tag_eval);
+
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
