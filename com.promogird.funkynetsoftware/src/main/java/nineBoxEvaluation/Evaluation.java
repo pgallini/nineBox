@@ -187,7 +187,8 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
         currQuestionNoView.setText(Integer.toString(currentQuestionNo));
         maxQuestionNoView.setText(Integer.toString(maxQuestionNo));
 
-        sendScreenImageName(); // send tag to Google Analytics
+        // commenting-out for now - otherwise we get a count for every question.  Would rather have once per candidate
+//        sendScreenImageName(); // send tag to Google Analytics
 
         if (candidateIndex < candidatesList.size()) {
             displayName.setText(candidatesList.get(candidateIndex).getCandidateName());

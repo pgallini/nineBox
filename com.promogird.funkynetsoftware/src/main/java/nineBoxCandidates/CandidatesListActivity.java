@@ -264,7 +264,8 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
     public void onResume(){
         super.onResume();
         mainArrayAdapter.notifyDataSetChanged();
-        sendScreenImageName(); // send tag to Google Analytics
+        // commenting-out for now - getting more hits than makes sense
+//        sendScreenImageName(); // send tag to Google Analytics
     }
 
     private ArrayList<String> buildDisplayList( ArrayList<Candidates> candidatesList ) {
