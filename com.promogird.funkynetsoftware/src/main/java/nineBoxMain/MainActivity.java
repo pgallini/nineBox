@@ -22,6 +22,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
@@ -40,7 +42,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import common.AboutScreenActivity;
 import nineBoxCandidates.CandidatesListActivity;
 import nineBoxQuestions.QuestionsListActivity;
 import nineBoxEvaluation.Evaluation;
@@ -64,7 +69,6 @@ import com.promogird.funkynetsoftware.R; ;
  * This activity is the main activity for the Promo Grid app.
  */
 public class MainActivity extends AppCompatActivity implements OnShowcaseEventListener {
-    //    public class MainActivity extends Activity {
     private Toolbar toolbar;
     private UserOperations userOperations;
     static public int candidateIndex = 0;
@@ -310,18 +314,44 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 } catch (ActivityNotFoundException ignored) {
                 }
                 return true;
+            // Decided not to add an About screen - but may add it later  - need to uncomment-out the activity from the Manifest
+            // OK - well, decided to display the version using Toast for now.
+            case R.id.display_version:
+                displayVersionName();
+//                try {
+//                    Intent intent = new Intent(this, AboutScreenActivity.class);
+//                    this.startActivity(intent);
+//
+//                } catch (ActivityNotFoundException ignored) {
+//                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-//    private class MyBrowser extends WebViewClient {
-//        @Override
-//        // TODO - decide if we really want to allow the clicking on a link within the displayed page
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            view.loadUrl(url);
-//            return true;
-//        }
-//    }
+
+    private void displayVersionName() {
+        Toast.makeText(this, "App Version:: " + getVersionInfo() , Toast.LENGTH_LONG).show();
+    }
+
+    public String getVersionInfo() {
+        String strVersion = "Version:";
+
+        PackageInfo packageInfo;
+        try {
+            packageInfo = getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(
+                            getApplicationContext().getPackageName(),
+                            0
+                    );
+            strVersion += packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            strVersion += "Unknown";
+        }
+
+        return strVersion;
+    }
 
     private void showTutorialDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -451,7 +481,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 System.out.println(" Evaluation was Cancelled");
             }
         }
-        // TODO get this to work - display tutorial if the user just turned it on
         if(getShowTutorial_Main()){
             runTutorial();
         }

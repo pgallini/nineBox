@@ -37,4 +37,7 @@
     <dimen name="margin_medium">12dp</dimen>
     <dimen name="margin_large">32dp</dimen>
     <dimen name="margin_huge">64dp</dimen>
+
+    <dimen name="about_screen_width">600dp</dimen>
+    <dimen name="about_screen_height">400dp</dimen>
 </resources>
