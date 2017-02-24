@@ -1,5 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY appname "Promo Grid">
+    <!ENTITY publisher "FunkyNet Software">
+    ]>
+
 <resources>
-    <string name="appname">Promo Grid</string>
+    <string name="appname">&appname;</string>
     <string name="add_people_btn">Add People</string>
     <string name="answer_questions_btn">Answer Questions</string>
     <string name="see_results_btn">See Results</string>
@@ -75,6 +81,7 @@
 
     <string name="menu_configure_questions">Configure Questions</string>
     <string name="menu_configure_privacy">View Privacy Statement</string>
+    <string name="title_display_about_screen">Display Version for &appname;</string>
     <string name="title_toggle_tutorial_off">Turn Tutorial OFF</string>
     <string name="title_toggle_tutorial_on">Turn Tutorial ON</string>
     <string name="title_activity_candidates_entry">Promo Grid: Enter Candidates</string>

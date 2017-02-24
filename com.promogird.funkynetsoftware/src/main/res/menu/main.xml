@@ -27,4 +27,7 @@
         android:id="@+id/toggle_tutorial"
         android:title="@string/title_toggle_tutorial_off"/>
     <!--android:showAsAction="never" />-->
+    <item
+        android:id="@+id/display_version"
+        android:title="@string/title_display_about_screen" />
 </menu>

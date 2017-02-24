@@ -106,7 +106,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!--<activity android:name="common.AboutScreenActivity"-->
+            <!--android:parentActivityName="nineBoxMain.MainActivity">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value="nineBoxMain.MainActivity" />-->
+        <!--</activity>-->
     </application>
 
 </manifest>

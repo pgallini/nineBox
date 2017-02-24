@@ -10,5 +10,4 @@
             android:src="@drawable/funkynetsplash"/>
         <!--android:src="@mipmap/ic_launcher"/>-->
     </item>
-
 </layer-list>
