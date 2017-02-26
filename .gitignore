@@ -15,6 +15,7 @@
 bin/
 gen/
 Application/build/
+*.textClipping
 
 # Gradle files
 .gradle/
@@ -44,6 +45,7 @@ captures/
 
 # my own sandbox area for images
 ImageSandBox
+*.docx
 
 .idea/inspectionProfiles/
 

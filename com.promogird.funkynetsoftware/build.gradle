@@ -48,8 +48,8 @@ android {
         applicationId "com.promogird.funkynetsoftware"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 7
-        versionName "0.7"
+        versionCode 6
+        versionName "0.6"
     }
 
     compileOptions {
