@@ -23,10 +23,12 @@ Application/build/
 build/
 /Application/build/
 Application/build/intermediates/
+gradle.properties
 
 # Local configuration file (sdk path, etc)
 local.properties
 .idea/
+.idea
 .idea/misc.xml
 .idea/workspace.xml
 *.iml
