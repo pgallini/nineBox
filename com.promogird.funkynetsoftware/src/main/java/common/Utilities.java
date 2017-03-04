@@ -1,16 +1,19 @@
-package common.common;
+package common;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
-import android.provider.Settings;
-import android.view.MenuItem;
+import android.net.Uri;
+import android.os.Build;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.support.v7.app.AppCompatActivity;
 
 //import com.ninebox.nineboxapp.R;
+
 import com.promogird.funkynetsoftware.R;
 
 import nineBoxMain.MainActivity;
@@ -21,6 +24,7 @@ import nineBoxMain.MainActivity;
  * Class to hold common utilities, functions, and methods.
  */
 public class Utilities extends AppCompatActivity {
+
     public static Point getPointTarget(View targetView, double x_divisor) {
         // given a resource id, return a point to use for the tutorial
         // note that this is set-up to align to the right
@@ -55,6 +59,7 @@ public class Utilities extends AppCompatActivity {
             editor.commit();
         }
     }
+
 //
 //    public RelativeLayout.LayoutParams getLayoutParms() {
 //        // set-up Layout parameters for the Tutorial

@@ -2,8 +2,10 @@ package nineBoxReport;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,11 +13,11 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
-import android.os.SystemClock;
 import android.print.PageRange;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -24,6 +26,7 @@ import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.appcompat.BuildConfig;
 import android.support.v7.widget.Toolbar;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -33,21 +36,20 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.promogird.funkynetsoftware.R; ;
+import com.promogird.funkynetsoftware.BuildConfig;
+import com.promogird.funkynetsoftware.R;
 
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.Canvas;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -56,7 +58,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 //import emailUtility.SendHTMLEmail;
-import common.common.Utilities;
+import common.Utilities;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import drawables.drawPoint;
@@ -64,7 +66,6 @@ import nineBoxEvaluation.EvaluationOperations;
 import nineBoxMain.MainActivity;
 import nineBoxQuestions.Questions;
 import nineBoxQuestions.QuestionsOperations;
-
 
 /**
  * Created by Paul Gallini on 5/11/16.
@@ -289,23 +290,28 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         return lps;
     }
 
+    // Moving to it's own class to facilitate varying by Build Flavor
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void printDocument(View view) {
         Tracker mTracker;  // used for Google Analytics
 
-        // Obtain the shared Tracker instance.
-        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-        // send tag to Google Analytics
-        mTracker.setScreenName("Image~" + getResources().getString(R.string.anal_tag_rpt_save));
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        if(BuildConfig.FLAVOR == "free") {
+            // If this is the Free version of the app - show the Upgrade Now dialog
+            showFeatureNotAvailableDialog( this );
+        } else {
+            // Obtain the shared Tracker instance.
+            common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+            mTracker = application.getDefaultTracker();
+            // send tag to Google Analytics
+            mTracker.setScreenName("Image~" + getResources().getString(R.string.anal_tag_rpt_save));
+            mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
-        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
-        String jobName = "Promotion_Grid_Results";
-        printManager.print(jobName, new MyPrintDocumentAdapter(this),
-                null);
+            PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+            String jobName = "Promotion_Grid_Results";
+            printManager.print(jobName, new MyPrintDocumentAdapter(this),
+                    null);
+        }
     }
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private String buildIconForEmail(Candidates currCandidate) {
@@ -815,6 +821,61 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
 
             canvas.drawBitmap(finalGridScalled, 120, 220, paint2);
         }
+    }
+
+    // TODO find way to centralize this.  Can't simply add it to Utilites (can't call non-static method from static context)
+    private void showFeatureNotAvailableDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
+        builder.setTitle(getString(R.string.feature_not_available_title));
+        builder.setMessage(getString(R.string.feature_not_available_message));
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // If they click OK, take them to the App Store to buy the Pro version of the app
+                        try
+                        {
+                            Intent rateIntent = upgradeIntentForUrl("market://details");
+                            startActivity(rateIntent);
+                        }
+                        catch (ActivityNotFoundException e)
+                        {
+                            Intent rateIntent = upgradeIntentForUrl("https://play.google.com/store/apps/details");
+                            startActivity(rateIntent);
+                        }
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // negative button logic
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private Intent upgradeIntentForUrl(String url)
+    {
+        String targetPackageName = getResources().getString(R.string.package_name_pro);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("%s?id=%s", url, targetPackageName)));
+        int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+        if (Build.VERSION.SDK_INT >= 21)
+        {
+            flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
+        }
+        else
+        {
+            //noinspection deprecation
+            flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
+        }
+        intent.addFlags(flags);
+        return intent;
     }
 }
 

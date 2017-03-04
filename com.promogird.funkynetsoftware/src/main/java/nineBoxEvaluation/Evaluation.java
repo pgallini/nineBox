@@ -26,7 +26,7 @@ import com.promogird.funkynetsoftware.R; ;
 
 import java.util.ArrayList;
 
-import common.common.Utilities;
+import common.Utilities;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import nineBoxMain.MainActivity;

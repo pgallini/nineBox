@@ -38,14 +38,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import common.AboutScreenActivity;
 import nineBoxCandidates.CandidatesListActivity;
 import nineBoxQuestions.QuestionsListActivity;
 import nineBoxEvaluation.Evaluation;
@@ -56,10 +51,11 @@ import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 //import com.github.amlcurran.showcaseview.sample.animations.AnimationSampleActivity;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import common.common.Utilities;
+import common.Utilities;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.promogird.funkynetsoftware.BuildConfig;
 import com.promogird.funkynetsoftware.R; ;
 
 /**
@@ -297,13 +293,26 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         }
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_configure_questions:
+                // if this is the Free version of the app, prompt for upgrade
+
                 try {
-                    Intent intent = new Intent(this, QuestionsListActivity.class);
-                    this.startActivity(intent);
+                    // TODO Remove
+                    System.out.println( "  BuildConfig.FLAVOR = ");
+                    System.out.println( BuildConfig.FLAVOR);
+
+                    // If they click OK, take them to the App Store to buy the Pro version of the app
+                    if(BuildConfig.FLAVOR == "free") {
+                        // If this is the Free version of the app - show the Upgrade Now dialog
+                        showFeatureNotAvailableDialog( this );
+                    } else {
+                        Intent intent = new Intent(this, QuestionsListActivity.class);
+                        this.startActivity(intent);
+                    }
 
                 } catch (ActivityNotFoundException ignored) {
                 }
@@ -318,17 +327,62 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
             // OK - well, decided to display the version using Toast for now.
             case R.id.display_version:
                 displayVersionName();
-//                try {
-//                    Intent intent = new Intent(this, AboutScreenActivity.class);
-//                    this.startActivity(intent);
-//
-//                } catch (ActivityNotFoundException ignored) {
-//                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    // TODO find way to centralize this.  Can't simply add it to Utilites (can't call non-static method from static context)
+    private void showFeatureNotAvailableDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(getString(R.string.feature_not_available_title));
+        builder.setMessage(getString(R.string.feature_not_available_message));
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        try {
+                            Intent rateIntent = upgradeIntentForUrl("market://details");
+                            startActivity(rateIntent);
+                        } catch (ActivityNotFoundException e) {
+                            Intent rateIntent = upgradeIntentForUrl("https://play.google.com/store/apps/details");
+                            startActivity(rateIntent);
+                        }
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // negative button logic
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private Intent upgradeIntentForUrl(String url)
+    {
+        String targetPackageName = getResources().getString(R.string.package_name_pro);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("%s?id=%s", url, targetPackageName)));
+        int flags = Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+        if (Build.VERSION.SDK_INT >= 21)
+        {
+            flags |= Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
+        }
+        else
+        {
+            //noinspection deprecation
+            flags |= Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
+        }
+        intent.addFlags(flags);
+        return intent;
+    }
 
     private void displayVersionName() {
         Toast.makeText(this, "App Version:: " + getVersionInfo() , Toast.LENGTH_LONG).show();

@@ -21,7 +21,9 @@
     <color name="ColorAccent">#62FED8</color>
 
     <!--<color name="mutedbutton_color">#7E88C1</color>-->
-    <color name="mutedbutton_color">#a8aed0</color>
+    <!--<color name="mutedbutton_color">#a8aed0</color>-->
+    <color name="mutedbutton_color">#9EC1F3</color>
+
 
     <color name="background_secondary">#A5656A</color>
     <color name="divider">#582D31</color>

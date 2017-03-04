@@ -98,7 +98,7 @@
                 android:value="nineBoxMain.MainActivity" />
         </activity>
         <activity
-            android:name="common.common.SplashActivity"
+            android:name="common.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
