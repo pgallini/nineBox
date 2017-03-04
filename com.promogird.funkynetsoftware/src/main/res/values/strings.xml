@@ -5,6 +5,7 @@
     ]>
 
 <resources>
+    <string name="package_name_pro">com.promogird.funkynetsoftware.pro</string>
     <string name="appname">&appname;</string>
     <string name="add_people_btn">Add People</string>
     <string name="answer_questions_btn">Answer Questions</string>
@@ -90,6 +91,9 @@
     <string name="title_activity_questions_update">Promo Grid: Modify Questions</string>
     <string name="title_activity_evaluation">Promo Grid: Evaluate Candidates</string>
     <string name="title_activity_report">Promo Grid: See Results</string>
+
+    <string name="feature_not_available_title">Upgrade to the Pro Version!</string>
+    <string name="feature_not_available_message">This feature is not available in the free version of Promo Grid.  Select OK now to upgrade to the Pro version and the most out of Promo Grid!</string>
 
     <string name="color_select_title">Please select a new color</string>
     <string name="color_swatch_description">Color %1$d</string>

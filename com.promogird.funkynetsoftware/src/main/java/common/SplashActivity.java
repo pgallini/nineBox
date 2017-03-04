@@ -1,4 +1,4 @@
-package common.common;
+package common;
 
 import android.content.Intent;
 import android.os.Bundle;

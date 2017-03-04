@@ -13,7 +13,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -37,8 +36,7 @@ import com.promogird.funkynetsoftware.R; ;
 
 import java.util.ArrayList;
 
-import common.AnalyticsApplication;
-import common.common.Utilities;
+import common.Utilities;
 import nineBoxEvaluation.Evaluation;
 import nineBoxMain.MainActivity;
 import nineBoxQuestions.QuestionsEntryActivity;
