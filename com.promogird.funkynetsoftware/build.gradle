@@ -48,19 +48,29 @@ android {
         applicationId "com.promogird.funkynetsoftware"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 7
-        versionName "0.7"
+        versionCode 8
+        versionName "0.8"
+    }
+
+    signingConfigs {
+
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
     }
 
     productFlavors {
         free {
             applicationId "com.promogird.funkynetsoftware.free"
-            versionName "promogrid-free"
+            versionName "promogrid-free 0.8"
             targetSdkVersion 14
         }
         pro {
             applicationId "com.promogird.funkynetsoftware.pro"
-            versionName "promogrid-pro"
+            versionName "promogrid-pro 0.8"
             targetSdkVersion 14
         }
     }
@@ -98,32 +108,15 @@ android {
         debug {
 
         }
+        release {
+            signingConfig signingConfigs.release
+        }
+
     }
 }
 
 apply plugin: 'com.google.gms.google-services'
 
-allprojects {
-    afterEvaluate { project ->
-        def propsFile = rootProject.file('keystore.properties')
-        def configName = ''
-
-        if (propsFile.exists() && android.signingConfigs.hasProperty(configName)) {
-            def props = new Properties()
-            props.load(new FileInputStream(propsFile))
-            configName = 'free'
-            android.signingConfigs[configName].storeFile = file(props['storeFile-free'])
-            android.signingConfigs[configName].storePassword = props['storePassword-free']
-            android.signingConfigs[configName].keyAlias = props['keyAlias-free']
-            android.signingConfigs[configName].keyPassword = props['keyPassword-free']
-            configName = 'pro'
-            android.signingConfigs[configName].storeFile = file(props['storeFile-pro'])
-            android.signingConfigs[configName].storePassword = props['storePassword-pro']
-            android.signingConfigs[configName].keyAlias = props['keyAlias-pro']
-            android.signingConfigs[configName].keyPassword = props['keyPassword-pro']
-        }
-    }
-}
 
 
 

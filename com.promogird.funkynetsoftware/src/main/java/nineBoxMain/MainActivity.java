@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     }
 
     public String getVersionInfo() {
-        String strVersion = "Version:";
+        String strVersion = " ";
 
         PackageInfo packageInfo;
         try {
@@ -399,6 +399,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                             getApplicationContext().getPackageName(),
                             0
                     );
+
             strVersion += packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             strVersion += "Unknown";
