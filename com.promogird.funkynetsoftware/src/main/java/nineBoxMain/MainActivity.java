@@ -16,6 +16,7 @@
 
 package nineBoxMain;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,9 +29,11 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v13.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +44,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import databaseOpenHelper.DatabaseOpenHelper;
 import nineBoxCandidates.CandidatesListActivity;
 import nineBoxQuestions.QuestionsListActivity;
 import nineBoxEvaluation.Evaluation;
@@ -56,7 +60,13 @@ import common.Utilities;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.BuildConfig;
-import com.promogird.funkynetsoftware.R; ;
+import com.promogird.funkynetsoftware.R; ;import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -74,6 +84,14 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     static public boolean displayTutorialRpt = true;
     private Menu menu;
     private Tracker mTracker;  // used for Google Analytics
+
+    static final private int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 876;
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     // for the showcase (tutorial) screen:
     ShowcaseView sv;
@@ -322,6 +340,9 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                     showTutorialDialog(MainActivity.this);
                 } catch (ActivityNotFoundException ignored) {
                 }
+                return true;
+            case R.id.export_db:
+                verifyStoragePermissionsForExport(this);
                 return true;
             // Decided not to add an About screen - but may add it later  - need to uncomment-out the activity from the Manifest
             // OK - well, decided to display the version using Toast for now.
@@ -611,5 +632,79 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         }
         intent.addFlags(flags);
         return intent;
+    }
+
+    public void export_DB(Context context) throws IOException {
+        // set-up pointer to current DB
+        String packageName = context.getApplicationContext().getPackageName();
+        final String inFileName = "/data/data/" + packageName + "/databases/" + DatabaseOpenHelper.DATABASE_NAME;
+        // TODO Remove
+        System.out.println("Database Source: ");
+        System.out.println(inFileName);
+
+        // set-up pointer to back-up DB
+        File dbFile = new File(inFileName);
+        FileInputStream fis = new FileInputStream(dbFile);
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+        // TODO make promogrid dynamic
+        String outFileName = Environment.getExternalStorageDirectory()+ "/" + "promogrid" + "_" + date + ".db";
+
+            // Open the empty db as the output stream
+            OutputStream output = new FileOutputStream(outFileName);
+
+            // Transfer bytes from the inputfile to the outputfile
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = fis.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            // Close the streams
+            output.flush();
+            output.close();
+            fis.close();
+            Toast.makeText(context, "Data exported to: " + outFileName, Toast.LENGTH_LONG).show();
+            // TODO Remove
+            System.out.println("Database copied to: ");
+            System.out.println(outFileName);
+
+    }
+
+    /**
+     * Checks if the app has permission to write to device storage
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public void verifyStoragePermissionsForExport(Activity activity) {
+        // Check if we have write permission in order to do the Database export
+        //   actual call to exportDB is from the call-back method onRequestPermissionsResult
+
+        if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        } else {
+            try {
+                export_DB(activity);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    try {
+                        export_DB(this);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // permission denied!
+                    Toast.makeText(this, "Cannot export DB - permission to write to external storage not granted!", Toast.LENGTH_LONG).show();
+                }
+        }
     }
 }

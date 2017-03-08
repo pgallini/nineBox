@@ -66,12 +66,12 @@ android {
         free {
             applicationId "com.promogird.funkynetsoftware.free"
             versionName "promogrid-free 0.8"
-            targetSdkVersion 14
+            targetSdkVersion 23
         }
         pro {
             applicationId "com.promogird.funkynetsoftware.pro"
             versionName "promogrid-pro 0.8"
-            targetSdkVersion 14
+            targetSdkVersion 23
         }
     }
     productFlavors.all {
