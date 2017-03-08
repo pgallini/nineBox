@@ -26,7 +26,10 @@
     <item
         android:id="@+id/toggle_tutorial"
         android:title="@string/title_toggle_tutorial_off"/>
-    <!--android:showAsAction="never" />-->
+    <!--android:showAsAction="never" />-->\
+    <item
+        android:id="@+id/export_db"
+        android:title="@string/title_export_db" />
     <item
         android:id="@+id/display_version"
         android:title="@string/title_display_about_screen" />

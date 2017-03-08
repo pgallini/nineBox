@@ -138,16 +138,14 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             int tmpcolor = Color.parseColor(currentColor);
             // TODO - see if there is a cleaner way to do this ...
             Drawable d1 = null;
-//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//                d1 = getResources().getDrawable(R.drawable.empty_drawable, null);
+
             d1 = ResourcesCompat.getDrawable(getResources(), R.drawable.empty_drawable, null);
-//            }
+
             Drawable[] emptyDrawableLayers = {d1};
 
             drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
             LayerDrawable newPoint = currDrawPoint.getPoint(currCandidate.getCandidateInitials());
 
-//            Drawable tempPoint = getSingleDrawable(newPoint);
             Drawable tempPoint = newPoint.mutate();
 
             // TODO figure out the purpose of the last two params - they don't seem to do anything
@@ -254,7 +252,6 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         };
         // instantiate a new view for the the tutorial ...
         sv = buildTutorialView(target, R.string.showcase_rpt_message1, tutBtnListener);
-//        sv.setButtonText(getResources().getString(R.string.showcase_btn_last));
         sv.setButtonPosition(lps);
         MainActivity.displayTutorialRpt = false;
         SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);
@@ -439,8 +436,8 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
                 }
             }
         }
-        // divide result by 100 and return it.
-        return (result * 0.01);
+        // divide result by 100, round to hundredth's place and return it.
+        return ( ( (double)Math.round((result * 0.01) * 100d) / 100d));
     }
 
     private double get_Y_ResultForCandiate(Candidates currCandidate) {
@@ -472,8 +469,8 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
                 }
             }
         }
-        // divide result by 100 and return it.
-        return (result * 0.01);
+        // divide result by 100, round to hundredth's place and return it.
+        return ( ( (double)Math.round((result * 0.01) * 100d) / 100d));
     }
 
     /**
@@ -505,7 +502,6 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
     public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
 
     }
-
 
     // http://www.techotopia.com/index.php/An_Android_Custom_Document_Printing_Tutorial
     @TargetApi(Build.VERSION_CODES.KITKAT)

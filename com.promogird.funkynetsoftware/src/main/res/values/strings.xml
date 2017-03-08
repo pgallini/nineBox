@@ -83,6 +83,7 @@
     <string name="menu_configure_questions">Configure Questions</string>
     <string name="menu_configure_privacy">View Privacy Statement</string>
     <string name="title_display_about_screen">Display Version for &appname;</string>
+    <string name="title_export_db">Export Data</string>
     <string name="title_toggle_tutorial_off">Turn Tutorial OFF</string>
     <string name="title_toggle_tutorial_on">Turn Tutorial ON</string>
     <string name="title_activity_candidates_entry">Promo Grid: Enter Candidates</string>
