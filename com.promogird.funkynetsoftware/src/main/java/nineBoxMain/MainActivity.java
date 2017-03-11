@@ -35,12 +35,14 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v13.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -61,6 +63,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.BuildConfig;
 import com.promogird.funkynetsoftware.R; ;import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     private Tracker mTracker;  // used for Google Analytics
 
     static final private int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 876;
+    static final private int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 877;
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -343,6 +347,9 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 return true;
             case R.id.export_db:
                 verifyStoragePermissionsForExport(this);
+                return true;
+            case R.id.import_db:
+                verifyStoragePermissionsForImport(this);
                 return true;
             // Decided not to add an About screen - but may add it later  - need to uncomment-out the activity from the Manifest
             // OK - well, decided to display the version using Toast for now.
@@ -634,6 +641,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         return intent;
     }
 
+
     public void export_DB(Context context) throws IOException {
         // set-up pointer to current DB
         String packageName = context.getApplicationContext().getPackageName();
@@ -645,30 +653,83 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         // set-up pointer to back-up DB
         File dbFile = new File(inFileName);
         FileInputStream fis = new FileInputStream(dbFile);
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
 
-        // TODO make promogrid dynamic
-        String outFileName = Environment.getExternalStorageDirectory()+ "/" + "promogrid" + "_" + date + ".db";
+        // TODO - make promogrid dynamic
+        File outDirName = getDBStorageDir("PromoGrid");
+        String outFileName = outDirName + "/" + "promogrid" + "_" + date + ".db";
 
-            // Open the empty db as the output stream
-            OutputStream output = new FileOutputStream(outFileName);
+        // Open the empty db as the output stream
+        OutputStream output = new FileOutputStream(outFileName);
 
-            // Transfer bytes from the inputfile to the outputfile
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = fis.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
+        // Transfer bytes from the inputfile to the outputfile
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = fis.read(buffer)) > 0) {
+            output.write(buffer, 0, length);
+        }
+        // Close the streams
+        output.flush();
+        output.close();
+        fis.close();
+        Toast.makeText(context, "Data exported to: " + outDirName, Toast.LENGTH_LONG).show();
+        // TODO Remove
+        System.out.println("Database copied to: ");
+        System.out.println(outDirName);
+    }
+
+    public void import_DB(Context context, String inFileName) throws IOException {
+        // set-up pointer to current DB
+        String packageName = context.getApplicationContext().getPackageName();
+        final String outFileName = "/data/data/" + packageName + "/databases/" + DatabaseOpenHelper.DATABASE_NAME;
+        // TODO Remove
+        System.out.println("Database Source: ");
+        System.out.println(inFileName);
+
+        // set-up pointer to back-up DB
+        File dbFile = new File(inFileName);
+        FileInputStream fis = new FileInputStream(dbFile);
+//        String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+
+        // TODO - make promogrid dynamic
+//        File outDirName = getDBStorageDir("PromoGrid");
+//        String outFileName = outDirName + "/" + "promogrid" + "_" + date + ".db";
+
+        // Open the empty db as the output stream
+        OutputStream output = new FileOutputStream(outFileName);
+
+        // Transfer bytes from the inputfile to the outputfile
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = fis.read(buffer)) > 0) {
+            output.write(buffer, 0, length);
+        }
+        // Close the streams
+        output.flush();
+        output.close();
+        fis.close();
+        Toast.makeText(context, "Data imported from " + inFileName, Toast.LENGTH_LONG).show();
+        // TODO Remove
+        System.out.println("Database copied from: ");
+        System.out.println(inFileName);
+
+    }
+
+    public File getDBStorageDir(String dirName) {
+
+        // Get the directory for the user's public pictures directory.
+        File directory = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS), dirName);
+
+        if (!directory.exists()) {
+            if (!directory.mkdirs()) {
+                System.out.println("Failed to create output File.");
+                Toast.makeText(this, "Failed to create output directory.", Toast.LENGTH_LONG).show();
             }
-
-            // Close the streams
-            output.flush();
-            output.close();
-            fis.close();
-            Toast.makeText(context, "Data exported to: " + outFileName, Toast.LENGTH_LONG).show();
-            // TODO Remove
-            System.out.println("Database copied to: ");
-            System.out.println(outFileName);
-
+        } else {
+            System.out.println("Directory already exists - we are cool.");
+        }
+        return directory;
     }
 
     /**
@@ -691,6 +752,24 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
             }
         }
     }
+
+    /**
+     * Checks if the app has permission to write to device storage
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public void verifyStoragePermissionsForImport(Activity activity) {
+        // Check if we have write permission in order to do the Database export
+        //   actual call to importDB is from the call-back method onRequestPermissionsResult
+
+        if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+        } else {
+            // TODO make PromoGrid dynamic
+            promptForImportFile(MainActivity.this);
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -705,6 +784,118 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                     // permission denied!
                     Toast.makeText(this, "Cannot export DB - permission to write to external storage not granted!", Toast.LENGTH_LONG).show();
                 }
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    promptForImportFile(MainActivity.this);
+                } else {
+                    // permission denied!
+                    Toast.makeText(this, "Cannot import DB - permission to read external storage not granted!", Toast.LENGTH_LONG).show();
+                }
         }
+    }
+    public  ArrayAdapter<String> locateImportDB(String dirName) {
+        // TODO consider moving this to Utility Class
+        File f = null;
+        File[] paths;
+        int dirStart = 0;
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
+        try {
+
+            //
+            f = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOCUMENTS), dirName);
+
+            FileFilter filter = new FileFilter() {
+                @Override
+                public boolean accept(File pathname) {
+                    return pathname.isFile();
+                }
+            };
+            // returns pathnames for files and directory
+            paths = f.listFiles(filter);
+
+            if (paths == null) {
+//                Toast.makeText(this, "Cannot find any importable data sources.", Toast.LENGTH_LONG).show();
+                System.out.println("Cannot find any importable data sources.");
+
+            } else {
+                // for each pathname in pathname array
+                for (File path : paths) {
+                    dirStart = path.toString().indexOf("Documents");
+                    arrayAdapter.add(path.toString().substring(dirStart));
+                    // prints file and directory paths
+                    System.out.println(path);
+                }
+            }
+        } catch(Exception e) {
+            // if any error occurs
+            e.printStackTrace();
+        }
+        return arrayAdapter;
+    }
+    private void promptForImportFile(Context context) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setIcon(R.drawable.ic_pg_icon);
+        builderSingle.setTitle("Select Import File:");
+
+        final ArrayAdapter<String> arrayAdapter = locateImportDB("PromoGrid");
+
+        if (arrayAdapter.isEmpty()) {
+            // add diaglog to say No files found
+            dialogNoImportFiles();
+        }  else {
+            builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final String strName = arrayAdapter.getItem(which);
+                    AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
+                    builderInner.setMessage(strName);
+                    builderInner.setTitle("WARNING!  Exisiting data will be lost. Are you sure you want to import:");
+                    builderInner.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                String importFile = Environment.getExternalStorageDirectory() + "/" + strName;
+                                import_DB(MainActivity.this, importFile);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    builderInner.show();
+                }
+            });
+            builderSingle.show();
+        }
+    }
+
+    private void dialogNoImportFiles() {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setIcon(R.drawable.ic_pg_icon);
+        builderSingle.setTitle("No Data to Import!");
+        builderSingle.setMessage("No import file found.  If you are restoring from backup or copying from another device, place the promogrid*.db file in the Documents/PromoGrid directory and try again.");
+
+        builderSingle.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.show();
+
     }
 }

@@ -31,6 +31,9 @@
         android:id="@+id/export_db"
         android:title="@string/title_export_db" />
     <item
+        android:id="@+id/import_db"
+        android:title="@string/title_import_db" />
+    <item
         android:id="@+id/display_version"
         android:title="@string/title_display_about_screen" />
 </menu>
