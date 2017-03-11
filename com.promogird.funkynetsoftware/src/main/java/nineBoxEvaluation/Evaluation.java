@@ -279,6 +279,7 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.dialog_no_candidates_title));
+        builder.setIcon(R.drawable.ic_pg_icon);
         builder.setMessage(getString(R.string.dialog_no_candidates_message));
 
         String positiveText = getString(android.R.string.ok);

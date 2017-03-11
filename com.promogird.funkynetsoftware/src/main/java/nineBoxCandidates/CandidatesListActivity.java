@@ -351,6 +351,7 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
     private void showDeleteDialog(int position ) {
         AlertDialog.Builder builder = new AlertDialog.Builder(CandidatesListActivity.this);
         builder.setTitle(getString(R.string.confirm_delete_title));
+        builder.setIcon(R.drawable.ic_pg_icon);
         builder.setMessage(getString(R.string.confirm_delete_message));
         boolean returnBool = false;
         final int curr_postion = position;

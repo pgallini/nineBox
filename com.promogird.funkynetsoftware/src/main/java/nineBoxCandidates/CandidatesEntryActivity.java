@@ -154,7 +154,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
         final View dialoglayout = inflater.inflate(R.layout.candidates_edit_initials, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(CandidatesEntryActivity.this);
         builder.setView(dialoglayout);
-
+        builder.setIcon(R.drawable.ic_pg_icon);
         builder.setTitle(getString(R.string.edit_candidate_initials_hint));
         builder.setMessage(getString(R.string.confirm_edit_initials_message));
 
@@ -189,6 +189,7 @@ public class CandidatesEntryActivity extends AppCompatActivity implements Adapte
                 });
 
         AlertDialog dialog = builder.create();
+        dialog.setIcon(R.drawable.ic_pg_icon);
 
         // Obtain the shared Tracker instance.
         common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
