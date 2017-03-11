@@ -363,6 +363,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     // TODO find way to centralize this.  Can't simply add it to Utilites (can't call non-static method from static context)
     private void showFeatureNotAvailableDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setIcon(R.drawable.ic_pg_icon);
         builder.setTitle(getString(R.string.feature_not_available_title));
         builder.setMessage(getString(R.string.feature_not_available_message));
 
@@ -439,6 +440,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     private void showTutorialDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(getString(R.string.confirm_tutorial_toggle_title));
+        builder.setIcon(R.drawable.ic_pg_icon);
         if (getShowTutorial_All()) {
             builder.setMessage(getString(R.string.confirm_tutorial_toggle_message_off));
 

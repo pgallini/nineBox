@@ -822,6 +822,7 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
     // TODO find way to centralize this.  Can't simply add it to Utilites (can't call non-static method from static context)
     private void showFeatureNotAvailableDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
+        builder.setIcon(R.drawable.ic_pg_icon);
         builder.setTitle(getString(R.string.feature_not_available_title));
         builder.setMessage(getString(R.string.feature_not_available_message));
 

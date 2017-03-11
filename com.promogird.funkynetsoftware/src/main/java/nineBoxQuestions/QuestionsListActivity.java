@@ -249,6 +249,7 @@ public class QuestionsListActivity extends AppCompatActivity {
     private void showDeleteDialog(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsListActivity.this);
         builder.setTitle(getString(R.string.confirm_delete_title));
+        builder.setIcon(R.drawable.ic_pg_icon);
         builder.setMessage(getString(R.string.confirm_delete_question_message));
         boolean returnBool = false;
         final int curr_postion = position;
