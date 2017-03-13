@@ -123,6 +123,14 @@
     <string name="showcase_btn_next">Next</string>
     <string name="showcase_btn_last">Got It</string>
 
+    <!--Strings to support Import / Export -->
+    <string name="no_import_file_message">No import file found.  If you are restoring from backup or copying from another device, place the promogrid*.db file in the Documents/PromoGrid directory and try again.</string>
+    <string name="no_import_file_title">No Data to Import!</string>
+    <string name="overwrite_warning">WARNING!  Exisiting data will be lost. Are you sure you want to import:</string>
+    <string name="import_prompt_title">Select Import File:</string>
+    <string name="cannot_import_permissions_text">Cannot import DB - permission to read external storage not granted!</string>
+    <string name="cannot_export_permissions_text">Cannot export DB - permission to write to external storage not granted!</string>
+
     <!--Strings to support Google Analytics -->
     <string name="anal_tag_main">PG01-01-01-main</string>
     <string name="anal_tag_candidates_list">PG01-02-01-CANDIDATES-LIST</string>
