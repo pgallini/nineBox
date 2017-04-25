@@ -7,11 +7,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +31,8 @@ import android.print.pdf.PrintedPdfDocument;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.appcompat.BuildConfig;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -42,11 +48,13 @@ import com.promogird.funkynetsoftware.R;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.Canvas;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -58,6 +66,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 //import emailUtility.SendHTMLEmail;
+import common.AnalyticsApplication;
 import common.Utilities;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
@@ -85,7 +94,6 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
     ShowcaseView sv2;
     private Tracker mTracker;  // used for Google Analytics
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
@@ -99,14 +107,91 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         Bitmap mainBackground = BitmapFactory.decodeResource(getResources(), R.drawable.grid_background);
         // convert the bitmap to make it mutable (otherwise, unmutable error will occur)
         Bitmap mainBackground_mb = mainBackground.copy(Bitmap.Config.ARGB_8888, true);
+        // get dimenstions from the integers file
+        Resources res =  this.getResources();
+        float scale = res.getDisplayMetrics().density;
+
+        // TODO remove this from here and integer if really not used
+        int reportgrid_height_width = res.getInteger(R.integer.reportgrid_height);
+        int reportgrid_height = 0;
+        int reportgrid_width = 0;
+        // calc the width of the circle ...
+        int widget_width = 0;
+        double widget_width_scale_factor = 0.0;
+        // Calculate ActionBar height to use when in landscape mode ?
+        int actionBarHeight = 0;
+        int heightAdj = 0;
+        int leftBound = 0;
+        int rightBound = 0;
+        int topBound = 0;
+        int bottomBound = 0;
+        int rightBoundAddon = 0;
+        int leftBoundAddon = 0;
+        int reportgrid_width_adjusted = 0;
+        TypedValue tv = new TypedValue();
+
+        // display message if we can't rotate
+        checkOrientationChanged();
+        // set it so user cannot rotate the screen for app versions < M
+        // This is needed because I have been unable to get the report to draw properly in landscape
+        // for earlier app versions.  Marshmellow introduces addLayer other methods that help a lot
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            // for API 22 and below, we start with adding the background grid to layer 1
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+
+        }
+        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+        {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+        }
+        // if we're in landscape mode, it appears we need to subtract the height of the ActionBar (scaled)
+        if( getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            heightAdj = (int) ((actionBarHeight * scale) + res.getDimension(R.dimen.margin_small));
+            reportgrid_height = (int) Math.min(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics().heightPixels) - heightAdj;
+            reportgrid_width = reportgrid_height;
+            // TODO - this isn't having any effect in landscape - figure that shot out
+//            widget_width = reportgrid_width / (int)  (10 * scale) ;
+            widget_width = reportgrid_height / 10  ;
+
+        } else {
+            reportgrid_height = (int) Math.min(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics().heightPixels);
+            reportgrid_width = reportgrid_height;
+            widget_width = reportgrid_height / 10;
+        }
+
+        // TODO remove
+        System.out.println( "widget_width = ");
+        System.out.println( widget_width );
+        System.out.println( "scale = ");
+        System.out.println( scale );
+        System.out.println( "res.getDisplayMetrics().widthPixels = ");
+        System.out.println( res.getDisplayMetrics().widthPixels );
+        System.out.println( "res.getDisplayMetrics().heightPixels = ");
+        System.out.println( res.getDisplayMetrics().heightPixels );
+        System.out.println( "reportgrid_height = ");
+        System.out.println( reportgrid_height );
+        System.out.println( "reportgrid_width = ");
+        System.out.println( reportgrid_width );
+
+        // for early API levels - we need to use a temp drawable to manage adding layers
+        Drawable[] layers = new Drawable[2];
         // create a canvas upon which we will draw the final grid
-        Canvas gridCanvas = new Canvas(Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888));
+        Canvas gridCanvas = new Canvas(Bitmap.createBitmap(reportgrid_height, reportgrid_width, Bitmap.Config.ARGB_8888));
+
         // Convert Bitmap to Drawable
         Drawable mainBackgroundDrawable = new BitmapDrawable(getResources(), mainBackground_mb);
+
+        // for cases where API level is 23 or greater, we can use addLayer so we
         // create drawable array starting with just our background
         Drawable finalGrid[] = new Drawable[]{mainBackgroundDrawable};
         // create a custom layerDrawable object ... to which we will add our circles
         GridLayerDrawable layerDrawable = new GridLayerDrawable(finalGrid);
+
+        GridLayerDrawable tmpLayerDrawable;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            // for API 22 and below, we start with adding the background grid to layer 1
+            layers[0] = mainBackgroundDrawable;
+        }
 
         // grab a list of all of the questions ..
         questionsOperations = new QuestionsOperations(this);
@@ -124,10 +209,10 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         candidateOperations = new CandidateOperations(this);
         candidateOperations.open();
         candidatesList = candidateOperations.getAllCandidates();
-        // grab the width of the circle ...
-        int widget_width = (int) getResources().getDimension(R.dimen.widget_width);
+
         // grab the number of candidates ....
         int numberOfCandidates = candidatesList.size();
+
         for (int i = 0; i < numberOfCandidates; i++) {
 
             currCandidate = candidatesList.get(i);
@@ -137,28 +222,88 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             // convert the String color to an int
             int tmpcolor = Color.parseColor(currentColor);
             // TODO - see if there is a cleaner way to do this ...
-            Drawable d1 = null;
-
-            d1 = ResourcesCompat.getDrawable(getResources(), R.drawable.empty_drawable, null);
+            Drawable d1 = ResourcesCompat.getDrawable(getResources(), R.drawable.empty_drawable, null);
 
             Drawable[] emptyDrawableLayers = {d1};
 
             drawPoint currDrawPoint = new drawPoint(getApplicationContext(), emptyDrawableLayers, 6, 6, tmpcolor);
             LayerDrawable newPoint = currDrawPoint.getPoint(currCandidate.getCandidateInitials());
 
+//            newPoint.setLayerInset(1, 0, 0, 2, 2);
+//            newPoint.setBounds(0,0,4,4);
+//            newPoint.setBounds(0, 0, 200, 200);
+//            newPoint.setLevel(2000);  // TODO - not sure that this does what I need
             Drawable tempPoint = newPoint.mutate();
 
-            // TODO figure out the purpose of the last two params - they don't seem to do anything
-            layerDrawable.addLayer(tempPoint, 4, widget_width, widget_width);
             // temp X & Y -axis reading from a candidate ...
             double result_X_axis = get_X_ResultForCandiate(currCandidate);
             double result_Y_axis = get_Y_ResultForCandiate(currCandidate);
-            // set the size of the circle (not sure why this can't be done inside add
-            layerDrawable.setLayerSize(currLayer, widget_width, widget_width);
-            // set the position of the circle
 
-            layerDrawable.setWidgetPosition(currLayer, result_X_axis, result_Y_axis, widget_width);
+            // if API level is 23 or greater, than we can use addLayer
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // TODO figure out the purpose of the last two params - they don't seem to do anything
+                layerDrawable.addLayer(tempPoint, 4, widget_width, widget_width);
+                layerDrawable.setLayerSize(currLayer, widget_width, widget_width);
+                layerDrawable.setWidgetPosition(currLayer, result_X_axis, result_Y_axis, widget_width);
+            } else {
+                // for API 22 and below, we have to add the new point to a new layer within the
+                //    array and then replace the index 0 layer of the original
 
+                layers[1] = scaleImage( tempPoint, (float) 0.02);
+//                layers[1] = tempPoint;
+
+                // by creating tmpLayerDrawable, we collapse the existing layers into one
+                layerDrawable = new GridLayerDrawable(layers);
+
+                // TODO this is temp to see if I messed up
+//                widget_width = 10;
+                //  the index (1) is hard-coded because we smush the layers down at the end of each iteration
+                //    params are index, left offset, top offset, right, bottom
+                int adjustedResult_X_axis = (int) Math.max( 1, result_X_axis );
+                int adjustedResult_Y_axis = (int) Math.max( 1, result_Y_axis );
+
+
+                // if we're in landscape mode, it appears we need to subtract the height of the ActionBar (scaled)
+                if( getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+                    leftBoundAddon = adjustedResult_X_axis * 6;
+                    rightBoundAddon = ( 10 - adjustedResult_X_axis) * 20;
+                    reportgrid_width_adjusted = reportgrid_width;
+                    widget_width_scale_factor = 2;
+                    leftBound = (int) (reportgrid_width_adjusted - ( reportgrid_width_adjusted * (0.1 * (10 - adjustedResult_X_axis ))) - (widget_width/widget_width_scale_factor)) + leftBoundAddon;
+                    topBound =  (int) (( reportgrid_height * (0.1 * (10 - adjustedResult_Y_axis ))) - (widget_width/widget_width_scale_factor)) + 20;
+                    rightBound = reportgrid_width_adjusted - (leftBound + (int) (widget_width / widget_width_scale_factor) ) + rightBoundAddon;
+                    bottomBound = reportgrid_height - ( topBound + (int) (widget_width / widget_width_scale_factor )) + 100;
+                    layerDrawable.setLayerInset(1, leftBound, topBound, rightBound, bottomBound);
+
+                    // TODO remove
+                    System.out.println( "adjustedResult_X_axis = ");
+                    System.out.println( adjustedResult_X_axis );
+                    System.out.println( "adjustedResult_Y_axis = ");
+                    System.out.println( adjustedResult_Y_axis );
+                    System.out.println( "widget_width_scale_factor = ");
+                    System.out.println( widget_width_scale_factor );
+                    System.out.println( "rightBoundAddon = ");
+                    System.out.println( rightBoundAddon );
+                    System.out.println( "leftBoundAddon = ");
+                    System.out.println( leftBoundAddon );
+                    System.out.println( "leftBound = ");
+                    System.out.println( leftBound );
+                    System.out.println( "rightBound = ");
+                    System.out.println( rightBound );
+                } else {
+                    widget_width_scale_factor = 2;
+                    leftBound = (int) (reportgrid_width - ( reportgrid_width * (0.1 * (10 - adjustedResult_X_axis ))) - (widget_width/widget_width_scale_factor));
+                    topBound =  (int) (( reportgrid_height * (0.1 * (10 - adjustedResult_Y_axis ))) - (widget_width/widget_width_scale_factor));
+                    rightBound = reportgrid_width - (leftBound + (int) (widget_width / widget_width_scale_factor) );
+                    bottomBound = reportgrid_height - ( topBound + (int) (widget_width / widget_width_scale_factor ));
+                    layerDrawable.setLayerInset(1, leftBound, topBound, rightBound, bottomBound);
+                }
+
+
+                // reset the layers so that the base (0) layer is the grid background plus any icons added thus far ..
+                layers[0] = layerDrawable;
+            }
             currLayer++;
         }
         // end Loop
@@ -166,6 +311,19 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         // Now that we are done building the grid, add it to our View ....
         ImageView gridImageView = (ImageView) findViewById(R.id.grid_background);
         layerDrawable.draw(gridCanvas);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            // TODO this needs work
+            // setting layout params for the gridImageView ....
+            android.view.ViewGroup.LayoutParams lp = gridImageView.getLayoutParams();
+            lp.width = gridCanvas.getWidth() ;    // 5 almost works for API 21
+            lp.height = gridCanvas.getHeight() ;
+            gridImageView.requestLayout();
+
+//            gridImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//            gridImageView.setMaxHeight(gridCanvas.getHeight());
+        }
+
         gridImageView.setImageDrawable(layerDrawable);
 
         // see if we should show the Tutorial ....
@@ -193,7 +351,7 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         }
 
         // Obtain the shared Tracker instance.
-        common.AnalyticsApplication application = (common.AnalyticsApplication) getApplication();
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
         sendScreenImageName(); // send tag to Google Analytics
@@ -213,6 +371,50 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
                                                                 }
                                                             }
         );
+    }
+
+//    public Drawable scaleImage (Drawable image, float scaleFactor) {
+//
+//        if ((image == null) || !(image instanceof BitmapDrawable)) {
+//            return image;
+//        }
+//
+//        Bitmap b = ((BitmapDrawable)image).getBitmap();
+//
+//        int sizeX = Math.round(image.getIntrinsicWidth() * scaleFactor);
+//        int sizeY = Math.round(image.getIntrinsicHeight() * scaleFactor);
+//
+//        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, sizeX, sizeY, false);
+//
+//        ScaleDrawable sd = new ScaleDrawable(bitmapResized, 0, 0.01f, 0.01f);
+//        image = new BitmapDrawable(getResources(), bitmapResized);
+//
+//        return image;
+//    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkOrientationChanged();
+    }
+
+    // TODO - get this to work when rotation happens during viewing the report
+    private void checkOrientationChanged() {
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "Landscape rotation Not supported for this feature.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public Drawable scaleImage (Drawable image, float scaleFactor) {
+
+        if ((image == null) || !(image instanceof BitmapDrawable)) {
+            return image;
+        }
+
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 50, 50, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
     }
 
     private boolean getShowTutorial_Rpt() {

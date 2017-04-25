@@ -67,7 +67,8 @@
         <ImageView
             android:id="@+id/button_see_results"
             style="@style/MainButtonCard"
-            android:src="@drawable/reports_image" />
+            android:src="@drawable/reports_image"
+            android:layout_alignParentBottom="true" />
 
         <TextView
             android:id="@+id/reprts_card_title"
@@ -81,7 +82,8 @@
     <LinearLayout
         style="@style/MainButtonLayout"
         android:layout_gravity="bottom"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_width="wrap_content">
 
         <Button
             android:id="@+id/exit_button"

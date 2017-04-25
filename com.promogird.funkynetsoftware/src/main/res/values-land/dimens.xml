@@ -2,11 +2,7 @@
 <resources>
 
     <dimen name="standard_touch_target_size">48dp</dimen>
-
-    <!-- Meta-dimension that switches on screen size -->
-
     <dimen name="page_margin">@dimen/margin_medium</dimen>
-
 
     <dimen name="card_image_height">60dp</dimen>
     <dimen name="card_image_width">220dp</dimen>
@@ -23,6 +19,7 @@
     <dimen name="hint_text_size">10dp</dimen>
     <dimen name="text_size_extra_small">12dp</dimen>
     <dimen name="text_size_small">16dp</dimen>
+    <dimen name="text_size_medium">20dp</dimen>
     <dimen name="text_size_button">12dp</dimen>
     <dimen name="text_size">18dp</dimen>
     <dimen name="text_size_big">28dp</dimen>
@@ -40,4 +37,5 @@
 
     <dimen name="about_screen_width">600dp</dimen>
     <dimen name="about_screen_height">400dp</dimen>
+
 </resources>
