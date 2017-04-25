@@ -14,7 +14,7 @@
     <dimen name="hint_text_size">12dp</dimen>
     <dimen name="text_size_extra_small">14dp</dimen>
     <dimen name="text_size_small">20dp</dimen>
-    <dimen name="text_size_medium">24dp</dimen>
+    <dimen name="text_size_medium">22dp</dimen>
     <dimen name="text_size">26dp</dimen>
     <dimen name="text_size_big">32dp</dimen>
     <dimen name="text_size_button">16dp</dimen>

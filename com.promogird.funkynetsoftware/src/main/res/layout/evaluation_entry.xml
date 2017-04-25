@@ -26,7 +26,7 @@
             android:id="@+id/top_card"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1.8"
             android:background="@color/background_main"
             android:elevation="@dimen/global_elevation"
             android:orientation="vertical"
@@ -106,7 +106,7 @@
                 android:id="@+id/question_text"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="7"
+                android:layout_weight="5.75"
                 android:layout_gravity="top"
                 android:layout_margin="@dimen/text_margin"
                 android:padding="@dimen/text_padding"
@@ -128,7 +128,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="2.05"
                 android:orientation="horizontal"
                 android:layout_gravity="bottom|center">
 

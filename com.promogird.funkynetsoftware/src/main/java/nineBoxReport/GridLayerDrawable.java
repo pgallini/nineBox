@@ -3,6 +3,7 @@ package nineBoxReport;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.os.Build;
 
 /**
  * Created by Paul Gallini on 5/17/16.
@@ -14,13 +15,19 @@ public class GridLayerDrawable extends LayerDrawable {
     }
 
     public void addLayer(ShapeDrawable circleTemp, int height, int sizeHeight, int sizeWidth) {
-        this.addLayer(circleTemp);
-        this.setLayerSize(1, sizeHeight, sizeWidth);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.addLayer(circleTemp);
+            this.setLayerSize(1, sizeHeight, sizeWidth);
+        } else {
+            // TODO finish coding this!!!
+        }
     }
 
     public void addLayer(Drawable drawyThing, int height, int sizeHeight, int sizeWidth) {
-        this.addLayer(drawyThing);
-        this.setLayerSize(1, sizeHeight, sizeWidth);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.addLayer(drawyThing);
+            this.setLayerSize(1, sizeHeight, sizeWidth);
+        }
     }
 
     public void setWidgetPosition(int layer, double result_X_axis, double result_Y_axis, int widget_width) {

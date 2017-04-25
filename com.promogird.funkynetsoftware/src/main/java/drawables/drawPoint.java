@@ -1,5 +1,6 @@
 package drawables;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -12,6 +13,10 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+
 import com.promogird.funkynetsoftware.R; ;
 
 
@@ -61,6 +66,8 @@ public class drawPoint extends LayerDrawable {
 
     public LayerDrawable getPoint(String initials) {
 
+        LayerDrawable returnShape = this;
+
         ShapeDrawable oval = new ShapeDrawable(new OvalShape());
         oval.setIntrinsicHeight(getShapeHeight());
         oval.setIntrinsicWidth(getShapeWidth());
@@ -69,25 +76,43 @@ public class drawPoint extends LayerDrawable {
         Resources res =  this.context.getResources();
         int iconPadding = (int) res.getDimension(R.dimen.icon_padding);
         oval.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-        this.addLayer(oval);
-        Drawable textLayer = getDrawable( initials );
-        this.addLayer(textLayer);
-        return this;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // For API 23 and above, we can use addLayer and just slap a new layer onto the drawable
+            returnShape.addLayer(oval);
+            Drawable textLayer = getDrawable( initials );
+            returnShape.addLayer(textLayer);
+
+        } else {
+            // For API Levels 22 and prior, addLayer is NOT available, so
+            //   create an array of drawables and add the oval then add the initials
+            Drawable[] layers = new Drawable[3];
+            layers[0] = this.getDrawable(0);
+            layers[1] = oval;
+            layers[2] = getDrawable( initials );
+            LayerDrawable tmpLayerDrawable = new LayerDrawable(layers);
+            returnShape = tmpLayerDrawable;
+        }
+        return returnShape;
     }
+
     public Drawable getDrawable(String gText) {
         try {
+            // get dimenstions from the integers file
+            Resources res =  this.context.getResources();
+            int iconTextSize = (int) res.getInteger(R.integer.iconTextSize);
+            int bitMapHeight = (int) res.getInteger(R.integer.icon_initials_height);
+
             float scale = resources.getDisplayMetrics().density;
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setAlpha(80);
             paint.setStyle(Paint.Style.FILL);
-            Bitmap bitmap = Bitmap.createBitmap(80, 80, Bitmap.Config.ARGB_8888);
+            // We need to scale the dimenstions to accounts for the density of the display
+            int height = (int) (bitMapHeight * scale);
 
+            Bitmap bitmap = Bitmap.createBitmap(height, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             paint.setColor(Color.BLUE);
-
-            // get icon text size from the integers file
-            Resources res =  this.context.getResources();
-            int iconTextSize = (int) res.getInteger(R.integer.iconTextSize);
+            // We need to scale the dimenstions to accounts for the density of the display
             paint.setTextSize((int) (iconTextSize * scale));
             // draw text to the Canvas center
             Rect bounds = new Rect();
