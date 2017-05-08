@@ -22,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
+import android.os.SystemClock;
 import android.print.PageRange;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -89,6 +90,8 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
     private ArrayList<Questions> questionsList;
     private EvaluationOperations evaluationOperations;
     private Candidates currCandidate;
+    private double result_X_axis = 0;
+    private double result_Y_axis = 0;
     CustomDrawableView mCustomDrawableView;
     ShowcaseView sv;   // for the showcase (tutorial) screen:
     ShowcaseView sv2;
@@ -134,8 +137,7 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         // This is needed because I have been unable to get the report to draw properly in landscape
         // for earlier app versions.  Marshmellow introduces addLayer other methods that help a lot
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            // TODO fix this - for M and N, can't rotate while the report is displayed
-            // for API 22 and below, we start with adding the background grid to layer 1
+            // for API 22 and below, we need to prevent rotating to portrait
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         }
@@ -155,8 +157,7 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             reportgrid_height = (int) Math.min(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics().heightPixels);
             reportgrid_width = reportgrid_height;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // for API 22 and below, we start with adding the background grid to layer 1
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+
                 // trying to factor-in scale because the widgets are too large on lower density devices
                 widget_width = reportgrid_height / (12 / (int) scale);
             }
@@ -164,11 +165,9 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
                 // trying to factor-in scale because the widgets are too large on lower density devices
                 // changing widget width doesn't seem to matter for API 21 and 22
                 widget_width = reportgrid_height / 20 ;
+                // for API 22 and below, we need to turn-off the ability to flip the report to portrait (the rest of the app should still flip)
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
             }
-
-            // TODO remove
-            System.out.println( "PORTAIT widget_width = ");
-            System.out.println( widget_width );
         }
 
         // for early API levels - we need to use a temp drawable to manage adding layers
@@ -230,15 +229,19 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             LayerDrawable newPoint = currDrawPoint.getPoint(currCandidate.getCandidateInitials());
             Drawable tempPoint = newPoint.mutate();
 
-            // TODO - ad adjustment for case where two or more candidates have the exact same score
-            double result_X_axis = get_X_ResultForCandiate(currCandidate);
-            double result_Y_axis = get_Y_ResultForCandiate(currCandidate);
+            result_X_axis = get_X_ResultForCandiate(currCandidate);
+            result_Y_axis = get_Y_ResultForCandiate(currCandidate);
+
+            if ( widgetsWillOverlap( result_X_axis, result_Y_axis, i, candidatesList )) {
+                // If this icon/widget will overlap with one already drawn, then make small adjustments so both are visible
+                result_X_axis = makeSmallAdjustment( result_X_axis );
+                result_Y_axis = makeSmallAdjustment( result_Y_axis );
+            }
 
             // if API level is 23 or greater, than we can use addLayer
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                // TODO figure out the purpose of the last two params - they don't seem to do anything
-                // TODO figure out seond param - maybe it should be widget_wdith?
+                // Note - I'm unclear on the last three parameters
                 layerDrawable.addLayer(tempPoint, 4, widget_width, widget_width);
                 layerDrawable.setLayerSize(currLayer, widget_width, widget_width);
                 layerDrawable.setWidgetPosition(currLayer, result_X_axis, result_Y_axis, widget_width, gridHeight);
@@ -346,15 +349,58 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         );
     }
 
+    double makeSmallAdjustment( double incomingResult ) {
+        double adjustedResult = 0.0;
+
+        if ( incomingResult < 4.9) {
+            adjustedResult = incomingResult + 0.4;
+        } else {
+
+            adjustedResult = incomingResult - 0.4;
+        }
+        return adjustedResult;
+    }
+
+    boolean widgetsWillOverlap( double result_X_current, double result_Y_current, int currPosition, ArrayList<Candidates>  candidatesList) {
+        boolean boolResult = false;
+
+        for (int i = 0; i < currPosition; i++) {
+
+            currCandidate = candidatesList.get(i);
+            double existing_X = get_X_ResultForCandiate(currCandidate);
+            double existing_Y = get_Y_ResultForCandiate(currCandidate);
+
+            // If both X & Y are within 0.3 of another icon, return true
+            if( Math.abs( existing_X - result_X_current ) < 0.3 &&
+                    Math.abs( existing_Y - result_Y_current ) < 0.3) {
+                boolResult = true;
+            }
+        }
+
+            return boolResult;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         checkOrientationChanged();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // TODO Remove
+        System.out.println( "getResources().getConfiguration().orientation = ");
+        System.out.println( getResources().getConfiguration().orientation);
+
+        // Display message if user trying to go landscape and API < 23
+        checkOrientationChanged();
+
+    }
+
     // TODO - get this to work when rotation happens during viewing the report
     private void checkOrientationChanged() {
-        int currentOrientation = getResources().getConfiguration().orientation;
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "Landscape rotation Not supported for this feature.", Toast.LENGTH_SHORT).show();
         }
@@ -529,10 +575,8 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
         FileInputStream fis = null;
 
         Bitmap tmpBitMap = null;
-        // TODO get rid of one of these
-        File file = new File(dir + "/" + fileName);
         String fileString = dir + "/" + fileName;
-
+        File file = new File(fileString);
         try {
             fis = new FileInputStream(file);
 
@@ -842,7 +886,6 @@ public class ReportActivity extends AppCompatActivity implements OnShowcaseEvent
             //scale bitmap to desired size
             Bitmap finalIconScalled = Bitmap.createScaledBitmap(candIcon, iconWidth, iconWidth, true); // Make sure w and h are in the correct order
 
-            // TODO fix the placement of this
             canvas.drawBitmap(finalIconScalled, iconTab, drawLine - iconAdjustment , paint);
 
             paint.setTextSize(headingPara);

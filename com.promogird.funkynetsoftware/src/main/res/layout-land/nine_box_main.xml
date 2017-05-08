@@ -88,10 +88,10 @@
             style="@style/MainButtonLayout"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:orientation="vertical"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/exit_button"

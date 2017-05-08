@@ -70,6 +70,7 @@
         <activity
             android:name="nineBoxReport.ReportActivity"
             android:label="@string/title_activity_report"
+            android:configChanges="orientation|keyboardHidden"
             android:parentActivityName="nineBoxMain.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

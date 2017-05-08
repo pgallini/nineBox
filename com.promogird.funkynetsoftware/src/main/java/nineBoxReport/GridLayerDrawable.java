@@ -14,15 +14,6 @@ public class GridLayerDrawable extends LayerDrawable {
         super(layers);
     }
 
-    public void addLayer(ShapeDrawable circleTemp, int height, int sizeHeight, int sizeWidth) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            this.addLayer(circleTemp);
-            this.setLayerSize(1, sizeHeight, sizeWidth);
-        } else {
-            // TODO finish coding this!!!
-        }
-    }
-
     public void addLayer(Drawable drawyThing, int height, int sizeHeight, int sizeWidth) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.addLayer(drawyThing);
@@ -40,7 +31,7 @@ public class GridLayerDrawable extends LayerDrawable {
         // convert Y axis result into offset based on the actual Height of the grid ...
         int tmpOffset = (int) ((result_Y_axis / 10.0)  * (double) gridHeight)  + ( widget_width / 2 );
         int topOffset = Math.max((gridHeight - tmpOffset), 0);
-        
+
         // position this cirlce using ...
         this.setLayerInset(layer, leftOffset, topOffset, rightOffset, bottomOffset);
     }

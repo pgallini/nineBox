@@ -81,9 +81,9 @@
 
     <LinearLayout
         style="@style/MainButtonLayout"
-        android:layout_gravity="bottom"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_width="wrap_content">
+        android:layout_gravity="bottom|center">
 
         <Button
             android:id="@+id/exit_button"
