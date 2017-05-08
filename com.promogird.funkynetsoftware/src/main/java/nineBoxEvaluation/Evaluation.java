@@ -195,7 +195,6 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
             candidateID = candidatesList.get(candidateIndex).getCandidateID();
 
             if (currentQuestionNo <= questionsList.size()) {
-                // TODO see if there is a cleaner way to manage what we want to display versus the real index ...
                 quesitonTextView.setText(questionsList.get((currentQuestionNo - 1)).getQuestionText());
                 questionID = questionsList.get((currentQuestionNo - 1)).getQuestionID();
             }

@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_main">
+    android:background="@color/background_main"
+    >
 
     <include
         android:id="@+id/tool_bar"
@@ -12,16 +13,17 @@
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/LinearLayoutmain"
-        android:layout_width="wrap_content"
+        android:layout_width="561dp"
         android:layout_height="wrap_content"
-        android:weightSum="5">
+        android:weightSum="5"
+        android:layout_weight="0.02">
 
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/LinearLayout01"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:layout_margin="@dimen/margin_small">
             <ImageView
                 android:id="@+id/grid_background"
@@ -36,24 +38,26 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/LinearLayout02"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center_horizontal|center_vertical"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_small">
+            android:layout_margin="@dimen/margin_small"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/cancel_report"
                 style="@style/MainButton"
+                android:layout_gravity="center_horizontal"
                 android:background="@color/mutedbutton_color"
                 android:text="@string/cancel_button" />
 
             <Button
                 android:id="@+id/save_report"
                 style="@style/MainButton"
+                android:layout_gravity="center_horizontal"
                 android:text="@string/save_rpt_button" />
 
         </LinearLayout>

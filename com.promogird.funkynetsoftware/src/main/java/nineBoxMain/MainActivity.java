@@ -323,7 +323,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
                 // if this is the Free version of the app, prompt for upgrade
 
                 try {
-                    // TODO Remove
                     System.out.println( "  BuildConfig.FLAVOR = ");
                     System.out.println( BuildConfig.FLAVOR);
 
@@ -590,7 +589,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
     }
 
     static public void incrementCurrentCandidate() {
-        // TODO consider adding test to ensure we don't incrment it past candidatesList.size()
         candidateIndex++;
     }
 
@@ -654,8 +652,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
         String time = new SimpleDateFormat("HHmmss").format(new Date());
 
-        // TODO - make promogrid dynamic
-        File outDirName = getDBStorageDir("PromoGrid");
+        String trimmedAppName = getResources().getString(R.string.appname).replaceAll("\\s+","");
+        File outDirName = getDBStorageDir(trimmedAppName);
         String outFileName = outDirName + "/" + "promogrid" + "_" + date + ".db";
 
         // check to see if file already exists
@@ -683,8 +681,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         fis.close();
         Toast.makeText(context, "Data exported to: " + outFileName, Toast.LENGTH_LONG).show();
         // TODO Remove
-        System.out.println("Database copied to: ");
-        System.out.println(outDirName);
+        System.out.println("Database copied to: " + outDirName);
     }
 
     public void import_DB(Context context, String inFileName) throws IOException {
@@ -708,8 +705,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         fis.close();
         Toast.makeText(context, "Data imported from " + inFileName, Toast.LENGTH_LONG).show();
         // TODO Remove
-        System.out.println("Database copied from: ");
-        System.out.println(inFileName);
+        System.out.println("Database copied from: " + inFileName);
 
     }
 
@@ -762,7 +758,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
         } else {
-            // TODO make PromoGrid dynamic
             promptForImportFile(MainActivity.this);
         }
     }
@@ -834,7 +829,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         builderSingle.setIcon(R.drawable.ic_pg_icon);
         builderSingle.setTitle(R.string.import_prompt_title);
 
-        final ArrayAdapter<String> arrayAdapter = locateImportDB("PromoGrid");
+        String trimmedAppName = getResources().getString(R.string.appname).replaceAll("\\s+","");
+        final ArrayAdapter<String> arrayAdapter = locateImportDB(trimmedAppName);
 
         if (arrayAdapter.isEmpty()) {
             // add diaglog to say No files found

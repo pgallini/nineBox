@@ -98,8 +98,6 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
 
-                // TODO - see if we can do away with displayList
-
                 if (convertView == null) {
                     convertView = getLayoutInflater().inflate(R.layout.candidates_list_item, parent, false);
                 }

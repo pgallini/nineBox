@@ -44,8 +44,6 @@ public class QuestionsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questions_list);
 
-        // TODO add display informative graphic when list is empty
-
         // set-up questions ...
         QuestionsOperations questionsOperations = new QuestionsOperations(this);
         questionsOperations.open();
@@ -67,7 +65,6 @@ public class QuestionsListActivity extends AppCompatActivity {
         mainListView = (ListView) findViewById(R.id.questions_list);
 
         mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.questions_list_item, R.id.question_text, displayList) {
-            // TODO do we really need displayList?  Can't we just use questionsList??
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
@@ -154,7 +151,6 @@ public class QuestionsListActivity extends AppCompatActivity {
     private ArrayList<String> buildDisplayList(ArrayList<Questions> questionsList) {
         ArrayList<String> returnList = new ArrayList();
         for (int i = 0; i < questionsList.size(); i++) {
-            // TODO consider truncating text here
             returnList.add(questionsList.get(i).getQuestionText());
         }
         return returnList;
@@ -187,7 +183,6 @@ public class QuestionsListActivity extends AppCompatActivity {
                 // save the question
                 Questions question = questionsOperations.addQuestion(returnQuestionText, returnQuestionWeight, (returnQuestionAxis.equals("X")));
 
-                // TODO - again, think about the need for both questionsList AND displayList
                 questionsList.add(question);
                 displayList.add( returnQuestionText );
 
@@ -209,30 +204,6 @@ public class QuestionsListActivity extends AppCompatActivity {
         }
         mainArrayAdapter.notifyDataSetChanged();
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
-    // TODO - is this needed here AND in MainActivity?  decide if we want this menu here
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_configure_questions:
-//                try {
-//                    Intent intent = new Intent(this, QuestionsEntryActivity.class);
-//                    this.startActivity(intent);
-//
-//                } catch (ActivityNotFoundException ignored) {
-//                }
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
 
     private void delete_question(int position) {
         QuestionsOperations questionsOperations = new QuestionsOperations(this);
