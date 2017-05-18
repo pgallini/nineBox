@@ -160,7 +160,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textColor">@color/text_dark</item>
-        <item name="android:inputType">textMultiLine</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:imeOptions">actionDone</item>
+        <!--<item name="android:inputType">textLongMessage</item>  &lt;!&ndash; changing from textMultiLine to have Next btn &ndash;&gt;-->
         <item name="android:lines">4</item> <!-- Total Lines prior display -->
         <item name="android:minLines">2</item> <!-- Minimum lines -->
         <item name="android:gravity">top|left</item> <!-- Cursor Position -->

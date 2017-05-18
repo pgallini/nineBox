@@ -18,10 +18,10 @@ package nineBoxMain;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ActivityNotFoundException;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -35,34 +35,25 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v13.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import databaseOpenHelper.DatabaseOpenHelper;
-import nineBoxCandidates.CandidatesListActivity;
-import nineBoxQuestions.QuestionsListActivity;
-import nineBoxEvaluation.Evaluation;
-import nineBoxReport.ReportActivity;
-
-// for the Showcase Library ..
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-//import com.github.amlcurran.showcaseview.sample.animations.AnimationSampleActivity;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import common.Utilities;
-
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.promogird.funkynetsoftware.BuildConfig;
-import com.promogird.funkynetsoftware.R; ;import java.io.File;
+import com.promogird.funkynetsoftware.R;
+
+import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -70,6 +61,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import common.Utilities;
+import databaseOpenHelper.DatabaseOpenHelper;
+import nineBoxCandidates.CandidatesListActivity;
+import nineBoxEvaluation.EvalCandidatesListActivity;
+import nineBoxQuestions.QuestionsListActivity;
+import nineBoxReport.ReportActivity;
+
+// for the Showcase Library ..
+//import com.github.amlcurran.showcaseview.sample.animations.AnimationSampleActivity;
+;
 
 /**
  *
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         findViewById(R.id.button_set_questions).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Evaluation.class);
+                Intent intent = new Intent(view.getContext(), EvalCandidatesListActivity.class);
                 startActivity(intent);
             }
         });

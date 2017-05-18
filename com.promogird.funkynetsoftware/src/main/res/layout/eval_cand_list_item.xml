@@ -1,0 +1,60 @@
+<!--
+  Copyright 2017 Paul Gallini
+
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerPadding="8dp"
+        android:minHeight="?android:listPreferredItemHeight"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:id="@+id/primary_target"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/margin_tiny"
+            android:paddingRight="?android:listPreferredItemPaddingRight">
+
+            <ImageView
+                android:id="@+id/current_icon"
+                android:layout_width="@dimen/icon_width"
+                android:layout_height="@dimen/icon_width"
+                android:gravity="left"
+                android:paddingRight="@dimen/margin_tiny" />
+
+            <TextView
+                android:id="@+id/candidate"
+                style="?android:textAppearanceListItemSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_small" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/progress_icon"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="@dimen/standard_touch_target_size"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_progress_zero" />
+
+    </LinearLayout>
+</ScrollView>

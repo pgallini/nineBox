@@ -51,6 +51,14 @@
                 android:value="nineBoxMain.MainActivity" />
         </activity>
         <activity
+            android:name="nineBoxEvaluation.EvalCandidatesListActivity"
+            android:label="@string/title_activity_evaluation"
+            android:parentActivityName="nineBoxMain.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nineBoxMain.MainActivity" />
+        </activity>
+        <activity
             android:name="nineBoxEvaluation.Evaluation"
             android:label="@string/title_activity_evaluation"
             android:parentActivityName="nineBoxMain.MainActivity">

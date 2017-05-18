@@ -5,16 +5,15 @@
 //package com.ninebox.nineboxapp;
 package nineBoxCandidates;
 
-import android.content.ActivityNotFoundException;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,22 +23,19 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.promogird.funkynetsoftware.R; ;
+import com.promogird.funkynetsoftware.R;
 
 import java.util.ArrayList;
 
 import common.Utilities;
 import nineBoxEvaluation.Evaluation;
 import nineBoxMain.MainActivity;
-import nineBoxQuestions.QuestionsEntryActivity;
 
 /**
  *
@@ -324,28 +320,6 @@ public class CandidatesListActivity extends AppCompatActivity implements OnShowc
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    // TODO - is this needed here AND in MainActivity?
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_configure_questions:
-                try {
-                    Intent intent = new Intent(this, QuestionsEntryActivity.class);
-                    this.startActivity(intent);
-
-                } catch (ActivityNotFoundException ignored) {
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     private void showDeleteDialog(int position ) {
         AlertDialog.Builder builder = new AlertDialog.Builder(CandidatesListActivity.this);
         builder.setTitle(getString(R.string.confirm_delete_title));

@@ -116,7 +116,10 @@
     <string name="showcase_add_message1">Add people using the New button here.  A screen will be presented allowing you to enter basic info for
         that person.  You can evaluate them one at a time using the check box icon on this screen, or return to the
     main menu and use the Evaluate People button to go through them all. </string>
-    <string name="showcase_eval_message1">Rate each person according to a set of questions here.  Use the slider to provide a response from 1 (low) to 10 (high). </string>
+    <string name="showcase_eval_list_message1">Rate each person according to a set of questions here.  Just select a name and a series of questions will be presented. </string>
+    <string name="showcase_eval_list_message2">The icon on the right indicates your progress.  A check mark means you\'re done with that person. </string>
+    <string name="showcase_eval_list_message3">Just hit Done to return to the main screen when you\'re done. </string>
+    <string name="showcase_eval_message1">Respond to questions here.  Use the slider to provide a response from 1 (low) to 10 (high). </string>
     <string name="showcase_eval_message2">Try to answer each question indepently of the others (not what you think the final rating should be).  Hit the Next Question button to move to the next question. </string>
     <string name="showcase_rpt_message1">After each person is evaluated, they will be represented on this report.  The ones in the upper right quadrant are the ones to consider for promotion.  </string>
     <string name="showcase_rpt_message2">Use the Save Report button to save (or print) the report to your device.  Note the directory and file name so you can e-mail it to yourself or others.  </string>
@@ -138,7 +141,8 @@
     <string name="anal_tag_candidates_edit">PG01-02-03-CANDIDATES-EDIT</string>
     <string name="anal_tag_candidates_delete">PG01-02-04-CANDIDATES-DELETE</string>
     <string name="anal_tag_candidates_initials">PG01-02-05-CANDIDATES-EDIT-INITIALS</string>
-    <string name="anal_tag_eval">PG01-03-01-EVALUATE</string>
+    <string name="anal_tag_eval_list">PG01-03-01-EVALUATE</string>
+    <string name="anal_tag_eval">PG01-03-02-EVALUATE</string>
     <string name="anal_tag_report">PG01-04-01-REPORT</string>
     <string name="anal_tag_rpt_save">PG01-04-02-SAVE-REPORT</string>
     <string name="anal_tag_questions_list">PG01-05-01-QUESTIONS-LIST</string>

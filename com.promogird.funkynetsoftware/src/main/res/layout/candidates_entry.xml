@@ -107,10 +107,10 @@
                 android:layout_below="@+id/EditTextName_layout"
                 android:theme="@style/TextLabelDark">
 
-                <EditText
+                <common.ActionEditText
                     android:id="@+id/NotesText"
                     style="@style/EditMultiLineTextStyle"
-                    android:hint="@string/edit_candidate_notes_hint"></EditText>
+                    android:hint="@string/edit_candidate_notes_hint"></common.ActionEditText>
             </android.support.design.widget.TextInputLayout>
 
 
