@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.Settings;
 
 import databaseOpenHelper.DatabaseOpenHelper;
 
@@ -112,6 +111,26 @@ public class EvaluationOperations {
         if( c != null && c.moveToFirst()) {
             String tmpRespVal = c.getString(0);
             respVal = Integer.parseInt(tmpRespVal);
+            c.close();
+        };
+        return respVal;
+    }
+
+    public int getResponseCnt( long candidate_id ) {
+        int respVal = 0;
+
+        String[] tableColumns = new String[] {
+                DatabaseOpenHelper.RESP_RESPONSE
+        };
+        String whereClause = DatabaseOpenHelper.RESP_CANDIDATE_ID + " = ?";
+        String[] whereArgs = new String[] {
+                Long.toString(candidate_id)
+        };
+        Cursor c = database.query(DatabaseOpenHelper.RESPONSES, tableColumns, whereClause, whereArgs,
+                null, null, null);
+
+        if( c != null && c.moveToFirst()) {
+            respVal = c.getCount();
             c.close();
         };
         return respVal;

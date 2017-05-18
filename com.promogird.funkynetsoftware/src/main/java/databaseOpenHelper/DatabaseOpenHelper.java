@@ -3,46 +3,34 @@ package databaseOpenHelper;
  * Created by Paul Gallini on 3/30/16.
  *  Using SQLite as a means to store the candidates, questions, and ratings
  */
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
-import android.support.v13.app.ActivityCompat;
-import android.widget.Toast;
 
-import com.promogird.funkynetsoftware.Manifest;
-import com.promogird.funkynetsoftware.R; ;
+import com.promogird.funkynetsoftware.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 import nineBoxCandidates.appColor;
-import nineBoxMain.MainActivity;
 import nineBoxMain.User;
+
+;
 
 /**
  * Steps to access database from terminal ..
  * adb devices
  * adb -s emulator-5554 shell   (where you specify one of the emulators listed)
- * cd /data/data/com.ninebox.nineboxapp/databases
- * sqlite3 ninebox.db
+ * cd /data/data/com.promogird.funkynetsoftware.pro/databases
+ * sqlite3 promogrid.db
  *
  */
 public class DatabaseOpenHelper extends SQLiteOpenHelper {

@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import databaseOpenHelper.DatabaseOpenHelper;
-
 import java.util.ArrayList;
+
+import databaseOpenHelper.DatabaseOpenHelper;
 
 /**
  * Created by Paul Gallini on 4/8/16.
@@ -77,21 +77,34 @@ public class QuestionsOperations {
                     + " = " + id, null);
         }
 
-        public ArrayList<Questions> getAllQuestions() {
-            ArrayList<Questions> questionsList = new ArrayList();
-            Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
-                    QUESTIONS_TABLE_COLUMNS, null, null, null, null, null);
+    public ArrayList<Questions> getAllQuestions() {
+        ArrayList<Questions> questionsList = new ArrayList();
+        Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
+                QUESTIONS_TABLE_COLUMNS, null, null, null, null, null);
 
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                Questions question = parseQuestion(cursor);
-                questionsList.add(question);
-                cursor.moveToNext();
-            }
-            // TODO decide if we should or should not close the cursor here - seems to be cause null pointer second time
-            cursor.close();
-            return questionsList;
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Questions question = parseQuestion(cursor);
+            questionsList.add(question);
+            cursor.moveToNext();
         }
+        // TODO decide if we should or should not close the cursor here - seems to be cause null pointer second time
+        cursor.close();
+        return questionsList;
+    }
+    public int getQuestionsCnt() {
+        Cursor cursor = database.query(DatabaseOpenHelper.QUESTIONS,
+                QUESTIONS_TABLE_COLUMNS, null, null, null, null, null);
+
+        int cnt = 0;
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cnt++;
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return cnt;
+    }
 
         private Questions parseQuestion(Cursor cursor) {
             Questions question = new Questions();
