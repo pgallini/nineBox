@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        // add Pro or Free to title
+        augmentAppName();
         // run init stuff
         inititateApp();
 
@@ -129,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
         mTracker = application.getDefaultTracker();
 
         sendScreenImageName(); // send tag to Google Analytics
-
 
         // start with running the Tutorial - if that option is selected
         if( getShowTutorial_Main() ) {
@@ -173,6 +174,15 @@ public class MainActivity extends AppCompatActivity implements OnShowcaseEventLi
             }
         });
 
+    }
+    private void augmentAppName() {
+        String currentTitle = (String) this.getTitle();
+
+        if(BuildConfig.FLAVOR == "free") {
+            this.setTitle(currentTitle + " Free");
+        } else {
+            this.setTitle(currentTitle + " Pro");
+        }
     }
 
     private void runTutorial() {

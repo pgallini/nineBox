@@ -5,7 +5,9 @@
 //package com.ninebox.nineboxapp;
 package nineBoxEvaluation;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -35,15 +37,14 @@ import common.Utilities;
 import nineBoxCandidates.CandidateOperations;
 import nineBoxCandidates.Candidates;
 import nineBoxMain.MainActivity;
+import nineBoxQuestions.Questions;
 import nineBoxQuestions.QuestionsOperations;
 
 /**
- *
  * Created by Paul Gallini, 2017
- *
+ * <p>
  * This activity lists out the existing candidates for the purpose of Evaluation
- *    (copied from CandidateListActivity)
- *
+ * (copied from CandidateListActivity)
  */
 public class EvalCandidatesListActivity extends AppCompatActivity implements OnShowcaseEventListener {
 //    private final int CANDIDATESENTRY_ACTIVITY_REQUEST_CODE = 0;
@@ -62,6 +63,7 @@ public class EvalCandidatesListActivity extends AppCompatActivity implements OnS
     private int percentageComplete = 0; //used to calculate percentage complete icon
     private int questionCnt = 0;
     private EvaluationOperations evaluationOperations;
+    public ArrayList<Questions> questionsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,7 @@ public class EvalCandidatesListActivity extends AppCompatActivity implements OnS
         // create a list of candidates from what's in the database ...
         candidatesList = candidateOperations.getAllCandidates();
         // make an array of just the Names for the purpose of displaying ...
-        displayList = buildDisplayList( candidatesList );
+        displayList = buildDisplayList(candidatesList);
 
         // find the ListView so we can work with it ...
         mainListView = (ListView) findViewById(R.id.eval_cand_list);
@@ -99,107 +101,183 @@ public class EvalCandidatesListActivity extends AppCompatActivity implements OnS
 
         sendScreenImageName(); // send tag to Google Analytics
 
-        if(getShowTutorial_Eval()) {
-            displayTutorialEval();
-            // Now that it's been displayed, lets turn it off
-            MainActivity.displayTutorialAdd = false;
+        // if we don't have any candidates, then we can't go on
+        if (candidatesList.size() < 1) {
+            showNoCandidatesDialog();
+        } else {
+            // Make Sure we have Questions
+            questionsList = questionsOperations.getAllQuestions();
+            if (questionsList.size() < 1) {
+                // If there are NO questions, then show a dialog to explain the situation and quit
+                showNoQuestionsDialog();
+            } else if (getShowTutorial_Eval()) {
+                displayTutorialEval();
+                // Now that it's been displayed, lets turn it off
+                MainActivity.displayTutorialAdd = false;
+            }
+            ;
+
+            mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.eval_cand_list_item, R.id.candidate, displayList) {
+                @Override
+                public View getView(final int position, View convertView, ViewGroup parent) {
+
+                    if (convertView == null) {
+                        convertView = getLayoutInflater().inflate(R.layout.eval_cand_list_item, parent, false);
+                    }
+                    View view = super.getView(position, convertView, parent);
+                    // display icon for current candidate ...
+                    String cInitials = candidatesList.get(position).getCandidateInitials();
+                    String cColor = candidatesList.get(position).getCandidateColor();
+
+                    ImageView currentIcon = (ImageView) convertView.findViewById(R.id.current_icon);
+
+                    //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
+                    currentIcon.setImageDrawable(Candidates.get_icon(this.getContext(), cColor, cInitials));
+
+                    TextView candidateText = (TextView) view.findViewById(R.id.candidate);
+                    candidateText.setText(candidatesList.get(position).getCandidateName());
+
+                    // set the progress icon for current Candidate
+                    percentageComplete = calcPercentageComplete(questionCnt, candidatesList.get(position).getCandidateID());
+
+                    ImageView currentProgIcon = (ImageView) convertView.findViewById(R.id.progress_icon);
+                    if (percentageComplete == 0) {
+                        currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_zero, null));
+                    } else if (percentageComplete < 30) {
+                        currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_25, null));
+                    } else if (percentageComplete < 60) {
+                        currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_50, null));
+                    } else if (percentageComplete < 100) {
+                        currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_75, null));
+                    } else {
+                        currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_100, null));
+                    }
+
+                    // Because the list item contains multiple touch targets, you should not override
+                    // onListItemClick. Instead, set a click listener for each target individually.
+                    convertView.findViewById(R.id.primary_target).setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    MainActivity.setCurrentCandidate(position);
+                                    Intent intent = new Intent(view.getContext(), Evaluation.class);
+                                    startActivity(intent);
+                                }
+                            });
+                    // I know it's odd to have the progress icon as it's own target - but doing the same thing as the primary target ...
+                    //       but it was the easy thing to do - plus I may want it to do something else in the future?
+                    convertView.findViewById(R.id.progress_icon).setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    MainActivity.setCurrentCandidate(position);
+                                    Intent intent = new Intent(view.getContext(), Evaluation.class);
+                                    startActivity(intent);
+                                }
+                            });
+                    return convertView;
+                }
+            };
+
+
+            mainListView.setAdapter(mainArrayAdapter);
+            mainArrayAdapter.notifyDataSetChanged();
+
+            findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+
         }
-        mainArrayAdapter = new ArrayAdapter<String>(this, R.layout.eval_cand_list_item, R.id.candidate, displayList) {
-            @Override
-            public View getView(final int position, View convertView, ViewGroup parent) {
+        ;
 
-                if (convertView == null) {
-                    convertView = getLayoutInflater().inflate(R.layout.eval_cand_list_item, parent, false);
-                }
-                View view = super.getView(position, convertView, parent);
-                // display icon for current candidate ...
-                String cInitials = candidatesList.get(position).getCandidateInitials();
-                String cColor = candidatesList.get(position).getCandidateColor();
-
-                ImageView currentIcon = (ImageView) convertView.findViewById(R.id.current_icon);
-
-                //   TODO - for the imageview current_icon, make the width and height dynamic based on screen size
-                currentIcon.setImageDrawable(Candidates.get_icon(this.getContext(), cColor, cInitials));
-
-                TextView candidateText = (TextView) view.findViewById(R.id.candidate);
-                candidateText.setText(candidatesList.get(position).getCandidateName());
-
-                // set the progress icon for current Candidate
-                percentageComplete = calcPercentageComplete( questionCnt, candidatesList.get(position).getCandidateID() );
-
-                ImageView currentProgIcon = (ImageView) convertView.findViewById(R.id.progress_icon);
-                if(percentageComplete == 0 ) {
-                    currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_zero, null));
-                }
-                else if( percentageComplete < 30 ) {
-                    currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_25, null));
-                }
-                else if( percentageComplete < 60 ) {
-                    currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_50, null));
-                }
-                else if( percentageComplete < 100 ) {
-                    currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_75, null));
-                }
-                else {
-                    currentProgIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.icon_progress_100, null));
-                }
-
-                // Because the list item contains multiple touch targets, you should not override
-                // onListItemClick. Instead, set a click listener for each target individually.
-                convertView.findViewById(R.id.primary_target).setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                MainActivity.setCurrentCandidate(position);
-                                Intent intent = new Intent(view.getContext(), Evaluation.class);
-                                startActivity(intent);
-                            }
-                        });
-                // I know it's odd to have the progress icon as it's own target - but doing the same thing as the primary target ...
-                //       but it was the easy thing to do - plus I may want it to do something else in the future?
-                convertView.findViewById(R.id.progress_icon).setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                MainActivity.setCurrentCandidate(position);
-                                Intent intent = new Intent(view.getContext(), Evaluation.class);
-                                startActivity(intent);
-                            }
-                        });
-                return convertView;
-            }
-
-        };
-
-        mainListView.setAdapter(mainArrayAdapter);
-        mainArrayAdapter.notifyDataSetChanged();
-
-        findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
-    private int calcPercentageComplete( int questionCnt, long candidateID ) {
+    private void showNoCandidatesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EvalCandidatesListActivity.this);
+        builder.setIcon(R.drawable.ic_pg_icon);
+        builder.setTitle(getString(R.string.dialog_no_candidates_title));
+        builder.setMessage(getString(R.string.dialog_no_candidates_message));
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        kill_activity();
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        kill_activity();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+    }
+
+    // TODO - if you don't drop the one in Eval - consider combining somehow
+    private void showNoQuestionsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EvalCandidatesListActivity.this);
+        builder.setIcon(R.drawable.ic_pg_icon);
+        builder.setTitle(getString(R.string.dialog_no_questions_title));
+        builder.setMessage(getString(R.string.dialog_no_questions_message));
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        kill_activity();
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        kill_activity();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+    }
+
+    void kill_activity() {
+        finish();
+    }
+
+    private int calcPercentageComplete(int questionCnt, long candidateID) {
         int returnResult = 0;
         double tmpResult = 0.0;
 
         int responseCnt = evaluationOperations.getResponseCnt(candidateID);
         tmpResult = (double) responseCnt / (double) questionCnt;
-        returnResult = (int) Math.round( tmpResult * 100 );
+        returnResult = (int) Math.round(tmpResult * 100);
 
         return (returnResult);
     }
 
-    // TODO - make tutorial for this page
     private boolean getShowTutorial_Eval() {
         // returns value for whether to show tutorial for Add Candidates screen or not
         Boolean returnBool = false;
-        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);;
+        SharedPreferences settings = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        ;
         Boolean showTutorial = settings.getBoolean("pref_sync", true);
-        if(showTutorial & MainActivity.displayTutorialEval) { returnBool = true; }
+        if (showTutorial & MainActivity.displayTutorialEval) {
+            returnBool = true;
+        }
         return returnBool;
     }
 
@@ -270,15 +348,17 @@ public class EvalCandidatesListActivity extends AppCompatActivity implements OnS
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        mainArrayAdapter.notifyDataSetChanged();
+        if(!(mainArrayAdapter == null)) {
+            mainArrayAdapter.notifyDataSetChanged();
+        }
     }
 
-    private ArrayList<String> buildDisplayList( ArrayList<Candidates> candidatesList ) {
+    private ArrayList<String> buildDisplayList(ArrayList<Candidates> candidatesList) {
         ArrayList<String> returnList = new ArrayList();
-        for(int i = 0; i <  candidatesList.size(); i++ ) {
-            returnList.add( candidatesList.get(i).getCandidateName() );
+        for (int i = 0; i < candidatesList.size(); i++) {
+            returnList.add(candidatesList.get(i).getCandidateName());
         }
         return returnList;
     }
