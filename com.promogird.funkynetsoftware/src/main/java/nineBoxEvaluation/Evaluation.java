@@ -246,6 +246,7 @@ public class Evaluation extends AppCompatActivity implements OnShowcaseEventList
         finish();
     }
 
+    // TODO consider removing this since we added it to EvalCandidatesListActivity
     private void showNoQuestionsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Evaluation.this);
         builder.setTitle(getString(R.string.dialog_no_questions_title));
