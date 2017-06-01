@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<questions_data>
+    <record question_id="1"    question_text="[Communication]  Degree to which candidate prepares communications in a timely, clear and accurate manner; ability to tailor to audience."        question_weight="14"  question_axis="Y" />
+    <record question_id="2"    question_text="[Organization/Planning]  Degree to which candidate prioritizes activities and makes effective use of time."                                       question_weight="13"  question_axis="Y" />
+    <record question_id="3"    question_text="[Job-Specific Knowledge] Degree to which candidate demonstrates expertise in job-specific knowledge and works to expand it."                      question_weight="18"  question_axis="Y" />
+    <record question_id="4"    question_text="[Decision Making] Degree to which candidate identifies and analyzes problems/opportunities and evaluates optimal options (in timely manner with appropriate socialization)." question_weight="18"  question_axis="Y" />
+    <record question_id="5"    question_text="[Results]  Degree to which candidate achieves the results set-out for them (within given standards and budget)."                                  question_weight="23"  question_axis="Y" />
+    <record question_id="6"    question_text="[Teamwork] Degree to which candidate supports team goals and helps teammates grow and achieve their own goals."                                   question_weight="14"  question_axis="Y" />
+    <record question_id="7"    question_text="[Potential] Degree to which candidate has the capacity to be effective in a more challenging role."                                               question_weight="35"  question_axis="X" />
+    <record question_id="8"    question_text="[Potential] Degree to which candidate is able to influence other areas/teams (as would be expected at the next level)."                           question_weight="25"  question_axis="X" />
+    <record question_id="9"    question_text="[Potential] Degree to which candidate proposes solutions (versus simply complaining)."                                                            question_weight="20"  question_axis="X" />
+    <record question_id="10"   question_text="[Potential] Degree to which candidate advocates for their own career advancement."                                                                question_weight="20"  question_axis="X" />
+</questions_data>

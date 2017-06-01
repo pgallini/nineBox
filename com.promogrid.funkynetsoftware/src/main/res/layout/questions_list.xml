@@ -1,0 +1,47 @@
+<!--
+  Copyright 2016 Paul Gallini
+
+    Layout to list current set of Questions
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main"
+    android:divider="?android:dividerHorizontal"
+
+    android:orientation="vertical"
+    tools:context="nineBoxQuestions.QuestionsListActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"></include>
+
+    <ListView
+        android:id="@+id/questions_list"
+        style="@style/ScrollList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/tool_bar" />
+
+    <LinearLayout
+        style="@style/MainButtonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/MainButton"
+            android:background="@color/mutedbutton_color"
+            android:text="@string/done_button" />
+
+        <Button
+            android:id="@+id/ok_button"
+            style="@style/MainButton"
+            android:text="@string/newbtn" />
+
+    </LinearLayout>
+
+</LinearLayout>

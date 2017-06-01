@@ -1,0 +1,90 @@
+<!--
+  Copyright 2016 Paul Gallini
+
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerPadding="8dp"
+        android:minHeight="?android:listPreferredItemHeight"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:id="@+id/primary_target"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/margin_tiny"
+            android:paddingRight="?android:listPreferredItemPaddingRight"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/question_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:paddingRight="@dimen/margin_tiny" />
+
+            <TextView
+                android:id="@+id/question_text"
+                style="?android:textAppearanceListItemSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:paddingLeft="@dimen/margin_small" />
+
+            <LinearLayout
+                android:id="@+id/weight_axis_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/margin_small"
+                android:gravity="center|bottom"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/question_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/hint_text_size"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center|bottom" />
+
+                <TextView
+                    android:id="@+id/question_axis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/hint_text_size"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center|bottom" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/delete_action"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="@dimen/standard_touch_target_size"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:contentDescription="@string/delete_content_description"
+            android:src="@drawable/ic_action_delete" />
+
+
+    </LinearLayout>
+</ScrollView>

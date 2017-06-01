@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"></include>
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutmain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="3">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:elevation="@dimen/abc_action_bar_default_height_material">
+
+                <ImageView
+                    android:id="@+id/button_add_people"
+                    style="@style/MainButtonCard"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:src="@drawable/add_people_image" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/MainButtonText"
+                    android:layout_alignBottom="@id/button_add_people"
+                    android:layout_alignLeft="@id/button_add_people"
+                    android:text="@string/add_people_title" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/card_image_height"
+                android:layout_margin="@dimen/margin_small"
+                android:elevation="@dimen/abc_action_bar_default_height_material">
+
+                <ImageView
+                    android:id="@+id/button_set_questions"
+                    style="@style/MainButtonCard"
+                    android:src="@drawable/eval_people_image" />
+
+                <TextView
+                    android:id="@+id/eval_card_title"
+                    style="@style/MainButtonText"
+                    android:layout_alignBottom="@+id/button_set_questions"
+                    android:text="@string/evaluate_title" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/card_image_height"
+                android:layout_margin="@dimen/margin_small"
+                android:elevation="@dimen/abc_action_bar_default_height_material">
+
+                <ImageView
+                    android:id="@+id/button_see_results"
+                    style="@style/MainButtonCard"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/reports_image" />
+
+                <TextView
+                    android:id="@+id/reprts_card_title"
+                    style="@style/MainButtonText"
+                    android:layout_alignBottom="@+id/button_see_results"
+                    android:text="@string/reports_title" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MainButtonLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/exit_button"
+                style="@style/MainButton"
+                android:background="@color/mutedbutton_color"
+                android:text="@string/exit_button" />
+
+            <Button
+                android:id="@+id/rate_app_button"
+                style="@style/MainButton"
+                android:text="@string/rate_app_button" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
