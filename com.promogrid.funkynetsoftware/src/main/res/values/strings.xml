@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY appname "Promo Grid">
+    <!ENTITY publisher "FunkyNet Software">
+    ]>
+
+<resources>
+    <string name="package_name_pro">com.promogrid.funkynetsoftware.pro</string>
+    <string name="appname_export">Promo Grid</string>
+    <string name="add_people_btn">Add People</string>
+    <string name="answer_questions_btn">Answer Questions</string>
+    <string name="see_results_btn">See Results</string>
+
+    <string name="cancel_button">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="newbtn">New</string>
+    <string name="save_button">Save</string>
+    <string name="done_button">Done</string>
+    <string name="exit_button">Exit</string>
+    <string name="rate_app_button">Rate App</string>
+
+    <string name="delete_content_description">Delete</string>
+    <string name="config_content_description">Configure</string>
+
+    <string name="touched_primary_message">Touched primary list item target.</string>
+    <string name="touched_secondary_message">Touched secondary list item target (delete).</string>
+    <string name="touched_config_message">Touched config list item target.</string>
+
+    <string name="add_people_title">Add People</string>
+    <string name="reports_title">See Results</string>
+    <string name="evaluate_title">Evaluate People</string>
+    <!-- Strings to support User Entry -->
+    <string name="edit_user_email_hint">Enter e-mail address</string>
+    <string name="confirm_edit_email_message">Enter an e-mail address.</string>
+    <string name="email_save_message">E-Mail address has been successfully saved.</string>
+    <!-- Strings to support Candidate Entry -->
+    <string name="edit_candidate_intro">Enter new candidate here.</string>
+    <string name="edit_candidate_hint">Enter new candidate Name.</string>
+    <string name="edit_candidate_icon_label">Icon</string>
+    <string name="edit_candidate_initials_label">Icon Initials</string>
+    <string name="edit_candidate_initials_hint">Edit Initials.</string>
+    <string name="confirm_edit_initials_message">Enter new initials for this candidate (limit 2 characters).</string>
+    <string name="edit_candidate_color_label">Icon Color</string>
+    <string name="candidate_saved">Candidate has been saved.</string>
+    <string name="intro_message">Enter candidates here .... </string>
+    <string name="edit">EDIT</string>
+    <string name="edit_candidate_notes_title">Notes</string>
+    <string name="edit_candidate_notes_hint">Enter notes about this candidate</string>
+    <string name="confirm_tutorial_toggle_title">Confirm Tutorial Toggle</string>
+    <string name="confirm_tutorial_toggle_message_on">Are you sure you want to turn the Tutorial ON?</string>
+    <string name="confirm_tutorial_toggle_message_off">Are you sure you want to turn the Tutorial OFF?</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this candidate?</string>
+    <string name="candidate_save_message">Candidate has been successfully saved.</string>
+    <string name="candidate_delete_message">Candidate has been successfully deleted.</string>
+    <!-- Strings to support the Evaluation activity-->
+    <string name="evaluation_for_prompt">Evaluating:</string>
+    <string name="question_x_of_x_prompt">Question:   </string>
+    <string name="question_x_of_x_of">of </string>
+    <string name="next_question_button">Next Question</string>
+    <string name="next_question_button_alt">Next Candidate</string>
+    <string name="dialog_no_candidates_title">No Candidiates Found!</string>
+    <string name="dialog_no_candidates_message">You haven\'t added any candidates yet.  Please select Add People and add candidates. </string>
+    <string name="dialog_no_questions_title">No Questions Found!</string>
+    <string name="dialog_no_questions_message">The questions have yet to be set-up.  Please reinstall the app. </string>
+    <!-- String to support the entry of Questions-->
+    <string name="title_activity_questions_list">Promo Grid: Maintain Questions</string>
+    <string name="edit_question_intro">Question Text:</string>
+    <string name="edit_question_hint">Add new question here</string>
+    <string name="edit_weight_title">Question Weight:</string>
+    <string name="edit_weight_hint">Enter whole number between 1 and 100</string>
+    <string name="x_axis">X Axis</string>
+    <string name="y_axis">Y Axis</string>
+    <string name="confirm_delete_question_message">Are you sure you want to delete this question?</string>
+
+    <!--String to support Report Activity-->
+
+    <string name="email_sent_success">e-mail was successfully sent</string>
+    <string name="email_sent_failure">There was an error sending e-mail</string>
+    <string name="email_sent_background">Sending report in the background.</string>
+    <string name="save_rpt_button">Save Report</string>
+
+    <string name="menu_configure_questions">Configure Questions</string>
+    <string name="menu_configure_privacy">View Privacy Statement</string>
+    <string name="title_display_about_screen">Display Version for &appname;</string>
+    <string name="title_export_db">Export Data</string>
+    <string name="title_import_db">Import Data</string>
+    <string name="title_toggle_tutorial_off">Turn Tutorial OFF</string>
+    <string name="title_toggle_tutorial_on">Turn Tutorial ON</string>
+    <string name="title_activity_candidates_entry">Promo Grid: Enter Candidates</string>
+    <string name="title_activity_candidates_update">Promo Grid: Maintain Candidates</string>
+    <string name="title_activity_questions_entry">Promo Grid: Enter Questions</string>
+    <string name="title_activity_questions_update">Promo Grid: Modify Questions</string>
+    <string name="title_activity_evaluation">Promo Grid: Evaluate Candidates</string>
+    <string name="title_activity_report">Promo Grid: See Results</string>
+
+    <string name="feature_not_available_title">Upgrade to the Pro Version!</string>
+    <string name="feature_not_available_message">This feature is not available in the free version of Promo Grid.  Select OK now to upgrade to the Pro version and the most out of Promo Grid!</string>
+
+    <string name="color_select_title">Please select a new color</string>
+    <string name="color_swatch_description">Color %1$d</string>
+    <string name="color_swatch_description_selected">Color %1$d selected</string>
+    <string name="color_picker_default_title">Select a Color</string>
+
+    // for preferences
+    <string name="pref_tutorial">Display tutorial</string>
+    <string name="pref_tutorial_summ">Display the tutorial to learn how to use the app</string>
+
+    // for tutorial/showcase
+    <string name="showcase_main_title">Promo Grid Tutorial</string>
+    <string name="showcase_hint_title">Promo Grid Hints</string>
+    <string name="showcase_message1">First, add people using the Add People button.</string>
+    <string name="showcase_message2">Next, establish ratings for each one using the Evaluate People button.</string>
+    <string name="showcase_message3">Finally, see which ones are ready for promotion using the See Results button.</string>
+    <string name="showcase_message4">When this tutorial is over, it will be toggled off.  Use the options menu to turn it back on.</string>
+    <string name="showcase_add_message1">Add people using the New button here.  A screen will be presented allowing you to enter basic info for
+        that person.  You can evaluate them one at a time using the check box icon on this screen, or return to the
+    main menu and use the Evaluate People button to go through them all. </string>
+    <string name="showcase_eval_list_message1">Rate each person according to a set of questions here.  Just select a name and a series of questions will be presented. </string>
+    <string name="showcase_eval_list_message2">The icon on the right indicates your progress.  A check mark means you\'re done with that person. </string>
+    <string name="showcase_eval_list_message3">Just hit Done to return to the main screen when you\'re done. </string>
+    <string name="showcase_eval_message1">Respond to questions here.  Use the slider to provide a response from 1 (low) to 10 (high). </string>
+    <string name="showcase_eval_message2">Try to answer each question indepently of the others (not what you think the final rating should be).  Hit the Next Question button to move to the next question. </string>
+    <string name="showcase_rpt_message1">After each person is evaluated, they will be represented on this report.  The ones in the upper right quadrant are the ones to consider for promotion.  </string>
+    <string name="showcase_rpt_message2">Use the Save Report button to save (or print) the report to your device.  Note the directory and file name so you can e-mail it to yourself or others.  </string>
+    <string name="showcase_btn_next">Next</string>
+    <string name="showcase_btn_last">Got It</string>
+
+    <!--Strings to support Import / Export -->
+    <string name="no_import_file_message">No import file found.  If you are restoring from backup or copying from another device, place the promogrid*.db file in the Documents/PromoGrid directory and try again.</string>
+    <string name="no_import_file_title">No Data to Import!</string>
+    <string name="overwrite_warning">WARNING!  Exisiting data will be lost. Are you sure you want to import:</string>
+    <string name="import_prompt_title">Select Import File:</string>
+    <string name="cannot_import_permissions_text">Cannot import DB - permission to read external storage not granted!</string>
+    <string name="cannot_export_permissions_text">Cannot export DB - permission to write to external storage not granted!</string>
+
+    <!--Strings to support Google Analytics -->
+    <string name="anal_tag_main">PG01-01-01-main</string>
+    <string name="anal_tag_candidates_list">PG01-02-01-CANDIDATES-LIST</string>
+    <string name="anal_tag_candidates_add">PG01-02-02-CANDIDATES-ADD</string>
+    <string name="anal_tag_candidates_edit">PG01-02-03-CANDIDATES-EDIT</string>
+    <string name="anal_tag_candidates_delete">PG01-02-04-CANDIDATES-DELETE</string>
+    <string name="anal_tag_candidates_initials">PG01-02-05-CANDIDATES-EDIT-INITIALS</string>
+    <string name="anal_tag_eval_list">PG01-03-01-EVALUATE</string>
+    <string name="anal_tag_eval">PG01-03-02-EVALUATE</string>
+    <string name="anal_tag_report">PG01-04-01-REPORT</string>
+    <string name="anal_tag_rpt_save">PG01-04-02-SAVE-REPORT</string>
+    <string name="anal_tag_questions_list">PG01-05-01-QUESTIONS-LIST</string>
+    <string name="anal_tag_questions_add">PG01-05-02-QUESTIONS-ADD</string>
+    <string name="anal_tag_questions_edit">PG01-05-03-QUESTIONS-EDIT</string>
+    <string name="anal_tag_questions_delete">PG01-05-04-QUESTIONS-DELETE</string>
+</resources>
