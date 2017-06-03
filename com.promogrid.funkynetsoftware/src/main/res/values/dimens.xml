@@ -19,27 +19,19 @@
     <dimen name="text_size_big">32dp</dimen>
     <dimen name="text_size_button">16dp</dimen>
     <!-- ninebox-specific dimensions -->
-    <dimen name="question_view_height">210dp</dimen>
     <dimen name="text_padding">2dp</dimen>
     <dimen name="text_margin">6dp</dimen>
     <dimen name="text_margin_small">3dp</dimen>
-    <dimen name="border_height">13dp</dimen>
-
-    <dimen name="slidder_padding">4dp</dimen>
 
     <dimen name="card_image_height">100dp</dimen>
-    <dimen name="card_image_width">220dp</dimen>
     <dimen name="card_title_height">40dp</dimen>
     <dimen name="md_keylines">8dp</dimen>
     <dimen name="abc_text_size_title_material">18dp</dimen>
 
-    <dimen name="widget_width">60dp</dimen>
     <dimen name="global_elevation">8dp</dimen>
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
-    <dimen name="margin_large">32dp</dimen>
-    <dimen name="margin_huge">64dp</dimen>
     <dimen name="cardhead_leftmargin">30dp</dimen>
     <dimen name="cardhead_rightmargin">10dp</dimen>
 
@@ -56,14 +48,7 @@
     <dimen name="eval_btn_width">60dp</dimen>
     <!-- Semantic definitions -->
 
-    <dimen name="horizontal_page_margin">@dimen/margin_medium</dimen>
-    <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
-
     <!--for use in colorPicker-->
-    <dimen name="color_swatch_large">64.0dip</dimen>
-    <dimen name="color_swatch_small">48.0dip</dimen>
-    <dimen name="color_swatch_margins_large">8.0dip</dimen>
-    <dimen name="color_swatch_margins_small">4.0dip</dimen>
 
     <!-- used to control the ShowcaseView (tutorial) -->
     <!--<dimen name="button_margin">12dp</dimen>-->
