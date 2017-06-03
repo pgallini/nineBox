@@ -5,7 +5,6 @@
     <dimen name="page_margin">@dimen/margin_medium</dimen>
 
     <dimen name="card_image_height">60dp</dimen>
-    <dimen name="card_image_width">220dp</dimen>
     <dimen name="card_title_height">28dp</dimen>
     <dimen name="md_keylines">8dp</dimen>
     <dimen name="abc_text_size_title_material">18dp</dimen>
@@ -24,16 +23,12 @@
     <dimen name="text_size">18dp</dimen>
     <dimen name="text_size_big">28dp</dimen>
     <!-- ninebox-specific dimensions -->
-    <dimen name="question_view_height">32dp</dimen>
     <dimen name="text_padding">2dp</dimen>
     <dimen name="text_margin">4dp</dimen>
-    <dimen name="border_height">8dp</dimen>
 
     <dimen name="margin_tiny">2dp</dimen>
     <dimen name="margin_small">6dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
-    <dimen name="margin_large">32dp</dimen>
-    <dimen name="margin_huge">64dp</dimen>
 
     <dimen name="about_screen_width">600dp</dimen>
     <dimen name="about_screen_height">400dp</dimen>

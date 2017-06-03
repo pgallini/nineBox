@@ -4,5 +4,4 @@
     <integer name="questionTextSubLegth">80</integer>
     <integer name="iconTextSize">20</integer>
     <integer name="icon_initials_height">40</integer>
-    <integer name="reportgrid_height">2000</integer>
 </resources>

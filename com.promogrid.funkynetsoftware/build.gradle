@@ -48,8 +48,8 @@ android {
         applicationId "com.promogrid.funkynetsoftware"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 10
-        versionName "0.10"
+        versionCode 102
+        versionName "1.02"
     }
 
     signingConfigs {
@@ -65,7 +65,7 @@ android {
     productFlavors {
         free {
             applicationId "com.promogrid.funkynetsoftware.free"
-            versionName "promogrid-free 0.10"
+            versionName "promogrid-free 1.02"
             targetSdkVersion 23
             resValue "string", "appname", "Promo Grid"
             manifestPlaceholders = [
@@ -74,7 +74,7 @@ android {
         }
         pro {
             applicationId "com.promogrid.funkynetsoftware.pro"
-            versionName "promogrid-pro 0.10"
+            versionName "promogrid-pro 1.02"
             targetSdkVersion 23
             resValue "string", "appname", "Promo Grid Pro"
             manifestPlaceholders = [
